@@ -79,7 +79,7 @@
 						<li>Links</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -191,80 +191,6 @@
 </nav>
 
       <div class="body-wrap">
-  
-    <article id="post-2015-04-24-GCJAPACC" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/24/2015-04-24-GCJAPACC/" class="article-date">
-  	<time datetime="2015-04-24T05:04:00.000Z" itemprop="datePublished">2015-04-24</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/24/2015-04-24-GCJAPACC/">GCJ APAC C</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>You have been invited to the popular TV show “Would you like to be a millionaire?”. Of course you would!</p>
-<p>The rules of the show are simple:<br>Before the game starts, the host spins a wheel of fortune to determine P, the probability of winning each bet.<br>You start out with some money: X dollars.<br>There are M rounds of betting. In each round, you can bet any part of your current money, including none of it or all of it. The amount is not limited to whole dollars or whole cents.<br>If you win the bet, your total amount of money increases by the amount you bet. Otherwise, your amount of money decreases by the amount you bet.</p>
-<p>After all the rounds of betting are done, you get to keep your winnings (this time the amount is rounded down to whole dollars) only if you have accumulated $1000000 or more. Otherwise you get nothing.<br>Given M, P and X, determine your probability of winning at least $1000000 if you play optimally (i.e. you play so that you maximize your chances of becoming a millionaire).</p>
-<p>Input</p>
-<p>The first line of input gives the number of cases, N.</p>
-<p>Each of the following N lines has the format “M P X”, where:</p>
-<p>M is an integer, the number of rounds of betting.<br>P is a real number, the probability of winning each round.<br>X is an integer, the starting number of dollars.<br>Output</p>
-<p>For each test case, output one line containing “Case #X: Y”, where:</p>
-<p>X is the test case number, beginning at 1.<br>Y is the probability of becoming a millionaire, between 0 and 1.<br>Answers with a relative or absolute error of at most 10-6 will be considered correct.</p>
-<p>Limits</p>
-<p>1 ≤ N ≤ 100<br>0 ≤ P ≤ 1.0, there will be at most 6 digits after the decimal point.<br>1 ≤ X ≤ 1000000</p>
-<p>Small dataset</p>
-<p>1 ≤ M ≤ 5</p>
-<p>Large dataset</p>
-<p>1 ≤ M ≤ 15</p>
-<p>Sample</p>
-<p>Input </p>
-<p>Output<br>2<br>1 0.5 500000<br>3 0.75 600000</p>
-<p>Case #1: 0.500000<br>Case #2: 0.843750</p>
-<p>In the first case, the only way to reach $1000000 is to bet everything in the single round.</p>
-<p>In the second case, you can play so that you can still reach $1000000 even if you lose a bet. Here’s one way to do it:</p>
-<p>You have $600000 on the first round. Bet $150000.<br>If you lose the first round, you have $450000 left. Bet $100000.<br>If you lose the first round and win the second round, you have $550000 left. Bet $450000.<br>If you win the first round, you have $750000 left. Bet $250000.<br>If you win the first round and lose the second round, you have $500000 left. Bet $500000.</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
   
     <article id="post-2015-04-23-CrazyRows(GCJ2009Round2A）" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -696,6 +622,61 @@
       
         <p>神气的拓扑排序，需要使用的优先队列，并且需要反向构图。<br>这道题我做的时候碰了一鼻子灰。 题目都没有看明白，输出都弄错了。然后看了别人的题解，发现自己的方法都是错的。看到有人说正向构图也能做，我先是尝试了一下，发现还是WA，仔细想了想，如果用优先队列这种思路正向构图是不可以做的。因为尽管每次保证的是从当前队列中选取最小的排到前面，不能保证全局最小的在最前面。正向构图只能保证更大的数尽可能的在后面。反向构图则可以让全局中更小的数在前面，从而保证在符合拓扑排序的条件下，让lable1的weight尽可能小，其次让lable2的weight尽可能小。可以用几个较小的数据规模模拟一下变可以发现这个规律。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">200</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">int</span> G[maxn][maxn];</div><div class="line"></div><div class="line"><span class="keyword">int</span> N, M;</div><div class="line"><span class="keyword">int</span> indegree[maxn], arry[maxn], ans[maxn], edges, weight;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">toposort</span><span class="params">()</span> </span>&#123;</div><div class="line">    weight = N;</div><div class="line">    priority_queue&lt;<span class="keyword">int</span>&gt; q;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</div><div class="line">        <span class="keyword">if</span>(indegree[i] == <span class="number">0</span>) q.push(i);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span>(!q.empty()) &#123;</div><div class="line">        <span class="keyword">int</span> cur = q.top(); q.pop();</div><div class="line">        ans[cur] = weight--;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</div><div class="line">            <span class="keyword">if</span>(G[cur][i]) &#123;</div><div class="line">                indegree[i]--;</div><div class="line">                edges--;</div><div class="line">                <span class="keyword">if</span>(indegree[i] == <span class="number">0</span>) q.push(i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(edges &gt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> T = <span class="number">0</span>;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; T;</div><div class="line">    <span class="keyword">while</span>(T--) &#123;</div><div class="line">        edges = <span class="number">0</span>;</div><div class="line">        <span class="built_in">memset</span>(G, <span class="number">0</span>, <span class="keyword">sizeof</span>(G));</div><div class="line">        <span class="built_in">memset</span>(indegree, <span class="number">0</span>, <span class="keyword">sizeof</span>(indegree));</div><div class="line">        <span class="built_in">memset</span>(arry, <span class="number">0</span>, <span class="keyword">sizeof</span>(arry));</div><div class="line">        <span class="built_in">memset</span>(ans, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans));</div><div class="line">        <span class="built_in">cin</span> &gt;&gt; N &gt;&gt; M;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</div><div class="line">            <span class="keyword">int</span> u, v;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;u, &amp;v);</div><div class="line">            <span class="keyword">if</span>(!G[v][u]) &#123;</div><div class="line">                edges++;</div><div class="line">                G[v][u] = <span class="number">1</span>;</div><div class="line">                indegree[u]++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(toposort()) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"%d "</span>, ans[i]);</div><div class="line">            &#125;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"-1\n"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2015-04-02-修改天平(UVa12166，二叉树特性)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/02/2015-04-02-修改天平(UVa12166，二叉树特性)/" class="article-date">
+  	<time datetime="2015-04-02T05:43:00.000Z" itemprop="datePublished">2015-04-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/02/2015-04-02-修改天平(UVa12166，二叉树特性)/">修改天平(UVa12166， 二叉树特性)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这道题有个很特殊的地方，二叉树如果要平衡，则两个子节点的重量应该相等。并且为上一个的1/2，所以对于每一个平衡的天平，位于相同深度的所有节点的重量应该相等，并且该天平的总重量M与这一层单个节点的重量m关系为，M = m &lt;&lt; dep。 这道题就变成了遍历每一个叶的重量，寻找出现的总重量最多的次数，然后用叶节点的数目减去这个次数就是最少需要修改的数目。利用这个特性很巧妙的解决了这个题。</p>
+</blockquote>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="built_in">string</span> s;</div><div class="line"><span class="built_in">map</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>, <span class="keyword">int</span>&gt; weight_map;</div><div class="line"><span class="keyword">int</span> cnt = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> dep = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) &#123;</div><div class="line">        <span class="keyword">if</span>(s[i] == <span class="string">'['</span>) dep++;</div><div class="line">        <span class="keyword">if</span>(s[i] == <span class="string">']'</span>) dep--;</div><div class="line">        <span class="keyword">if</span>(<span class="built_in">isdigit</span>(s[i])) &#123;</div><div class="line">            cnt++;</div><div class="line">            <span class="keyword">long</span> <span class="keyword">long</span> weight = <span class="number">0</span>;</div><div class="line">            <span class="keyword">for</span>(;i &lt; s.length() &amp;&amp; <span class="built_in">isdigit</span>(s[i]); i++) &#123;</div><div class="line">                weight = weight*<span class="number">10</span> + s[i] - <span class="string">'0'</span>;</div><div class="line">            &#125;</div><div class="line">            i--;</div><div class="line">            weight_map[weight&lt;&lt;dep]++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> T = <span class="number">0</span>;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</div><div class="line">    <span class="keyword">while</span>(T--) &#123;</div><div class="line">        cnt = <span class="number">0</span>;</div><div class="line">        weight_map.clear();</div><div class="line">        <span class="built_in">cin</span> &gt;&gt; s;</div><div class="line">        solve(s);</div><div class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="built_in">map</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>, <span class="keyword">int</span>&gt;::iterator it = weight_map.begin(); it != weight_map.end(); it++) &#123;</div><div class="line">            <span class="keyword">if</span>(it-&gt;second &gt; ans) ans = it-&gt;second;</div><div class="line">        &#125;</div><div class="line">        ans = cnt -ans;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
     

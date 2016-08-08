@@ -79,7 +79,7 @@
 						<li>Links</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -191,58 +191,6 @@
 </nav>
 
       <div class="body-wrap">
-  
-    <article id="post-2015-05-26-每周一黑5-26B" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/05/26/2015-05-26-每周一黑5-26B/" class="article-date">
-  	<time datetime="2015-05-26T14:16:00.000Z" itemprop="datePublished">2015-05-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/26/2015-05-26-每周一黑5-26B/">每周一黑5-26 B</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">20</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">double</span> P[maxn];</div><div class="line"><span class="keyword">int</span> R[<span class="number">52</span>];</div><div class="line"><span class="keyword">int</span> n, k, r;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">fact</span><span class="params">(<span class="keyword">double</span> k)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(k == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">return</span> k * fact(k - <span class="number">1</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; cnt;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> T;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</div><div class="line">    <span class="keyword">while</span>(T--) &#123;</div><div class="line">        cnt.clear();</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;n, &amp;k, &amp;r);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">            <span class="built_in">cin</span> &gt;&gt; P[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> minr = <span class="number">1</span>&lt;&lt;<span class="number">30</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; r; i++) &#123;</div><div class="line">            <span class="built_in">cin</span> &gt;&gt; R[i];</div><div class="line">            cnt[R[i]]++;</div><div class="line">            minr = min(R[i], minr);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">double</span> p_minr = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; minr; i++) &#123;</div><div class="line">            p_minr += P[i];</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">double</span> A = fact(k)/fact(k-r);</div><div class="line">        <span class="keyword">double</span> B = <span class="number">1.0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; r; i++) &#123;</div><div class="line">            B *= P[R[i]];</div><div class="line">        &#125;</div><div class="line">         <span class="keyword">double</span> C = <span class="number">0</span>;</div><div class="line">         <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= k - r; i++) &#123;</div><div class="line">            <span class="keyword">double</span> D = <span class="number">1.0</span>;</div><div class="line">            D *= <span class="built_in">pow</span>(P[minr], i);</div><div class="line">            D *= <span class="built_in">pow</span>(p_minr, k - r - i);</div><div class="line">            D *= (fact(k - r)/fact(k-r-i));</div><div class="line">            <span class="keyword">for</span>(<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;::iterator it = cnt.begin(); it != cnt.end(); it++) &#123;</div><div class="line">                D /= fact(it-&gt;second);</div><div class="line">            &#125;</div><div class="line">            cnt[minr]++;</div><div class="line">            C += D;</div><div class="line">         &#125;</div><div class="line">         <span class="keyword">double</span> ans = A*B*C;</div><div class="line">         <span class="built_in">printf</span>(<span class="string">"%.6f\n"</span>, ans);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
   
     <article id="post-2015-05-26-CodeforcesRound#200(div2)训练题目" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -735,6 +683,80 @@
       
         <p><a href="http://poj.org/problem?id=3009" target="_blank" rel="external">POJ3009</a><br><strong>裸DFS，很水的一道题，因为没有看清楚题目条件，超过10步就算输，看最后一个样例看了半天没有明白怎么算出来的。 存图的时候忘记了memset初始化，导致WA了一次，现在也没有找到为何不初始化就会出错的原因（按理说应该没有问题，深刻的教训，在没有十足的把握前，确保初始化数组，变量）</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">-1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">20</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">int</span> G[maxn][maxn];</div><div class="line"><span class="keyword">int</span> ans, h, w;</div><div class="line"><span class="keyword">struct</span> point &#123;</div><div class="line">    <span class="keyword">int</span> x, y;</div><div class="line">    point(<span class="keyword">int</span> x = <span class="number">0</span>, <span class="keyword">int</span> y = <span class="number">0</span>): x(x), y(y) &#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">move</span><span class="params">(<span class="keyword">int</span> dir, point&amp; next)</span> </span>&#123;</div><div class="line">        <span class="comment">// up, down, left, right: 1, 2, 3, 4</span></div><div class="line">        <span class="keyword">int</span> nx = x, ny = y;</div><div class="line">        <span class="keyword">int</span> tx = x + dx[dir], ty = y + dy[dir];</div><div class="line">        <span class="keyword">if</span>(tx &gt;= <span class="number">0</span> &amp;&amp; tx &lt; h &amp;&amp; ty &gt;= <span class="number">0</span> &amp;&amp; ty &lt; w &amp;&amp;</div><div class="line">           G[tx][ty] == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">        <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</div><div class="line">            <span class="keyword">if</span>(G[nx + dx[dir]][ny + dy[dir]] == <span class="number">1</span>) &#123;</div><div class="line">                next.x = nx; next.y = ny;</div><div class="line">                <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                nx += dx[dir]; ny += dy[dir];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(G[nx][ny] == <span class="number">3</span>) <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">            <span class="keyword">if</span>(nx &lt; <span class="number">0</span> || nx &gt;= h || ny &lt; <span class="number">0</span> || ny &gt;= w) <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(point s, <span class="keyword">int</span> step)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(step &gt;= <span class="number">10</span>) <span class="keyword">return</span>;</div><div class="line">    point next;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> dir = <span class="number">0</span>; dir &lt; <span class="number">4</span>; dir++) &#123;</div><div class="line">        <span class="keyword">int</span> flag = s.move(dir, next);</div><div class="line">        <span class="keyword">if</span>(flag == <span class="number">1</span>) &#123;</div><div class="line">            ans = min(ans, step + <span class="number">1</span>);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(flag == <span class="number">-1</span>) <span class="keyword">continue</span>;</div><div class="line">        <span class="keyword">if</span>(flag == <span class="number">0</span>) &#123;</div><div class="line">            point next_block = point(next.x + dx[dir], next.y + dy[dir]);</div><div class="line">            G[next_block.x][next_block.y] = <span class="number">0</span>;</div><div class="line">            dfs(next, step + <span class="number">1</span>);</div><div class="line">            G[next_block.x][next_block.y] = <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">//freopen("input.txt", "r", stdin);</span></div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;w, &amp;h) == <span class="number">2</span> &amp;&amp; w &amp;&amp; h) &#123;</div><div class="line">        <span class="built_in">memset</span>(G, <span class="number">0</span>, <span class="keyword">sizeof</span>(G));</div><div class="line">        point s;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; h; i++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; w; j++) &#123;</div><div class="line">                <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;G[i][j]);</div><div class="line">                <span class="keyword">if</span>(G[i][j] == <span class="number">2</span>) &#123;s.x = i; s.y = j;&#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        ans = INF;</div><div class="line">        dfs(s, <span class="number">0</span>);</div><div class="line">        <span class="keyword">if</span>(ans == INF) ans = <span class="number">-1</span>;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2015-04-24-GCJAPACC" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/24/2015-04-24-GCJAPACC/" class="article-date">
+  	<time datetime="2015-04-24T05:04:00.000Z" itemprop="datePublished">2015-04-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/24/2015-04-24-GCJAPACC/">GCJ APAC C</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>You have been invited to the popular TV show “Would you like to be a millionaire?”. Of course you would!</p>
+<p>The rules of the show are simple:<br>Before the game starts, the host spins a wheel of fortune to determine P, the probability of winning each bet.<br>You start out with some money: X dollars.<br>There are M rounds of betting. In each round, you can bet any part of your current money, including none of it or all of it. The amount is not limited to whole dollars or whole cents.<br>If you win the bet, your total amount of money increases by the amount you bet. Otherwise, your amount of money decreases by the amount you bet.</p>
+<p>After all the rounds of betting are done, you get to keep your winnings (this time the amount is rounded down to whole dollars) only if you have accumulated $1000000 or more. Otherwise you get nothing.<br>Given M, P and X, determine your probability of winning at least $1000000 if you play optimally (i.e. you play so that you maximize your chances of becoming a millionaire).</p>
+<p>Input</p>
+<p>The first line of input gives the number of cases, N.</p>
+<p>Each of the following N lines has the format “M P X”, where:</p>
+<p>M is an integer, the number of rounds of betting.<br>P is a real number, the probability of winning each round.<br>X is an integer, the starting number of dollars.<br>Output</p>
+<p>For each test case, output one line containing “Case #X: Y”, where:</p>
+<p>X is the test case number, beginning at 1.<br>Y is the probability of becoming a millionaire, between 0 and 1.<br>Answers with a relative or absolute error of at most 10-6 will be considered correct.</p>
+<p>Limits</p>
+<p>1 ≤ N ≤ 100<br>0 ≤ P ≤ 1.0, there will be at most 6 digits after the decimal point.<br>1 ≤ X ≤ 1000000</p>
+<p>Small dataset</p>
+<p>1 ≤ M ≤ 5</p>
+<p>Large dataset</p>
+<p>1 ≤ M ≤ 15</p>
+<p>Sample</p>
+<p>Input </p>
+<p>Output<br>2<br>1 0.5 500000<br>3 0.75 600000</p>
+<p>Case #1: 0.500000<br>Case #2: 0.843750</p>
+<p>In the first case, the only way to reach $1000000 is to bet everything in the single round.</p>
+<p>In the second case, you can play so that you can still reach $1000000 even if you lose a bet. Here’s one way to do it:</p>
+<p>You have $600000 on the first round. Bet $150000.<br>If you lose the first round, you have $450000 left. Bet $100000.<br>If you lose the first round and win the second round, you have $550000 left. Bet $450000.<br>If you win the first round, you have $750000 left. Bet $250000.<br>If you win the first round and lose the second round, you have $500000 left. Bet $500000.</p>
+
       
     </div>
     
