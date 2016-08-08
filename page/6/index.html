@@ -605,108 +605,6 @@
             
               
                 
-                <a class="post-title-link" href="/2015/03/27/2015-03-27-简单二叉树UVa712/" itemprop="url">
-                  简单二叉树 UVa 712
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-03-27T19:44:00+08:00" content="2015-03-27">
-              2015-03-27
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/03/27/2015-03-27-简单二叉树UVa712/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/27/2015-03-27-简单二叉树UVa712/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=653" target="_blank" rel="external">UVa 712</a> <strong>一道很基础的二叉树题目</strong></p>
-<p>UVa 712代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">50</span>;</div><div class="line"><span class="keyword">char</span> pre_order[maxn], in_order[maxn];</div><div class="line"></div><div class="line"><span class="keyword">struct</span> Node &#123;</div><div class="line">    Node *lch, *rch;</div><div class="line">    <span class="keyword">char</span> c;</div><div class="line">    Node(Node *lch = <span class="literal">NULL</span>, Node *rch = <span class="literal">NULL</span>, <span class="keyword">char</span> c = <span class="number">0</span>):lch(lch), rch(rch), c(c) &#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function">Node* <span class="title">build</span><span class="params">(<span class="keyword">int</span> in_L, <span class="keyword">int</span> in_R, <span class="keyword">int</span> pre_L, <span class="keyword">int</span> pre_R)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(in_L &gt; in_R) <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    Node* root = <span class="keyword">new</span> Node();</div><div class="line">    <span class="keyword">char</span> ROOT = pre_order[pre_L];</div><div class="line">    root-&gt;c = ROOT;</div><div class="line">    <span class="keyword">int</span> p = in_L;</div><div class="line">    <span class="keyword">while</span>(ROOT != in_order[p]) p++;</div><div class="line">    <span class="keyword">int</span> cnt = p - in_L;</div><div class="line">    root-&gt;lch = build(in_L, p - <span class="number">1</span>, pre_L + <span class="number">1</span>, pre_L + cnt);</div><div class="line">    root-&gt;rch = build(p + <span class="number">1</span>, in_R, pre_L + cnt + <span class="number">1</span>, pre_R);</div><div class="line">    <span class="keyword">return</span> root;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrder</span><span class="params">(Node* root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(root-&gt;lch != <span class="literal">NULL</span>) PostOrder(root-&gt;lch);</div><div class="line">    <span class="keyword">if</span>(root-&gt;rch != <span class="literal">NULL</span>) PostOrder(root-&gt;rch);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%c"</span>, root-&gt;c);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">release</span><span class="params">(Node* root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(root-&gt;lch != <span class="literal">NULL</span>) release(root-&gt;lch);</div><div class="line">    <span class="keyword">if</span>(root-&gt;rch != <span class="literal">NULL</span>) release(root-&gt;rch);</div><div class="line">    <span class="keyword">delete</span> root;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; pre_order &gt;&gt; in_order) &#123;</div><div class="line">        Node* root = build(<span class="number">0</span>, <span class="built_in">strlen</span>(in_order) - <span class="number">1</span>, <span class="number">0</span>, <span class="built_in">strlen</span>(pre_order) - <span class="number">1</span>);</div><div class="line">        PostOrder(root);</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">        release(root);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2015/03/27/2015-03-27-二叉树笔记/" itemprop="url">
                   二叉树笔记
                 </a>
@@ -772,6 +670,108 @@
 </ul>
 </li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/03/27/2015-03-27-简单二叉树UVa712/" itemprop="url">
+                  简单二叉树 UVa 712
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-03-27T19:44:00+08:00" content="2015-03-27">
+              2015-03-27
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/03/27/2015-03-27-简单二叉树UVa712/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/27/2015-03-27-简单二叉树UVa712/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=653" target="_blank" rel="external">UVa 712</a> <strong>一道很基础的二叉树题目</strong></p>
+<p>UVa 712代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">50</span>;</div><div class="line"><span class="keyword">char</span> pre_order[maxn], in_order[maxn];</div><div class="line"></div><div class="line"><span class="keyword">struct</span> Node &#123;</div><div class="line">    Node *lch, *rch;</div><div class="line">    <span class="keyword">char</span> c;</div><div class="line">    Node(Node *lch = <span class="literal">NULL</span>, Node *rch = <span class="literal">NULL</span>, <span class="keyword">char</span> c = <span class="number">0</span>):lch(lch), rch(rch), c(c) &#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function">Node* <span class="title">build</span><span class="params">(<span class="keyword">int</span> in_L, <span class="keyword">int</span> in_R, <span class="keyword">int</span> pre_L, <span class="keyword">int</span> pre_R)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(in_L &gt; in_R) <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    Node* root = <span class="keyword">new</span> Node();</div><div class="line">    <span class="keyword">char</span> ROOT = pre_order[pre_L];</div><div class="line">    root-&gt;c = ROOT;</div><div class="line">    <span class="keyword">int</span> p = in_L;</div><div class="line">    <span class="keyword">while</span>(ROOT != in_order[p]) p++;</div><div class="line">    <span class="keyword">int</span> cnt = p - in_L;</div><div class="line">    root-&gt;lch = build(in_L, p - <span class="number">1</span>, pre_L + <span class="number">1</span>, pre_L + cnt);</div><div class="line">    root-&gt;rch = build(p + <span class="number">1</span>, in_R, pre_L + cnt + <span class="number">1</span>, pre_R);</div><div class="line">    <span class="keyword">return</span> root;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">PostOrder</span><span class="params">(Node* root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(root-&gt;lch != <span class="literal">NULL</span>) PostOrder(root-&gt;lch);</div><div class="line">    <span class="keyword">if</span>(root-&gt;rch != <span class="literal">NULL</span>) PostOrder(root-&gt;rch);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%c"</span>, root-&gt;c);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">release</span><span class="params">(Node* root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(root-&gt;lch != <span class="literal">NULL</span>) release(root-&gt;lch);</div><div class="line">    <span class="keyword">if</span>(root-&gt;rch != <span class="literal">NULL</span>) release(root-&gt;rch);</div><div class="line">    <span class="keyword">delete</span> root;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; pre_order &gt;&gt; in_order) &#123;</div><div class="line">        Node* root = build(<span class="number">0</span>, <span class="built_in">strlen</span>(in_order) - <span class="number">1</span>, <span class="number">0</span>, <span class="built_in">strlen</span>(pre_order) - <span class="number">1</span>);</div><div class="line">        PostOrder(root);</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">        release(root);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
           
         

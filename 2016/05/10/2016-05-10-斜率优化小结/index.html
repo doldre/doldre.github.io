@@ -100,7 +100,7 @@
 2.对于如下形式的dp方程$$dp[i] = min{dp[j] + f(j)} (i - m &amp;lt; j &amp;lt; i)$$我们可以用">
 <meta property="og:image" content="http://img.blog.csdn.net/20160510205214742">
 <meta property="og:image" content="http://img.blog.csdn.net/20160510205342117">
-<meta property="og:updated_time" content="2016-08-08T11:45:36.000Z">
+<meta property="og:updated_time" content="2016-08-08T14:16:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="斜率优化小结">
 <meta name="twitter:description" content="##单调队列优化在写斜率优化之前，我们来回顾一下单调队列优化的dp
@@ -353,6 +353,7 @@
 <li>对于如下形式的dp方程<br>$$dp[i] = min{dp[j] + f(j)} (0 &lt; j &lt; i)$$<br>我们直接用一个变量维护(0, i)中dp[j] + f(j)的最小值即可</li>
 </ol>
 <p>2.对于如下形式的dp方程<br>$$dp[i] = min{dp[j] + f(j)} (i - m &lt; j &lt; i)$$<br>我们可以用一个单调队列维护一个(i - m, j)中dp[j] + f(j)的最小值，然后做到O(1)转移。</p>
+<a id="more"></a>
 <p>##斜率优化</p>
 <p>###基本形式<br>但是对于形如<br>$$dp[i] = min{dp[j] + f(i, j)} $$<br>的方程，无法做到O(1)计算$dp[j] + f(i, j)$的最小值，这时就需要斜率优化这个技巧来解决这个问题了。<br>令k &lt; j &lt; i，当我们更新dp[i]时，如果有dp[j] + f(i, j) 比dp[k] + f(i, k)更优，则有dp[j] + f(i, j) - (dp[k] + f(i, k) &lt; 0，对于这个不等式如果能够化解成如下形式<br>$$\frac {Y(j) - Y(k)} { X(j) - X(k)} &lt; f(i)$$<br>我们就能通过斜率优化这个dp了。<br>让我们来举一个例子: <a href="http://acm.hdu.edu.cn/showproblem.php?pid=3507" target="_blank" rel="external">hdu3507</a>  dp方程为<br>$$dp[i] = min{dp[j] + M + (sum[i] - sum[j])^2 (0 &lt; j &lt; i)}$$<br>令k &lt; j &lt; i，当有<br>$$dp[j] + M + (sum[i] - sum[j])^2 - (dp[k] + M + (sum[i] - sum[k])^2) &lt; 0  $$<br>从j转移到i, 比从k转移到i更优，变换此不等式可得:<br>$$\frac{(dp[j]+ sum[j]^2) - (dp[k] + sum[k]^2)}{sum[j] - sum[k]} &lt; 2sum[i]$$<br>令$Y(i) = dp[i] + sum[i]^2$, $X(i) = sum[i]$, $f(i) = 2sum[i]$则将此不等式化解为上述形式。</p>
 <p>###优化方法:<br>可以发现，若满足$\frac {Y(j) - Y(k)} { X(j) - X(j)} &lt; f(i)$则j转移到i，比k转移到i更优，如果我们把(X(j), Y(j)), (X(k), Y(k))当成平面上的两个点Pj, Pk，这个不等式的含义即为若$ \overrightarrow{PjPk}$的斜率＜f(i)则，从j转移更优。<br>令grad(i, j)表示$\overrightarrow{PiPj}$的斜率，现在我们假设grad(i,j) &lt; grad(j, k)，若grad(i, j) &lt; f(I),则i比j更优，若grad(i, j) &gt; f(I), 则grad(j, k) &gt; f(I),那么从k转移比从j转移更优，当grad(i, j) &lt; grad(j, k)的时候，无论如何j转移到i都不会是最优。而这种情况恰好对应下图<br><img src="http://img.blog.csdn.net/20160510205214742" alt="这里写图片描述"><br>所以这种情况时，我们可以直接把j点删除，最后能够转移的点集只会存在这种图形，<img src="http://img.blog.csdn.net/20160510205342117" alt="这里写图片描述"><br>所以最后我们维护一个上凸集即可。<br>但是此时我们还是没有解决最终问题，如何才能找到转移到i点的最优的点呢。可以发现最后的点集一定是一个凸集，也就是斜率单调！！这样对于k &lt; j, grad(j,k) &lt; f(i),时更优，从图形特点我们可以发现如果j比k优，那么j点比所有比k小的点都优，所以对于每一个f(i),我们维护一个所有比i点小的凸集，二分查找斜率比f(i)小的编号最大的点，就是最优的转移点。如果f(i)也满足单调性，比如这道题，我们还可以直接维护一个单调队列就能解决这个问题。</p>
