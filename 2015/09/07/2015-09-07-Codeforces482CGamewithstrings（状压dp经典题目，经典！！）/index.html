@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Codeforces 482C Game with strings（状压dp 经典题目，经典！！） | Xinchen&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题意：给你n个长度为l的字符串，$1&amp;lt;=n&amp;lt;=50$,$1&amp;lt;=l&amp;lt;=20$,选出一个字符串，每一次操作你可以知道这个字符串某个位置的字符，问多少次可以操作可以唯一确定这个字符串是哪个。求出对于所有字符串，可以唯一确定一个字符串的操作数的期望。
+思路：这是一个概率题，概率题最重要的就是不重复不遗漏。因为这里l的长度只有20，所以可以考虑枚举每一次猜的哪个位置。比如对于abc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Codeforces 482C Game with strings（状压dp 经典题目，经典！！）">
+<meta property="og:url" content="http://doldre.github.io/2015/09/07/2015-09-07-Codeforces482CGamewithstrings（状压dp经典题目，经典！！）/index.html">
+<meta property="og:site_name" content="Xinchen's Blog">
+<meta property="og:description" content="题意：给你n个长度为l的字符串，$1&amp;lt;=n&amp;lt;=50$,$1&amp;lt;=l&amp;lt;=20$,选出一个字符串，每一次操作你可以知道这个字符串某个位置的字符，问多少次可以操作可以唯一确定这个字符串是哪个。求出对于所有字符串，可以唯一确定一个字符串的操作数的期望。
+思路：这是一个概率题，概率题最重要的就是不重复不遗漏。因为这里l的长度只有20，所以可以考虑枚举每一次猜的哪个位置。比如对于abc">
+<meta property="og:updated_time" content="2016-08-08T11:45:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Codeforces 482C Game with strings（状压dp 经典题目，经典！！）">
+<meta name="twitter:description" content="题意：给你n个长度为l的字符串，$1&amp;lt;=n&amp;lt;=50$,$1&amp;lt;=l&amp;lt;=20$,选出一个字符串，每一次操作你可以知道这个字符串某个位置的字符，问多少次可以操作可以唯一确定这个字符串是哪个。求出对于所有字符串，可以唯一确定一个字符串的操作数的期望。
+思路：这是一个概率题，概率题最重要的就是不重复不遗漏。因为这里l的长度只有20，所以可以考虑枚举每一次猜的哪个位置。比如对于abc">
+  
+    <link rel="alternative" href="/atom.xml" title="Xinchen&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="0" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Xinchen Luo</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">For you thousands of times.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.findthem.cn">Mathon</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Xinchen Luo</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="0" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Xinchen Luo</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">For you thousands of times.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-2015-09-07-Codeforces482CGamewithstrings（状压dp经典题目，经典！！）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/07/2015-09-07-Codeforces482CGamewithstrings（状压dp经典题目，经典！！）/" class="article-date">
+  	<time datetime="2015-09-07T08:25:00.000Z" itemprop="datePublished">2015-09-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Codeforces 482C Game with strings（状压dp 经典题目，经典！！）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>题意：给你n个长度为l的字符串，$1&lt;=n&lt;=50$,$1&lt;=l&lt;=20$,选出一个字符串，每一次操作你可以知道这个字符串某个位置的字符，问多少次可以操作可以唯一确定这个字符串是哪个。求出对于所有字符串，可以唯一确定一个字符串的操作数的期望。</li>
+<li>思路：这是一个概率题，概率题最重要的就是不重复不遗漏。因为这里l的长度只有20，所以可以考虑枚举每一次猜的哪个位置。比如对于abc，abd这两个字符串，知道1,2两个位置都是不能知道具体是哪一个的，可以看出在一个字符串不能被确定的时候，前面的操作的顺序是无关的，因此枚举所有的操作的复杂度为$l*2^l%$。确定一个特定的操作能确定哪些字符串可以使用状态压缩的方法来解决。具体实现见代码以及注释。</li>
+<li>代码：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//注释写的很长，请复制到编辑器里面全屏查看。</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">50</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM = <span class="number">20</span>;</div><div class="line">LL identity[<span class="number">1</span>&lt;&lt;MAXM];</div><div class="line"></div><div class="line"><span class="keyword">int</span> n;</div><div class="line"><span class="keyword">char</span> s[MAXN][MAXM + <span class="number">10</span>];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</div><div class="line">    getchar();</div><div class="line">    <span class="comment">//input</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span>, s[i]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> len = <span class="built_in">strlen</span>(s[<span class="number">0</span>]);</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j++) &#123; <span class="comment">//枚举所有字符串的两两组合</span></div><div class="line">            <span class="keyword">int</span> mask = <span class="number">0</span>;           <span class="comment">//mask表示一个确定的操作，比如 00101表示知道了第三位和第一位的字符</span></div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; len; k++) &#123;</div><div class="line">                <span class="keyword">if</span>(s[i][k] == s[j][k]) &#123;</div><div class="line">                    mask |= (<span class="number">1</span>&lt;&lt;k); <span class="comment">//如果当前两个字符串该位相同，这将mask对应的位置1，最后mask表示通过当前操作无法区分这两个字符串。</span></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            identity[mask] |= (<span class="number">1L</span>L&lt;&lt;i)|(<span class="number">1L</span>L&lt;&lt;j); <span class="comment">//把i，j加进通过mask操作无法确定的字符串集合里，这里同样是状态压缩</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> mask = (<span class="number">1</span>&lt;&lt;len) - <span class="number">1</span>; mask &gt;= <span class="number">0</span>; mask--) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</div><div class="line">            <span class="keyword">if</span>((mask&gt;&gt;i)&amp;<span class="number">1</span>) &#123; <span class="comment">//这里是一个dp，通过这一步，</span></div><div class="line">                              <span class="comment">//dentity[mask]表示的就是所有通过mask操作均不能确定的字符串集合。（上面一步只是确定了刚好通过mask操作不能确定的集合</span></div><div class="line">                identity[mask^(<span class="number">1</span>&lt;&lt;i)] |= identity[mask]; <span class="comment">//如果00110操作不能确定的字符串，很明显00100,00010操作也不能确定</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//计算每一步操作能够确定的字符串的数量，进而计算出期望</span></div><div class="line">    <span class="keyword">long</span> <span class="keyword">double</span> ans = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> mask = <span class="number">0</span>; mask &lt; (<span class="number">1</span>&lt;&lt;len); mask++) &#123;</div><div class="line">        <span class="keyword">int</span> moves = <span class="number">__b</span>uiltin_popcount(mask) + <span class="number">1</span>; <span class="comment">//这里为什么+1下面解释</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; len; k++) &#123;</div><div class="line">            <span class="keyword">if</span>(!((mask&gt;&gt;k)&amp;<span class="number">1</span>)) &#123; <span class="comment">//如果mask的第k位为0</span></div><div class="line">                LL dif = identity[mask]^identity[mask^(<span class="number">1</span>&lt;&lt;k)]; <span class="comment">//这里列子，如果00110不能确定a,b,c三个字符串，而00111不能确定a，b两个字符串，</span></div><div class="line">                                                                <span class="comment">//很明显可以得出c可以通过00111这个操作确定。这里通过异或就可以得出通过mask|k的操作可以确定的字符串</span></div><div class="line">                                                                <span class="comment">//所以上面的操作次数是 mask中的1的数量+1，因为还需要另外一步k</span></div><div class="line">                <span class="keyword">if</span>(dif == <span class="number">0</span>) <span class="keyword">continue</span>;      <span class="comment">//mask|k一个字符串都不能确定。</span></div><div class="line">                <span class="keyword">int</span> cnt = <span class="number">__b</span>uiltin_popcountll(dif); <span class="comment">//计算mask|k能确定的字符串数量</span></div><div class="line">                <span class="keyword">long</span> <span class="keyword">double</span> curexp = cnt * moves; <span class="comment">//因为现在算的是把所有字符串全部确定的期望，所以每一个字符串都需要moves次的操作</span></div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; moves - <span class="number">1</span>; i++) &#123;</div><div class="line">                    curexp *= (<span class="keyword">long</span> <span class="keyword">double</span>)(moves - i - <span class="number">1</span>) / (<span class="keyword">long</span> <span class="keyword">double</span>)(len - i); <span class="comment">//操作数乘上当前操作发生的概率，P = &#123;1/C_n^&#123;moves-1&#125;&#125;*&#123;1/n - (moves - 1)&#125;</span></div><div class="line">                &#125;</div><div class="line">                curexp /= (<span class="keyword">long</span> <span class="keyword">double</span>)(len - moves + <span class="number">1</span>); <span class="comment">//依然是计算概率见上面的公式</span></div><div class="line">                ans += curexp; <span class="comment">//根据加法原理，当前操作的期望加到总的期望里面去</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    ans /= (<span class="keyword">long</span> <span class="keyword">double</span>)n; <span class="comment">//通过上面操作ans计算出的是所有字符串需要的操作的期望之和，所以除以n才是一个字符串需要的操作数的期望。</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; fixed &lt;&lt; setprecision(<span class="number">15</span>) &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>; <span class="comment">//输出答案</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/09/07/2015-09-07-Codeforces156DClues(图论,并查集,卡特兰数)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Codeforces 156D Clues (图论, 并查集, 卡特兰数)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/06/2015-09-06-Codeforces487bStrip,dp+RMQ（经典）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Codeforces 487b Strip, dp + RMQ（经典）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Xinchen Luo
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: /
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

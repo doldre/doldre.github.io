@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>UVa 1600 Patrol Robot (BFS, 多维状态） | Xinchen&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="A robot has to patrol around a rectangular area which is in a form of mxn grid (m rows and n columns). The rows are labeled from 1 to m. The columns are labeled from 1 to n. A cell (i, j) denotes the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UVa 1600 Patrol Robot (BFS, 多维状态）">
+<meta property="og:url" content="http://doldre.github.io/2015/03/29/2015-03-29-UVa1600PatrolRobot(BFS,多维状态）/index.html">
+<meta property="og:site_name" content="Xinchen's Blog">
+<meta property="og:description" content="A robot has to patrol around a rectangular area which is in a form of mxn grid (m rows and n columns). The rows are labeled from 1 to m. The columns are labeled from 1 to n. A cell (i, j) denotes the">
+<meta property="og:updated_time" content="2016-08-08T11:45:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UVa 1600 Patrol Robot (BFS, 多维状态）">
+<meta name="twitter:description" content="A robot has to patrol around a rectangular area which is in a form of mxn grid (m rows and n columns). The rows are labeled from 1 to m. The columns are labeled from 1 to n. A cell (i, j) denotes the">
+  
+    <link rel="alternative" href="/atom.xml" title="Xinchen&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="0" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Xinchen Luo</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">For you thousands of times.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.findthem.cn">Mathon</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Xinchen Luo</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="0" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Xinchen Luo</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">For you thousands of times.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-2015-03-29-UVa1600PatrolRobot(BFS,多维状态）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/29/2015-03-29-UVa1600PatrolRobot(BFS,多维状态）/" class="article-date">
+  	<time datetime="2015-03-28T16:10:00.000Z" itemprop="datePublished">2015-03-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      UVa 1600 Patrol Robot (BFS, 多维状态）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>A robot has to patrol around a rectangular area which is in a form of mxn grid (m rows and n columns). The rows are labeled from 1 to m. The columns are labeled from 1 to n. A cell (i, j) denotes the cell in row i and column j in the grid. At each step, the robot can only move from one cell to an adjacent cell, i.e. from (x, y) to (x + 1, y), (x, y + 1), (x - 1, y) or (x, y - 1). Some of the cells in the grid contain obstacles. In order to move to a cell containing obstacle, the robot has to switch to turbo mode. Therefore, the robot cannot move continuously to more than k cells containing obstacles.<br>Your task is to write a program to find the shortest path (with the minimum number of cells) from cell (1, 1) to cell (m, n). It is assumed that both these cells do not contain obstacles.<br>Input<br>The input consists of several data sets. The first line of the input file contains the number of data sets which is a positive integer and is not bigger than 20. The following lines describe the data sets.<br>For each data set, the first line contains two positive integer numbers m and n separated by space (1$ \le$m, n$ \le$20). The second line contains an integer number k(0$ \le$k$ \le$20). The ith line of the next m lines contains n integer aij separated by space (i = 1, 2,…, m;j = 1, 2,…, n). The value of aij is 1 if there is an obstacle on the cell (i, j), and is 0 otherwise.<br>Output<br>For each data set, if there exists a way for the robot to reach the cell (m, n), write in one line the integer number s, which is the number of moves the robot has to make; -1 otherwise.<br>Sample Input<br>3<br>2 5<br>0<br>0 1 0 0 0<br>0 0 0 1 0<br>4 6<br>1<br>0 1 1 0 0 0<br>0 0 1 0 1 1<br>0 1 1 1 1 0<br>0 1 1 1 0 0<br>2 2<br>0<br>0 1<br>1 0<br>Sample Output<br>7<br>10<br>-1</p>
+<hr>
+<p>初看题，以为就是简单的BFS。写完代码，过来样例直接提交发现LTE了，还是犯了和今天队友一样的错误，标记数组忘记使用了，导致重复遍历queue爆掉了。<br>修改完代码，提交发现一直WA，怎么看都找不到错误。最后不得不求助于万能的百度。</p>
+<ul>
+<li><p>此题很重要的一点是机器人不能连续穿过k个障碍，所以如果只是二维的标记数组，当出现<br>   1 1<br>   1 1<br>这种情况的时候，就会出现不同，所以标记数组应该增加一个维度用于记录到达这个点时机器人已经连续穿过的障碍数，如果障碍数相同，肯定后来到达这个点的不会比先达到这个点的更先到达终点，但是当到达这个点时比先前到达这个点的穿过的障碍数更少，就能跨过更多的障碍，就有更多种选择，也就可能按照原来的思路，访问过后就不再访问到达不了的，现在能到达或者提前到达。</p>
+</li>
+<li><p>所以从这道题中能够学到，在记录状态时，应该保证同一状态下的所有情况等价才行。比如这里只用二维数组，显然到达同一个点的时候经过的障碍数不同，情况也是不同的。如果增加一维记录已经连续经过的障碍数，同一个点，当经过的障碍数相同，肯定之后的情况也是完全等价的，所以先到达的肯定路程更短，当不确定是否等价时，可以考虑记录下所有状态，每种状态当成不同情况处理。</p>
+</li>
+</ul>
+<p>###此题代码###<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">20</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">int</span> <span class="number">_</span><span class="built_in">map</span>[maxn][maxn];</div><div class="line"><span class="keyword">bool</span> visited[maxn][maxn][maxn]; <span class="comment">//增加一个维度用于记录当前连续经过的障碍数</span></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> dx[] = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> dy[] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> m, n, k;</div><div class="line"><span class="keyword">struct</span> Robot &#123;</div><div class="line">    <span class="keyword">int</span> x, y, obstacles, dis;</div><div class="line">    Robot(<span class="keyword">int</span> x = <span class="number">0</span>, <span class="keyword">int</span> y = <span class="number">0</span>, <span class="keyword">int</span> obstacles = <span class="number">0</span>, <span class="keyword">int</span> dis = <span class="number">0</span>): x(x), y(y), obstacles(obstacles), dis(dis) &#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">valid</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> x &gt;= <span class="number">0</span> &amp;&amp; x &lt; m &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; y &lt; n;</div><div class="line">    &#125;</div><div class="line">    <span class="function">Robot <span class="title">neighbour</span><span class="params">(<span class="keyword">int</span> dir)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> Robot(x + dx[dir], y + dy[dir]);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">bfs</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">memset</span>(visited, <span class="number">0</span>, <span class="keyword">sizeof</span>(visited));</div><div class="line">    <span class="built_in">queue</span>&lt;Robot&gt; q;</div><div class="line">    <span class="function">Robot <span class="title">s</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span></span>;</div><div class="line">    q.push(s); visited[s.x][s.y][s.obstacles] = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">while</span>(!q.empty()) &#123;</div><div class="line">        Robot cur = q.front(); q.pop();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</div><div class="line">            Robot next = cur.neighbour(i);</div><div class="line">            <span class="keyword">if</span>(!next.valid()) <span class="keyword">continue</span>;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">if</span>(<span class="number">_</span><span class="built_in">map</span>[next.x][next.y]) &#123;</div><div class="line">                    next.obstacles = cur.obstacles + <span class="number">1</span>;</div><div class="line">                    next.dis = cur.dis + <span class="number">1</span>;</div><div class="line">                    <span class="keyword">if</span>(next.obstacles &gt; k || visited[next.x][next.y][next.obstacles]) <span class="keyword">continue</span>;</div><div class="line">                    <span class="keyword">else</span> &#123;</div><div class="line">                        q.push(next);</div><div class="line">                        visited[next.x][next.y][next.obstacles] = <span class="literal">true</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    next.obstacles = <span class="number">0</span>;</div><div class="line">                    <span class="keyword">if</span>(visited[next.x][next.y][next.obstacles]) <span class="keyword">continue</span>;</div><div class="line">                    next.dis = cur.dis + <span class="number">1</span>;</div><div class="line">                    q.push(next);</div><div class="line">                    visited[next.x][next.y][next.obstacles] = <span class="literal">true</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(next.x == m - <span class="number">1</span> &amp;&amp; next.y == n - <span class="number">1</span>) <span class="keyword">return</span> next.dis;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> T;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; T;</div><div class="line">    <span class="keyword">while</span>(T--) &#123;</div><div class="line">        <span class="built_in">memset</span>(<span class="number">_</span><span class="built_in">map</span>, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="number">_</span><span class="built_in">map</span>));</div><div class="line">        <span class="built_in">cin</span> &gt;&gt; m &gt;&gt; n;</div><div class="line">        <span class="built_in">cin</span> &gt;&gt; k;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</div><div class="line">                <span class="built_in">cin</span> &gt;&gt; <span class="number">_</span><span class="built_in">map</span>[i][j];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> ans = bfs();</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/02/2015-04-02-最大公共子序列（DP，分治法）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          最大公共子序列（DP，分治法）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/03/27/2015-03-27-二叉树笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">二叉树笔记</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Xinchen Luo
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: /
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

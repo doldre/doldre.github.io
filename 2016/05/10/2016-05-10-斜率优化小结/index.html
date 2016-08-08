@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>斜率优化小结 | Xinchen&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="##单调队列优化在写斜率优化之前，我们来回顾一下单调队列优化的dp
+
+对于如下形式的dp方程$$dp[i] = min{dp[j] + f(j)} (0 &amp;lt; j &amp;lt; i)$$我们直接用一个变量维护(0, i)中dp[j] + f(j)的最小值即可
+
+2.对于如下形式的dp方程$$dp[i] = min{dp[j] + f(j)} (i - m &amp;lt; j &amp;lt; i)$$我们可以用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斜率优化小结">
+<meta property="og:url" content="http://doldre.github.io/2016/05/10/2016-05-10-斜率优化小结/index.html">
+<meta property="og:site_name" content="Xinchen's Blog">
+<meta property="og:description" content="##单调队列优化在写斜率优化之前，我们来回顾一下单调队列优化的dp
+
+对于如下形式的dp方程$$dp[i] = min{dp[j] + f(j)} (0 &amp;lt; j &amp;lt; i)$$我们直接用一个变量维护(0, i)中dp[j] + f(j)的最小值即可
+
+2.对于如下形式的dp方程$$dp[i] = min{dp[j] + f(j)} (i - m &amp;lt; j &amp;lt; i)$$我们可以用">
+<meta property="og:image" content="http://img.blog.csdn.net/20160510205214742">
+<meta property="og:image" content="http://img.blog.csdn.net/20160510205342117">
+<meta property="og:updated_time" content="2016-08-08T11:45:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="斜率优化小结">
+<meta name="twitter:description" content="##单调队列优化在写斜率优化之前，我们来回顾一下单调队列优化的dp
+
+对于如下形式的dp方程$$dp[i] = min{dp[j] + f(j)} (0 &amp;lt; j &amp;lt; i)$$我们直接用一个变量维护(0, i)中dp[j] + f(j)的最小值即可
+
+2.对于如下形式的dp方程$$dp[i] = min{dp[j] + f(j)} (i - m &amp;lt; j &amp;lt; i)$$我们可以用">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160510205214742">
+  
+    <link rel="alternative" href="/atom.xml" title="Xinchen&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="0" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Xinchen Luo</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">For you thousands of times.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.findthem.cn">Mathon</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Xinchen Luo</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="0" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Xinchen Luo</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">For you thousands of times.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-2016-05-10-斜率优化小结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/10/2016-05-10-斜率优化小结/" class="article-date">
+  	<time datetime="2016-05-10T13:06:00.000Z" itemprop="datePublished">2016-05-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      斜率优化小结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##单调队列优化<br>在写斜率优化之前，我们来回顾一下单调队列优化的dp</p>
+<ol>
+<li>对于如下形式的dp方程<br>$$dp[i] = min{dp[j] + f(j)} (0 &lt; j &lt; i)$$<br>我们直接用一个变量维护(0, i)中dp[j] + f(j)的最小值即可</li>
+</ol>
+<p>2.对于如下形式的dp方程<br>$$dp[i] = min{dp[j] + f(j)} (i - m &lt; j &lt; i)$$<br>我们可以用一个单调队列维护一个(i - m, j)中dp[j] + f(j)的最小值，然后做到O(1)转移。</p>
+<p>##斜率优化</p>
+<p>###基本形式<br>但是对于形如<br>$$dp[i] = min{dp[j] + f(i, j)} $$<br>的方程，无法做到O(1)计算$dp[j] + f(i, j)$的最小值，这时就需要斜率优化这个技巧来解决这个问题了。<br>令k &lt; j &lt; i，当我们更新dp[i]时，如果有dp[j] + f(i, j) 比dp[k] + f(i, k)更优，则有dp[j] + f(i, j) - (dp[k] + f(i, k) &lt; 0，对于这个不等式如果能够化解成如下形式<br>$$\frac {Y(j) - Y(k)} { X(j) - X(k)} &lt; f(i)$$<br>我们就能通过斜率优化这个dp了。<br>让我们来举一个例子: <a href="http://acm.hdu.edu.cn/showproblem.php?pid=3507" target="_blank" rel="external">hdu3507</a>  dp方程为<br>$$dp[i] = min{dp[j] + M + (sum[i] - sum[j])^2 (0 &lt; j &lt; i)}$$<br>令k &lt; j &lt; i，当有<br>$$dp[j] + M + (sum[i] - sum[j])^2 - (dp[k] + M + (sum[i] - sum[k])^2) &lt; 0  $$<br>从j转移到i, 比从k转移到i更优，变换此不等式可得:<br>$$\frac{(dp[j]+ sum[j]^2) - (dp[k] + sum[k]^2)}{sum[j] - sum[k]} &lt; 2sum[i]$$<br>令$Y(i) = dp[i] + sum[i]^2$, $X(i) = sum[i]$, $f(i) = 2sum[i]$则将此不等式化解为上述形式。</p>
+<p>###优化方法:<br>可以发现，若满足$\frac {Y(j) - Y(k)} { X(j) - X(j)} &lt; f(i)$则j转移到i，比k转移到i更优，如果我们把(X(j), Y(j)), (X(k), Y(k))当成平面上的两个点Pj, Pk，这个不等式的含义即为若$ \overrightarrow{PjPk}$的斜率＜f(i)则，从j转移更优。<br>令grad(i, j)表示$\overrightarrow{PiPj}$的斜率，现在我们假设grad(i,j) &lt; grad(j, k)，若grad(i, j) &lt; f(I),则i比j更优，若grad(i, j) &gt; f(I), 则grad(j, k) &gt; f(I),那么从k转移比从j转移更优，当grad(i, j) &lt; grad(j, k)的时候，无论如何j转移到i都不会是最优。而这种情况恰好对应下图<br><img src="http://img.blog.csdn.net/20160510205214742" alt="这里写图片描述"><br>所以这种情况时，我们可以直接把j点删除，最后能够转移的点集只会存在这种图形，<img src="http://img.blog.csdn.net/20160510205342117" alt="这里写图片描述"><br>所以最后我们维护一个上凸集即可。<br>但是此时我们还是没有解决最终问题，如何才能找到转移到i点的最优的点呢。可以发现最后的点集一定是一个凸集，也就是斜率单调！！这样对于k &lt; j, grad(j,k) &lt; f(i),时更优，从图形特点我们可以发现如果j比k优，那么j点比所有比k小的点都优，所以对于每一个f(i),我们维护一个所有比i点小的凸集，二分查找斜率比f(i)小的编号最大的点，就是最优的转移点。如果f(i)也满足单调性，比如这道题，我们还可以直接维护一个单调队列就能解决这个问题。</p>
+<p>###分治做法<br>对于f(i)单调的这种情况，除了使用单调队列优化的斜率优化做，我们还有另外一种分治的做法，但是复杂度会变成O(nlogn) 比O(n)差。<br>当f(i)单调的时候，我们可以发现若a &gt; b,则f(a) &gt; f(b),设转移到a的最优点是c，转移到b的最优点是d，一定有c &gt; d。也就是转移到a的最优点一定大于等于转移到b的最优点。考虑这样的分治<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> dl, <span class="keyword">int</span> dr)</span> </span>&#123;</div><div class="line">	<span class="comment">//[l,r]表示现在更新[l,r]区间dp[i]的最优值</span></div><div class="line">	<span class="comment">//用j -&gt; f(i),表示j是更新f(i)最优值的最优点</span></div><div class="line">	<span class="comment">//那么[dl,dr]表示更新dp([l,r])的点，一定在[dl,dr]范围内</span></div><div class="line">	<span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>; </div><div class="line">	<span class="keyword">int</span> dm = dl;</div><div class="line">	<span class="keyword">int</span> g = inf;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = dl; i &lt;= dr; i++) &#123;</div><div class="line">		<span class="keyword">if</span>(g &lt; dp[i] + f(i, mid)) &#123;</div><div class="line">			g = dp[i] + f(i, mid);<span class="comment">//记录更新dp[mid]的最优</span></div><div class="line">			dm = i;<span class="comment">//记录更新dp[mid]的最优点</span></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	dp[mid] = g; <span class="comment">//更新dp[mid]的值</span></div><div class="line">	<span class="comment">//因为上文叙述的单调性，</span></div><div class="line">	<span class="comment">//更新[l,mid-1]的最优点，一定在[dl,dm]范围内</span></div><div class="line">	<span class="keyword">if</span>(l &lt; mid) dfs(l, mid - <span class="number">1</span>, dl, dm);</div><div class="line">	<span class="comment">//更新[mid+1,r]的最优点，一定在[dm,dr]范围内</span></div><div class="line">	<span class="keyword">if</span>(mid &lt; r) dfs(mid + <span class="number">1</span>, r, dm, dr);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以发现这个分治比起斜率优化，不仅写起来方便很多，并且适用的范围也更广。这个做法不局限于斜率单调，可以发现只要满足c是更新f(a)的最优点，d是更新f(b)的最优点，若a &gt; b 一定有 c &gt; d，则可以有这个分治做。</p>
+<p>##PS:<br>这个做法是我在<a href="http://codeforces.com/contest/674/problem/C" target="_blank" rel="external">codeforces 674E</a>,跟Claris神犇的代码学会的<a href="http://codeforces.com/contest/674/submission/17794311" target="_blank" rel="external">solution</a>,在此特地感谢Claris.这个做法着实是非常的劲啊！多一个log，但是换来编码复杂度和通用性更广的解法。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/08/08/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/30/2016-03-30-Codeforces652EPursuitForArtifacts(Tarjan缩点)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Xinchen Luo
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: /
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

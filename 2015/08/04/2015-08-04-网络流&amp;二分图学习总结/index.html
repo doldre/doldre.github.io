@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>网络流&amp;amp;二分图学习总结 | Xinchen&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="网路流
+最大流问题：给出一个联通的不带边权的有向图，给出源点s和汇点t，将边当作一条有容量限制（单位时间内只能流固定容量的水）的带方向（水流只能从向边的方向流动）的水管。求解单位时间内从s到t最多能流动多少水量。
+
+Ford-Fulkerson算法：
+
+思路： Ford-Fulkerson算法是一种贪心算法，该算法的核心在于当流量f经过边e的时候，同时建立e的一条容量为f的反向边，然后利用满足f(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络流&amp;二分图学习总结">
+<meta property="og:url" content="http://doldre.github.io/2015/08/04/2015-08-04-网络流&amp;二分图学习总结/index.html">
+<meta property="og:site_name" content="Xinchen's Blog">
+<meta property="og:description" content="网路流
+最大流问题：给出一个联通的不带边权的有向图，给出源点s和汇点t，将边当作一条有容量限制（单位时间内只能流固定容量的水）的带方向（水流只能从向边的方向流动）的水管。求解单位时间内从s到t最多能流动多少水量。
+
+Ford-Fulkerson算法：
+
+思路： Ford-Fulkerson算法是一种贪心算法，该算法的核心在于当流量f经过边e的时候，同时建立e的一条容量为f的反向边，然后利用满足f(">
+<meta property="og:image" content="http://img.blog.csdn.net/20150804192309639">
+<meta property="og:image" content="http://img.blog.csdn.net/20150804192547004">
+<meta property="og:updated_time" content="2016-08-08T11:45:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络流&amp;二分图学习总结">
+<meta name="twitter:description" content="网路流
+最大流问题：给出一个联通的不带边权的有向图，给出源点s和汇点t，将边当作一条有容量限制（单位时间内只能流固定容量的水）的带方向（水流只能从向边的方向流动）的水管。求解单位时间内从s到t最多能流动多少水量。
+
+Ford-Fulkerson算法：
+
+思路： Ford-Fulkerson算法是一种贪心算法，该算法的核心在于当流量f经过边e的时候，同时建立e的一条容量为f的反向边，然后利用满足f(">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20150804192309639">
+  
+    <link rel="alternative" href="/atom.xml" title="Xinchen&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="0" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Xinchen Luo</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">For you thousands of times.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.findthem.cn">Mathon</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Xinchen Luo</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="0" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Xinchen Luo</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">For you thousands of times.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-2015-08-04-网络流&amp;amp;二分图学习总结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/08/04/2015-08-04-网络流&amp;二分图学习总结/" class="article-date">
+  	<time datetime="2015-08-04T14:23:00.000Z" itemprop="datePublished">2015-08-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      网络流&amp;amp;二分图学习总结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="网路流"><a href="#网路流" class="headerlink" title="网路流"></a><strong>网路流</strong></h2><ul>
+<li><p><strong>最大流问题</strong>：给出一个联通的不带边权的有向图，给出源点s和汇点t，将边当作一条有容量限制（单位时间内只能流固定容量的水）的带方向（水流只能从向边的方向流动）的水管。求解单位时间内从s到t最多能流动多少水量。</p>
+<ul>
+<li><p><strong>Ford-Fulkerson算法</strong>：</p>
+<ul>
+<li><strong>思路</strong>： Ford-Fulkerson算法是一种贪心算法，该算法的核心在于当<strong>流量f</strong>经过<strong>边e</strong>的时候，同时建立e的一条<strong>容量为f</strong>的<strong>反向边</strong>，然后利用满足f(e) &lt; c(e)的e或者e对应的反向边rev(e)，寻找一条s到t的路径，找到这样一条路径并让路径中的边的容量自减f，同时对应反向边的容量加f，这条路径称为<strong>增广路</strong>这样处理过后的网络成为<strong>残余网络</strong>。不断沿着残余网络寻找增广路增加流量，直到不能增广，最后的流量便是最大流。</li>
+<li><img src="http://img.blog.csdn.net/20150804192309639" alt="这里写图片描述"><br>黑色为原图的边，红色为反向边，这里并非一个全图，只是残余网络的一部分的一部分。</li>
+<li><img src="http://img.blog.csdn.net/20150804192547004" alt="这里写图片描述"><br>在残余网络上新增一条边，可以看出反向边的作用就是可以将流回退回去，然后寻找更多的增广路。</li>
+</ul>
+</li>
+<li><p>算法实现：</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_V = <span class="number">300</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> edge &#123;</div><div class="line">    <span class="keyword">int</span> to, cap, rev;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">vector</span>&lt;edge&gt; G[MAX_V];</div><div class="line"></div><div class="line"><span class="keyword">bool</span> used[MAX_V];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to, <span class="keyword">int</span> cap)</span> </span>&#123;</div><div class="line">    G[from].push_back((edge)&#123;to, cap, G[to].size()&#125;);</div><div class="line">    G[to].push_back((edge)&#123;from, <span class="number">0</span>, G[from].size() - <span class="number">1</span>&#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> t, <span class="keyword">int</span> f)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(v == t) <span class="keyword">return</span> f;</div><div class="line">    used[v] = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[v].size(); i++) &#123;</div><div class="line">        edge &amp;e = G[v][i];</div><div class="line">        <span class="keyword">if</span>(!used[e.to] &amp;&amp; e.cap &gt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">int</span> d = dfs(e.to, t, min(f, e.cap));</div><div class="line">            <span class="keyword">if</span>(d &gt; <span class="number">0</span>) &#123;</div><div class="line">                e.cap -= d;</div><div class="line">                G[e.to][e.rev].cap += d;</div><div class="line">                <span class="keyword">return</span> d;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">max_flow</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> t)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> flow = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(;;) &#123;</div><div class="line">        <span class="built_in">memset</span>(used, <span class="number">0</span>, <span class="keyword">sizeof</span>(used));</div><div class="line">        <span class="keyword">int</span> f = dfs(s, t, INF);</div><div class="line">        <span class="keyword">if</span>(f &gt; <span class="number">0</span>) flow += f;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> flow;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="二分图"><a href="#二分图" class="headerlink" title="二分图"></a><strong>二分图</strong></h2><ul>
+<li>概念： 二分图其实就是特殊的网络流，可以用网络流的算法来解决，手动增加一个s，和一个t，然后建图，便可以转化为网络流问题，因为二分图的特殊性，因此还有更高效的匈牙利算法。</li>
+<li><p>特性：二分图有一个很重要的特性，在二分图中|最小点覆盖| = |最大匹配|，这个等式的证明思考了很久，也参考了网上很多博客，但总觉得很多证明写的太过复杂，这里看到了一个很简单的证明。</p>
+<blockquote>
+<p> 证明：摘自<a href="http://www.cnblogs.com/rainydays/archive/2011/03/03/1969543.html。首先，最小点集覆盖一定&gt;=最大匹配，因为假设最大匹配为n，那么我们就得到了n条互不相邻的边，光覆盖这些边就要用到n个点。现在我们来思考为什么最小点击覆盖一定" target="_blank" rel="external">http://www.cnblogs.com/rainydays/archive/2011/03/03/1969543.html。首先，最小点集覆盖一定&gt;=最大匹配，因为假设最大匹配为n，那么我们就得到了n条互不相邻的边，光覆盖这些边就要用到n个点。现在我们来思考为什么最小点击覆盖一定</a>&lt;=最大匹配。任何一种n个点的最小点击覆盖，一定可以转化成一个n的最大匹配。因为最小点集覆盖中的每个点都能找到至少一条只有一个端点在点集中的边（如果找不到则说明该点所有的边的另外一个端点都被覆盖，所以该点则没必要被覆盖，和它在最小点集覆盖中相矛盾），只要每个端点都选择一个这样的边，就必然能转化为一个匹配数与点集覆盖的点数相等的匹配方案。所以最大匹配至少为最小点集覆盖数，即最小点击覆盖一定&lt;=最大匹配。综上，二者相等。</p>
+</blockquote>
+</li>
+<li><p>匈牙利算法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_V = <span class="number">1000</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> V;                  <span class="comment">//  顶点数</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[MAX_V];   <span class="comment">//  图的邻接表表示</span></div><div class="line"><span class="keyword">int</span> match[MAX_V];       <span class="comment">//  所匹配的顶点</span></div><div class="line"><span class="keyword">bool</span> used[MAX_V];       <span class="comment">//  DFS中用到的访问标记</span></div><div class="line"></div><div class="line"><span class="comment">// 向图中增加一条连接u和v的边</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span> </span>&#123;</div><div class="line">    G[u].push_back(v);</div><div class="line">    G[v].push_back(u);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//  通过DFS寻找增广路</span></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</div><div class="line">    used[v] = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[v].size(); i++) &#123;</div><div class="line">        <span class="keyword">int</span> u = G[v][i], w = match[u];</div><div class="line">        <span class="keyword">if</span>(w &lt; <span class="number">0</span> || !used[w] &amp;&amp; dfs(w)) &#123;</div><div class="line">            match[v] = u;</div><div class="line">            match[i] = v;</div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">bipartite_matching</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">    <span class="built_in">memset</span>(match, <span class="number">-1</span>, <span class="keyword">sizeof</span>(match));</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; V; v++) &#123;</div><div class="line">        <span class="keyword">if</span>(match[v] &lt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="built_in">memset</span>(used, <span class="number">0</span>, <span class="keyword">sizeof</span>(used));</div><div class="line">            <span class="keyword">if</span>(dfs(v)) &#123;</div><div class="line">                res++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> res;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="最小费用流"><a href="#最小费用流" class="headerlink" title="最小费用流"></a><strong>最小费用流</strong></h2><ul>
+<li>基础：最小费用流个人认为就是网络流的扩展，仍然是采用增广路的思想，因为加入了边权，所以按着最短路增广就可以了，因为残余网络会出现负边所以应该采用Bellman-Ford算法求最短路。引入势的概念后可以用Dijkstra求最短路。势的想法感觉真是极妙的，从代码的实现来看也是极为精巧的。</li>
+<li><p>Bellman-Ford求最短路的方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_V = <span class="number">1000</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> edge &#123; <span class="keyword">int</span> to, cap, cost, rev; &#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> V;                                    <span class="comment">//顶点数</span></div><div class="line"><span class="built_in">vector</span>&lt;edge&gt; G[MAX_V];                    <span class="comment">//图的邻接表示</span></div><div class="line"><span class="keyword">int</span> dist[MAX_V];                          <span class="comment">//最短距离</span></div><div class="line"><span class="keyword">int</span> prevv[MAX_V], preve[MAX_V];           <span class="comment">//最短路中的前驱节点和对应的边</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to, <span class="keyword">int</span> cap, <span class="keyword">int</span> cost)</span> </span>&#123;</div><div class="line">    G[from].push_back((edge)&#123;to, cap, cost, G[to].size()&#125;);</div><div class="line">    G[to].push_back((edge)&#123;from, <span class="number">0</span>, -cost, G[from].size() - <span class="number">1</span>&#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">min_cost_flow</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> t, <span class="keyword">int</span> f)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(f &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="comment">//Bellman-Ford</span></div><div class="line">        fill(dist, dist + V, INF);</div><div class="line">        dist[s] = <span class="number">0</span>;</div><div class="line">        <span class="keyword">bool</span> update = <span class="literal">true</span>;</div><div class="line">        <span class="keyword">while</span>(update) &#123;</div><div class="line">            update = <span class="literal">false</span>;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; V; v++) &#123;</div><div class="line">                <span class="keyword">if</span>(dist[v] == INF) <span class="keyword">continue</span>;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[v].size(); i++) &#123;</div><div class="line">                    edge &amp;e = G[v][i];</div><div class="line">                    <span class="keyword">if</span>(e.cap &gt; <span class="number">0</span> &amp;&amp; dist[e.to] &gt; dist[v] + e.cost) &#123;</div><div class="line">                        dist[e.to] = dist[v] + e.cost;</div><div class="line">                        prevv[e.to] = v;</div><div class="line">                        preve[e.to] = i;</div><div class="line">                        update = <span class="literal">true</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span>(dist[t] == INF) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> d = f;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> v = t; v != s; v = prevv[v]) &#123;</div><div class="line">            d = min(d, G[prevv[v]][preve[v]].cap);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        f -= d;</div><div class="line">        res += d * dist[t];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> v = t; v != s; v = prevv[v]) &#123;</div><div class="line">            edge &amp;e = G[prevv[v]][preve[v]];</div><div class="line">            e.cap -= d;</div><div class="line">            G[e.to][e.rev].cap += d;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> res;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Dijkstra 求最短路的方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_V = <span class="number">1000</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; P;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> edge &#123; <span class="keyword">int</span> to, cap, cost, rev; &#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> V; <span class="comment">//顶点数</span></div><div class="line"><span class="built_in">vector</span>&lt;edge&gt; G[MAX_V];              <span class="comment">//图的邻接表示</span></div><div class="line"><span class="keyword">int</span> h[MAX_V];                       <span class="comment">//顶点的势</span></div><div class="line"><span class="keyword">int</span> dist[MAX_V];                    <span class="comment">//最短距离</span></div><div class="line"><span class="keyword">int</span> prevv[MAX_V], preve[MAX_V];     <span class="comment">//最短路中的前驱节点和对应的边</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to, <span class="keyword">int</span> cap, <span class="keyword">int</span> cost)</span> </span>&#123;</div><div class="line">    G[from].push_back((edge)&#123;to, cap, cost, G[to].size()&#125;);</div><div class="line">    G[to].push_back((edge)&#123;from, <span class="number">0</span>, -cost, G[from].size() - <span class="number">1</span>&#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//  求解从s到t流量为f的最小费用流</span></div><div class="line"><span class="comment">//  如果没有流量为f的流，则返回-1</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">min_cost_flow</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> t, <span class="keyword">int</span> f)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">    fill(h, h + V, <span class="number">0</span>); <span class="comment">//初始化h</span></div><div class="line">    <span class="keyword">while</span>(f &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="comment">//  使用Dijkstra算法更新h</span></div><div class="line">        priority_queue&lt;P, <span class="built_in">vector</span>&lt;P&gt;, greater&lt;P&gt; &gt; que;</div><div class="line">        fill(dist, dist + V, INF);</div><div class="line">        dist[s] = <span class="number">0</span>;</div><div class="line">        que.push(P(<span class="number">0</span>, s));</div><div class="line">        <span class="keyword">while</span>(!que.empty()) &#123;</div><div class="line">            P p = que.top(); que.pop();</div><div class="line">            <span class="keyword">int</span> v = p.second;</div><div class="line">            <span class="keyword">if</span>(dist[v] &lt; p.first) <span class="keyword">continue</span>;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[v].size(); i++) &#123;</div><div class="line">                edge &amp;e = G[v][i];</div><div class="line">                <span class="keyword">if</span>(e.cap &gt; <span class="number">0</span> &amp;&amp; dist[e.to] &gt; dist[v] + e.cost + h[v] - h[e.to]) &#123;</div><div class="line">                    dist[e.to] = dist[v] + e.cost + h[v] - h[e.to];</div><div class="line">                    prevv[e.to] = v;</div><div class="line">                    preve[e.to] = i;</div><div class="line">                    que.push(P(dist[e.to], e.to));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(dist[t] == INF) &#123;</div><div class="line">            <span class="comment">//  不能再增广</span></div><div class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; V; v++) h[v] += dist[v];    <span class="comment">//因为加入了势，此时dist[v]是最短距离加上 h[s] - h[v]，</span></div><div class="line">                                                       <span class="comment">//因为h[s]恒为0， 所以这样就能保证 h[v] 总为s到v的最短距离。</span></div><div class="line"></div><div class="line">        <span class="comment">//  沿s到t的最短路尽量增广</span></div><div class="line">        <span class="keyword">int</span> d = f;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> v = t; v != s; v = prevv[v]) &#123;</div><div class="line">            d = min(d, G[prevv[v]][preve[v]].cap);</div><div class="line">        &#125;</div><div class="line">        f -= d;</div><div class="line">        res += d * h[t];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> v = t; v != s; v = prevv[v]) &#123;</div><div class="line">            edge &amp;e = G[prevv[v]][preve[v]];</div><div class="line">            e.cap -= d;</div><div class="line">            G[v][e.rev].cap += d;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> res;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/08/06/2015-08-06-CodeforcesRound#Pi(Div.2)_D.One-DimensionalBattleShips/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Codeforces Round #Pi (Div. 2)_D. One-Dimensional Battle Ships
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/07/31/2015-07-31-POJ1087（网络流，二分图匹配）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">POJ 1087（网络流，二分图匹配）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Xinchen Luo
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: /
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

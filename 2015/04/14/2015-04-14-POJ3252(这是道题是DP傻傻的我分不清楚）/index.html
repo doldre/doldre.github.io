@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>POJ3252(这是道题是DP?傻傻的我分不清楚） | Xinchen&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="POJ3252
+网上的代码实在太长，不想去看了。这道题我思考了很久，想出这个办法也不容易，因为想得很全面，本来应该是坑很多的一道题，一次AC了，实在是开心~！
+
+
+给出两个数S,E，让计算满足{ X的二进制表示中0的个数大于等于1的个数，X属于[S,E]}的X的个数。 记F(X) 为[0,X)中满足X的二进制表示中0的个数大于等于1的个数。结果等于F(E)-F(S),如果E本身满足此条件，则结果加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="POJ3252(这是道题是DP?傻傻的我分不清楚）">
+<meta property="og:url" content="http://doldre.github.io/2015/04/14/2015-04-14-POJ3252(这是道题是DP傻傻的我分不清楚）/index.html">
+<meta property="og:site_name" content="Xinchen's Blog">
+<meta property="og:description" content="POJ3252
+网上的代码实在太长，不想去看了。这道题我思考了很久，想出这个办法也不容易，因为想得很全面，本来应该是坑很多的一道题，一次AC了，实在是开心~！
+
+
+给出两个数S,E，让计算满足{ X的二进制表示中0的个数大于等于1的个数，X属于[S,E]}的X的个数。 记F(X) 为[0,X)中满足X的二进制表示中0的个数大于等于1的个数。结果等于F(E)-F(S),如果E本身满足此条件，则结果加">
+<meta property="og:updated_time" content="2016-08-08T11:45:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="POJ3252(这是道题是DP?傻傻的我分不清楚）">
+<meta name="twitter:description" content="POJ3252
+网上的代码实在太长，不想去看了。这道题我思考了很久，想出这个办法也不容易，因为想得很全面，本来应该是坑很多的一道题，一次AC了，实在是开心~！
+
+
+给出两个数S,E，让计算满足{ X的二进制表示中0的个数大于等于1的个数，X属于[S,E]}的X的个数。 记F(X) 为[0,X)中满足X的二进制表示中0的个数大于等于1的个数。结果等于F(E)-F(S),如果E本身满足此条件，则结果加">
+  
+    <link rel="alternative" href="/atom.xml" title="Xinchen&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="0" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Xinchen Luo</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">For you thousands of times.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.findthem.cn">Mathon</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Xinchen Luo</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="0" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Xinchen Luo</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">For you thousands of times.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-2015-04-14-POJ3252(这是道题是DP傻傻的我分不清楚）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/14/2015-04-14-POJ3252(这是道题是DP傻傻的我分不清楚）/" class="article-date">
+  	<time datetime="2015-04-14T09:10:00.000Z" itemprop="datePublished">2015-04-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      POJ3252(这是道题是DP?傻傻的我分不清楚）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://poj.org/problem?id=3252" target="_blank" rel="external">POJ3252</a></p>
+<p><strong>网上的代码实在太长，不想去看了。这道题我思考了很久，想出这个办法也不容易，因为想得很全面，本来应该是坑很多的一道题，一次AC了，实在是开心~！</strong></p>
+<hr>
+<blockquote>
+<p>给出两个数S,E，让计算满足{ X的二进制表示中0的个数大于等于1的个数，X属于[S,E]}的X的个数。 记F(X) 为[0,X)中满足<br>X的二进制表示中0的个数大于等于1的个数。结果等于F(E)-F(S),如果E本身满足此条件，则结果加1。<br>貌似有人有DP算F(N)，实在不知道DP如何做但是想到了另外一个思路。<br>如36的二进制为100100，则是100000-100100，10000-100000，<br>1000-10000,100-1000,10-100,0-10中满足的个数相加，而列入10000-100000中满足条件的个数则与四个二进制位中0的个数大于等于3的组合数相等即=C(4)_4 + C(4)_3，而100000-100100中满足条件的个数，可以看出当第三位1为0时，后面两位无论怎么选都是满足的。这个比较特殊，如100000-101000，当第4位的1为0时，后面三位中0的个数大于等于1都是满足条件的，即C(3)_1+C(3)_2+C(3)_3;</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">bin_len</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> len = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(x&gt;&gt;len) len++;</div><div class="line">    <span class="keyword">return</span> len;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">32</span>;</div><div class="line"><span class="keyword">int</span> table[maxn][maxn]; <span class="comment">//table[i][j] = i位数 有j个0的组合数,即C(i)_j</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">make_table</span><span class="params">()</span> </span>&#123; <span class="comment">//递推求出table[i][j]</span></div><div class="line">    <span class="built_in">memset</span>(table, <span class="number">0</span>, <span class="keyword">sizeof</span>(table));</div><div class="line">    table[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">    table[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>; table[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; maxn; i++) table[i][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; maxn; i++)</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; maxn; j++) &#123;</div><div class="line">        table[i][j] = table[i<span class="number">-1</span>][j] + table[i<span class="number">-1</span>][j<span class="number">-1</span>];</div><div class="line">        <span class="comment">//Debug printf("%d, %d    %d\n", i, j, table[i][j]);</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> len = bin_len(x);</div><div class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = len - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &gt;= (i+<span class="number">1</span>+<span class="number">1</span>) / <span class="number">2</span>; j--) &#123;</div><div class="line">            cnt += table[i][j];</div><div class="line">        &#125;</div><div class="line">    &#125;  <span class="comment">//... ... 100000-100100，10000-100000， 1000-10000,100-1000,10-100,0-10中满足的个数相加。</span></div><div class="line">    cnt++;</div><div class="line">    <span class="keyword">int</span> zero_cnt = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = len - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123; <span class="comment">//最高位不为0时</span></div><div class="line">        <span class="keyword">if</span>(x&amp;(<span class="number">1</span>&lt;&lt;i)) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &gt;= <span class="number">0</span> &amp;&amp; j + zero_cnt + <span class="number">1</span>&gt;= (len+<span class="number">1</span>) / <span class="number">2</span>; j--) &#123;</div><div class="line">                cnt += table[i][j];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            zero_cnt++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> cnt;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">     make_table();</div><div class="line">    <span class="keyword">int</span> S, E;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; S &gt;&gt; E) &#123;</div><div class="line">        <span class="keyword">int</span> t = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = bin_len(E) - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">            <span class="keyword">if</span>(E&amp;(<span class="number">1</span>&lt;&lt;i)) t++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> cnt1 = solve(S);</div><div class="line">        <span class="keyword">int</span> cnt2 = solve(E);</div><div class="line">        <span class="keyword">if</span>(S == <span class="number">0</span>) cnt1--;</div><div class="line">        <span class="keyword">if</span>(E &gt; <span class="number">0</span> &amp;&amp; t &lt;= bin_len(E)/<span class="number">2</span>) cnt2++;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, cnt2 - cnt1);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/17/2015-04-17-POJ3255(Dijkstra求次短路，经典)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          POJ3255(Dijkstra 求次短路，经典)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/05/2015-04-05-POJ3176(简单DP）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">POJ3176(简单DP）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Xinchen Luo
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: /
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

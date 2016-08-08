@@ -253,6 +253,555 @@
 
 
   
+    <article id="post-2016-05-10-斜率优化小结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/10/2016-05-10-斜率优化小结/" class="article-date">
+  	<time datetime="2016-05-10T13:06:00.000Z" itemprop="datePublished">2016-05-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/10/2016-05-10-斜率优化小结/">斜率优化小结</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##单调队列优化<br>在写斜率优化之前，我们来回顾一下单调队列优化的dp</p>
+<ol>
+<li>对于如下形式的dp方程<br>$$dp[i] = min{dp[j] + f(j)} (0 &lt; j &lt; i)$$<br>我们直接用一个变量维护(0, i)中dp[j] + f(j)的最小值即可</li>
+</ol>
+<p>2.对于如下形式的dp方程<br>$$dp[i] = min{dp[j] + f(j)} (i - m &lt; j &lt; i)$$<br>我们可以用一个单调队列维护一个(i - m, j)中dp[j] + f(j)的最小值，然后做到O(1)转移。</p>
+<p>##斜率优化</p>
+<p>###基本形式<br>但是对于形如<br>$$dp[i] = min{dp[j] + f(i, j)} $$<br>的方程，无法做到O(1)计算$dp[j] + f(i, j)$的最小值，这时就需要斜率优化这个技巧来解决这个问题了。<br>令k &lt; j &lt; i，当我们更新dp[i]时，如果有dp[j] + f(i, j) 比dp[k] + f(i, k)更优，则有dp[j] + f(i, j) - (dp[k] + f(i, k) &lt; 0，对于这个不等式如果能够化解成如下形式<br>$$\frac {Y(j) - Y(k)} { X(j) - X(k)} &lt; f(i)$$<br>我们就能通过斜率优化这个dp了。<br>让我们来举一个例子: <a href="http://acm.hdu.edu.cn/showproblem.php?pid=3507" target="_blank" rel="external">hdu3507</a>  dp方程为<br>$$dp[i] = min{dp[j] + M + (sum[i] - sum[j])^2 (0 &lt; j &lt; i)}$$<br>令k &lt; j &lt; i，当有<br>$$dp[j] + M + (sum[i] - sum[j])^2 - (dp[k] + M + (sum[i] - sum[k])^2) &lt; 0  $$<br>从j转移到i, 比从k转移到i更优，变换此不等式可得:<br>$$\frac{(dp[j]+ sum[j]^2) - (dp[k] + sum[k]^2)}{sum[j] - sum[k]} &lt; 2sum[i]$$<br>令$Y(i) = dp[i] + sum[i]^2$, $X(i) = sum[i]$, $f(i) = 2sum[i]$则将此不等式化解为上述形式。</p>
+<p>###优化方法:<br>可以发现，若满足$\frac {Y(j) - Y(k)} { X(j) - X(j)} &lt; f(i)$则j转移到i，比k转移到i更优，如果我们把(X(j), Y(j)), (X(k), Y(k))当成平面上的两个点Pj, Pk，这个不等式的含义即为若$ \overrightarrow{PjPk}$的斜率＜f(i)则，从j转移更优。<br>令grad(i, j)表示$\overrightarrow{PiPj}$的斜率，现在我们假设grad(i,j) &lt; grad(j, k)，若grad(i, j) &lt; f(I),则i比j更优，若grad(i, j) &gt; f(I), 则grad(j, k) &gt; f(I),那么从k转移比从j转移更优，当grad(i, j) &lt; grad(j, k)的时候，无论如何j转移到i都不会是最优。而这种情况恰好对应下图<br><img src="http://img.blog.csdn.net/20160510205214742" alt="这里写图片描述"><br>所以这种情况时，我们可以直接把j点删除，最后能够转移的点集只会存在这种图形，<img src="http://img.blog.csdn.net/20160510205342117" alt="这里写图片描述"><br>所以最后我们维护一个上凸集即可。<br>但是此时我们还是没有解决最终问题，如何才能找到转移到i点的最优的点呢。可以发现最后的点集一定是一个凸集，也就是斜率单调！！这样对于k &lt; j, grad(j,k) &lt; f(i),时更优，从图形特点我们可以发现如果j比k优，那么j点比所有比k小的点都优，所以对于每一个f(i),我们维护一个所有比i点小的凸集，二分查找斜率比f(i)小的编号最大的点，就是最优的转移点。如果f(i)也满足单调性，比如这道题，我们还可以直接维护一个单调队列就能解决这个问题。</p>
+<p>###分治做法<br>对于f(i)单调的这种情况，除了使用单调队列优化的斜率优化做，我们还有另外一种分治的做法，但是复杂度会变成O(nlogn) 比O(n)差。<br>当f(i)单调的时候，我们可以发现若a &gt; b,则f(a) &gt; f(b),设转移到a的最优点是c，转移到b的最优点是d，一定有c &gt; d。也就是转移到a的最优点一定大于等于转移到b的最优点。考虑这样的分治<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> dl, <span class="keyword">int</span> dr)</span> </span>&#123;</div><div class="line">	<span class="comment">//[l,r]表示现在更新[l,r]区间dp[i]的最优值</span></div><div class="line">	<span class="comment">//用j -&gt; f(i),表示j是更新f(i)最优值的最优点</span></div><div class="line">	<span class="comment">//那么[dl,dr]表示更新dp([l,r])的点，一定在[dl,dr]范围内</span></div><div class="line">	<span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>; </div><div class="line">	<span class="keyword">int</span> dm = dl;</div><div class="line">	<span class="keyword">int</span> g = inf;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = dl; i &lt;= dr; i++) &#123;</div><div class="line">		<span class="keyword">if</span>(g &lt; dp[i] + f(i, mid)) &#123;</div><div class="line">			g = dp[i] + f(i, mid);<span class="comment">//记录更新dp[mid]的最优</span></div><div class="line">			dm = i;<span class="comment">//记录更新dp[mid]的最优点</span></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	dp[mid] = g; <span class="comment">//更新dp[mid]的值</span></div><div class="line">	<span class="comment">//因为上文叙述的单调性，</span></div><div class="line">	<span class="comment">//更新[l,mid-1]的最优点，一定在[dl,dm]范围内</span></div><div class="line">	<span class="keyword">if</span>(l &lt; mid) dfs(l, mid - <span class="number">1</span>, dl, dm);</div><div class="line">	<span class="comment">//更新[mid+1,r]的最优点，一定在[dm,dr]范围内</span></div><div class="line">	<span class="keyword">if</span>(mid &lt; r) dfs(mid + <span class="number">1</span>, r, dm, dr);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以发现这个分治比起斜率优化，不仅写起来方便很多，并且适用的范围也更广。这个做法不局限于斜率单调，可以发现只要满足c是更新f(a)的最优点，d是更新f(b)的最优点，若a &gt; b 一定有 c &gt; d，则可以有这个分治做。</p>
+<p>##PS:<br>这个做法是我在<a href="http://codeforces.com/contest/674/problem/C" target="_blank" rel="external">codeforces 674E</a>,跟Claris神犇的代码学会的<a href="http://codeforces.com/contest/674/submission/17794311" target="_blank" rel="external">solution</a>,在此特地感谢Claris.这个做法着实是非常的劲啊！多一个log，但是换来编码复杂度和通用性更广的解法。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2016-03-30-Codeforces652EPursuitForArtifacts(Tarjan缩点)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/30/2016-03-30-Codeforces652EPursuitForArtifacts(Tarjan缩点)/" class="article-date">
+  	<time datetime="2016-03-30T07:14:00.000Z" itemprop="datePublished">2016-03-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/30/2016-03-30-Codeforces652EPursuitForArtifacts(Tarjan缩点)/">Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)<br>[TOC]</p>
+<h2 id="题意："><a href="#题意：" class="headerlink" title="题意："></a>题意：</h2><blockquote>
+<p>有n个岛，m座桥，某些桥上有宝藏，每条桥只能经过一次，给出起点岛a和终点岛b，问能否从a走到b并带走至&gt;少一个宝藏。</p>
+</blockquote>
+<h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><p>这道竟然是我的tarjan算法入门题，用tarjan缩点为树，如果是缩点后包含宝藏把这个点的权值设为非0，如果是桥，保留原来的权值，因为缩点后是一棵树，所以直接dfs找到从a到b的路径，看路径中是否含权值非零的点或边即可。</p>
+<h2 id="PS："><a href="#PS：" class="headerlink" title="PS："></a>PS：</h2><p>在比赛时自己也是想了很多个解法的，但是最多也就跑过了第12组数据，看到了这个思路感觉确实很巧妙，看到某个大牛总结的，边只能走一次的这种情况大多需要用tarjan缩点为树。这道题学弟竟然用其他方法给ac，确实佩服。这道题也算是我学Tarjan后ac的第一道题吧，Tarjan算法着实是很优美！</p>
+<h2 id="AC-CODE："><a href="#AC-CODE：" class="headerlink" title="AC CODE："></a>AC CODE：</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">300000</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">int</span> n, m;</div><div class="line"><span class="keyword">struct</span> Edge &#123;</div><div class="line">    <span class="keyword">int</span> v, c;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> dfn[maxn], low[maxn], isin[maxn], id[maxn], dfsNum, bcc;</div><div class="line"><span class="keyword">int</span> stk[maxn], top;</div><div class="line"><span class="built_in">vector</span>&lt;Edge&gt; G[maxn];</div><div class="line"><span class="built_in">vector</span>&lt;Edge&gt; T[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> f)</span> </span>&#123;</div><div class="line">    dfn[u] = low[u] = ++dfsNum;</div><div class="line">    stk[++top] = u;</div><div class="line">    isin[u] = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span> (Edge e: G[u]) &#123;</div><div class="line">        <span class="keyword">int</span> v = e.v;</div><div class="line">        <span class="keyword">if</span>(v == f) <span class="keyword">continue</span>;</div><div class="line">        <span class="keyword">if</span>(!dfn[v]) &#123;</div><div class="line">            tarjan(v, u);</div><div class="line">            low[u] = min(low[u], low[v]);</div><div class="line">        &#125; <span class="keyword">else</span> low[u] = min(low[u], dfn[v]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(low[u] == dfn[u]) &#123;</div><div class="line">        ++bcc;</div><div class="line">        <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</div><div class="line">            <span class="keyword">int</span> v = stk[top--];</div><div class="line">            isin[v] = <span class="literal">false</span>;</div><div class="line">            id[v] = bcc;</div><div class="line">            <span class="keyword">if</span>(v == u) <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan_init</span><span class="params">()</span> </span>&#123;</div><div class="line">     bcc = dfsNum = <span class="number">0</span>;</div><div class="line">     <span class="built_in">memset</span>(dfn, <span class="number">0</span>, <span class="keyword">sizeof</span>(dfn));</div><div class="line">     tarjan(<span class="number">1</span>, <span class="number">-1</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> val[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> t, <span class="keyword">int</span> fa, <span class="keyword">int</span> sum)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(s == t) <span class="keyword">return</span> sum + val[t];</div><div class="line">    <span class="keyword">for</span> (Edge e: T[s]) &#123;</div><div class="line">         <span class="keyword">int</span> v = e.v;</div><div class="line">         <span class="keyword">if</span>(v == fa) <span class="keyword">continue</span>;</div><div class="line">         <span class="keyword">if</span>(dfs(v, t, s, sum + e.c +val[v])) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></div><div class="line">    freopen(<span class="string">"in.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</div><div class="line">        <span class="keyword">int</span> u, v, c;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;u, &amp;v, &amp;c);</div><div class="line">        G[u].push_back(&#123;v, c&#125;);</div><div class="line">        G[v].push_back(&#123;u, c&#125;);</div><div class="line">    &#125;</div><div class="line">    tarjan_init();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">         <span class="keyword">int</span> u = id[i];</div><div class="line">         <span class="keyword">for</span> (Edge e: G[i]) &#123;</div><div class="line">             <span class="keyword">int</span> v = id[e.v];</div><div class="line">             <span class="keyword">if</span>(u == v) val[u] += e.c;</div><div class="line">             <span class="keyword">else</span> T[u].push_back(&#123;v, e.c&#125;);</div><div class="line">         &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> s, t;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;s, &amp;t);</div><div class="line">    <span class="built_in">puts</span>(dfs(id[s], id[t], <span class="number">-1</span>, val[id[s]]) ? <span class="string">"YES"</span> : <span class="string">"NO"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2016-03-18-hihocoder*Divisors*" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/18/2016-03-18-hihocoder*Divisors*/" class="article-date">
+  	<time datetime="2016-03-18T12:26:00.000Z" itemprop="datePublished">2016-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/18/2016-03-18-hihocoder*Divisors*/">hihocoder *Divisors*</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="hihocoder-Divisors"><a href="#hihocoder-Divisors" class="headerlink" title="hihocoder Divisors"></a>hihocoder <em>Divisors</em></h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><blockquote>
+<p>   给定一个N，求不超过N的正整数中因子最多的数。如果有多个答案，输出最小的一个。</p>
+</blockquote>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路:"></a>思路:</h2><p>最近做题可以明显发现自己的思维缺陷，容易陷入思维定式，看到这道题时，一眼觉得是个数论题，然后开始找质因数分解瞎猜结论，并没有仔细观察性质，最后这是一个搜索题，看了题解确实不难，性质也很容易发现，但是并没有认真去思考，解法确实很妙！<a href="http://hihocoder.com/discuss/question/2857/" target="_blank" rel="external">官方题解</a>写的非常好了，这里就不再累述。</p>
+<h2 id="AC-Code"><a href="#AC-Code" class="headerlink" title="AC Code:"></a>AC Code:</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</div><div class="line">ll n;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1000</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">double</span> eps = <span class="number">1e-6</span>;</div><div class="line"><span class="keyword">bool</span> is_prime[maxn];</div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prime;</div><div class="line"></div><div class="line">ll maxdivisors, result;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">make_prime</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">memset</span>(is_prime, <span class="literal">true</span>, <span class="keyword">sizeof</span>(is_prime));</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; maxn; i++) &#123;</div><div class="line">        <span class="keyword">if</span>(is_prime[i]) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + i; j &lt; maxn; j += i) &#123;</div><div class="line">                is_prime[j] = <span class="literal">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; maxn; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (is_prime[i]) prime.push_back(i);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> prime_num, ll divisors, ll now, <span class="keyword">int</span> lastNi)</span> </span>&#123;</div><div class="line"><span class="comment">//    cout &lt;&lt; prime[prime_num] &lt;&lt; " " &lt;&lt; divisors &lt;&lt; " " &lt;&lt; now &lt;&lt; endl;</span></div><div class="line">    <span class="keyword">if</span> (prime[prime_num] &gt; n) &#123;</div><div class="line">         <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (divisors &gt; maxdivisors || (divisors == maxdivisors &amp;&amp; now &lt; result)) &#123;</div><div class="line">        maxdivisors = divisors;</div><div class="line">        result = now;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; <span class="keyword">double</span>(now)*prime[prime_num] &lt; <span class="keyword">double</span>(n) + eps &amp;&amp; i &lt;= lastNi; i++) &#123;</div><div class="line">        now *= prime[prime_num];</div><div class="line">        dfs(prime_num + <span class="number">1</span>, divisors*(i + <span class="number">1</span>), now, i);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    make_prime();</div><div class="line">    maxdivisors = <span class="number">1</span>, result = <span class="number">1</span>;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; n;</div><div class="line">    dfs(<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, inf);</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; result &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2016-03-13-约瑟夫环问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/13/2016-03-13-约瑟夫环问题/" class="article-date">
+  	<time datetime="2016-03-13T03:15:00.000Z" itemprop="datePublished">2016-03-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/13/2016-03-13-约瑟夫环问题/">约瑟夫环问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#约瑟夫环问题</p>
+<h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><blockquote>
+<p>n个人围成一个圆圈依次编号为0,1,…,n-1，从第一个人开始，依次报数1, 2,…,k-1,报到k的人退出，从退出的下一个人开始继续从1报数，仍然报到k的人退出，问最后留下的人是谁。</p>
+</blockquote>
+<h3 id="朴素解法："><a href="#朴素解法：" class="headerlink" title="朴素解法："></a>朴素解法：</h3><p>这是一个c语言入门题，我们可以用数组或者链表来模拟整个过程得到最终结果。但是这样复杂度为O(n^2)，当n较大时没法算出结果。</p>
+<h3 id="数学解法："><a href="#数学解法：" class="headerlink" title="数学解法："></a>数学解法：</h3><p>先来模拟一下过程，当n ＝ 8，k ＝ 3时</p>
+<ol>
+<li><p><strong>n = 8, k = 3</strong></p>
+<blockquote>
+<p><code>0 1 2 3 4 5 6 7</code><br>第一次编号为2的退出</p>
+</blockquote>
+</li>
+<li><p><strong>n = 7, k = 3</strong></p>
+<blockquote>
+<p><code>0 1 3 4 5 6 7</code><br>这次将从3开始数，从新进行编号<br><code>3 4 5 6 7 0 1     (A)</code><br><code>0 1 2 3 4 5 6    (B)</code><br>可以发现从(B)式到(A)式有(A) = ((B) + k)%(n+1)</p>
+</blockquote>
+</li>
+</ol>
+<p>可以继续模拟下去，可以发现这个公式始终满足，显然我们知道当n==1的时候，最后留下的肯定为0，所以我们可以根据这个公式自底向上的计算下去了。</p>
+<p>###代码：<br><strong>递归版本</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span></div><div class="line">	<span class="keyword">else</span> <span class="keyword">return</span> (fun(n - <span class="number">1</span>, k) + k) % n;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>循环版本</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1000</span>;</div><div class="line"><span class="keyword">int</span> f[maxn];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">	f[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">		f[i] = (f[i<span class="number">-1</span>] + k) % n;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>很明显当有多次查询的时候，使用循环版本把答案一次算完可以避免重复计算，当然递归版本记忆化也是可以的。</p>
+<h3 id="拓展："><a href="#拓展：" class="headerlink" title="拓展："></a>拓展：</h3><p>当然朴素的约瑟夫环肯定是一个送分题，这周bc就有一个简单拓展题目<br><a href="http://bestcoder.hdu.edu.cn/contests/contest_chineseproblem.php?cid=677&amp;pid=1004" target="_blank" rel="external">King’s Game</a><br><code>为了铭记历史，国王准备在阅兵的间隙玩约瑟夫游戏。它召来了 n(1\le n\le 5000)n(1≤n≤5000) 个士兵，逆时针围成一个圈，依次标号 1, 2, 3 ... n1,2,3...n。
+第一轮第一个人从 11 开始报数，报到 11 就停止且报到 11 的这个人出局。
+第二轮从上一轮出局的人的下一个人开始从 11 报数，报到 22 就停止且报到 22 的这个人出局。
+第三轮从上一轮出局的人的下一个人开始从 11 报数，报到 33 就停止且报到 33 的这个人出局。
+第 n - 1n−1 轮从上一轮出局的人的下一个人开始从 11 报数，报到 n - 1n−1 就停止且报到 n - 1n−1 的这个人出局。
+最后剩余的人是幸存者，请问这个人的标号是多少？</code></p>
+<p>如果理解朴素的约瑟夫环话，可以发现这里就是一个简单的递推变化，同样定义$f(n, k)$为有n个人时，第k个人退出剩下的人的编号，$f(n,k) = (f(n - 1, k + 1) + k) % n$</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">return</span> (f(n - <span class="number">1</span>, k + <span class="number">1</span>) + k) % n;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>复杂度O(n)</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2016-01-23-VIMYouCompleteMe插件安装" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/23/2016-01-23-VIMYouCompleteMe插件安装/" class="article-date">
+  	<time datetime="2016-01-23T13:06:16.000Z" itemprop="datePublished">2016-01-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/23/2016-01-23-VIMYouCompleteMe插件安装/">VIM YouCompleteMe 插件安装</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>安装Bundle 插件</li>
+<li>用 Bundle 插件安装 YouCompleteMe</li>
+<li>换到YouCompleteMe目录 使用 install.py 安装，—clang-completer 获得c语言支持</li>
+<li>YouCompleteMe 还需要 ycm_extra_conf.py，到github上下载</li>
+<li>ycm_extra_conf.py 需要用到 /usr/include 目录，但是mac上默认没有，需要Xcode Commond Line Tool工具的支持，用xcode-select —install 命令安装即可。反复安装了3次没有成功，就跪在这个坑上了。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2015-11-06-SOJ3711MountainRoad" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/06/2015-11-06-SOJ3711MountainRoad/" class="article-date">
+  	<time datetime="2015-11-06T07:39:26.000Z" itemprop="datePublished">2015-11-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/06/2015-11-06-SOJ3711MountainRoad/">SOJ 3711 Mountain Road</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.scu.edu.cn/soj/problem.action?id=3711" target="_blank" rel="external">SOJ3711</a><br><strong>题意</strong>:这件题意的有点坑。有一条单向道，依次有车到达路的两边，同一方向的车经过同一个地点的时间间隔不能少于10s，不同方向的车，必须等到道路没车才能通过。并且同一个方向的车不能改变车的顺序。之所以说题意有点坑是因为题目中有这样一句话”provided it is not slowed down by other cars in front“,如果把这句话理解为每辆车只能匀速通过会出现问题。见下面分析。<br><strong>分析</strong>:见第二个样例,<br>&gt;</p>
+<blockquote>
+<p>输入：<br>4<br>A 0 100<br>B 50 100<br>A 100 1<br>A 170 100<br>输出：<br>270</p>
+</blockquote>
+<p>如果每辆车都只能匀速通过的话，可以发现，270s无论什么方案都是不能得到的，这里的270s应该是这样得到的，先过第二辆车，这个时候，第二辆车走完的时刻是150s，再通过第一辆，此时出发时间是150s，到达时间是250s，再通过第三辆，可以发现，如果必须是匀速，因为连续的两辆车通过同一个地点的间隔不能小于10s，所以他必须在前面一辆到达的250s之后的10s 260s到达，如果按照匀速这个假设，它只能在时刻259s的时候出发，所以下一辆只能在269s的时刻出发了。如果没有匀速的限制条件，第三辆车载160s的时刻出发，可以在260s的时候到达，第四俩车在170s的时刻出发，刚好就在270s的时刻到达了，也就是样例所示。</p>
+<p>现在可以考虑定理dp[i][j][A/B]为当通过前i辆A方向的车，和j辆B方向的车，最后一辆车的方向是A/B的时候最短时间。如果这道题的题意是每辆车只能是匀速，那么dp[i][j][A/B]的时间可以从dp[i-1][j][A/B]转移而来，但是这里因为不是匀速直接这样转移会出问题。所以可以这样来跟新，对于每一个i，j都当成是一个间断点，也就是刚好车辆”反向”的点，然后去更新后面都是顺序通过的点，这样就能保证最后一定是最优的结果。如果还是不能理解，参考代码吧。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">200</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">struct</span> Car &#123;</div><div class="line">    <span class="keyword">int</span> s, d;</div><div class="line">    Car() &#123;&#125;</div><div class="line">    Car(<span class="keyword">int</span> s, <span class="keyword">int</span> d):s(s), d(d) &#123;&#125;</div><div class="line">&#125;;</div><div class="line">Car A[maxn], B[maxn];</div><div class="line"><span class="keyword">int</span> dp[maxn][maxn][<span class="number">2</span>];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">DP</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= p; i++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= q; j++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">2</span>; k++) &#123;</div><div class="line">                dp[i][j][k] = inf;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    dp[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>] = dp[<span class="number">0</span>][<span class="number">0</span>][<span class="number">1</span>] = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= p; i++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= q; j++) &#123;</div><div class="line">            <span class="keyword">int</span> s = dp[i][j][<span class="number">0</span>], t = s;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = j + <span class="number">1</span>; k &lt;= q; k++) &#123;</div><div class="line">                s = max(s, B[k<span class="number">-1</span>].s);</div><div class="line">                t = max(t, s + B[k<span class="number">-1</span>].d);</div><div class="line">                dp[i][k][<span class="number">1</span>] = min(dp[i][k][<span class="number">1</span>], t);</div><div class="line">                s += <span class="number">10</span>; t += <span class="number">10</span>;</div><div class="line">            &#125;</div><div class="line">            s = dp[i][j][<span class="number">1</span>];</div><div class="line">            t = s;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = i + <span class="number">1</span>; k &lt;= p; k++) &#123;</div><div class="line">                s = max(s, A[k<span class="number">-1</span>].s);</div><div class="line">                t = max(t, s + A[k<span class="number">-1</span>].d);</div><div class="line">                dp[k][j][<span class="number">0</span>] = min(dp[k][j][<span class="number">0</span>], t);</div><div class="line">                s += <span class="number">10</span>; t += <span class="number">10</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> T;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</div><div class="line">    <span class="keyword">while</span>(T--) &#123;</div><div class="line">        <span class="keyword">int</span> n;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</div><div class="line">        <span class="keyword">int</span> p = <span class="number">0</span>, q = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">            <span class="keyword">char</span> dir;</div><div class="line">            <span class="keyword">int</span> t, d;</div><div class="line">            <span class="built_in">cin</span> &gt;&gt; dir &gt;&gt; t &gt;&gt; d;</div><div class="line">            <span class="keyword">if</span>(dir == <span class="string">'A'</span>) &#123;</div><div class="line">                A[p++] = Car(t, d);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                B[q++] = Car(t, d);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        DP(p, q);</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, min(dp[p][q][<span class="number">0</span>], dp[p][q][<span class="number">1</span>]));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line">`</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2015-11-06-SOJ2142CowExhibition" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/06/2015-11-06-SOJ2142CowExhibition/" class="article-date">
+  	<time datetime="2015-11-06T06:26:50.000Z" itemprop="datePublished">2015-11-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/06/2015-11-06-SOJ2142CowExhibition/">SOJ 2142 Cow Exhibition</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>题意</strong>:有N头牛$(0<n\leq100)$,每头牛有两个属性smartness(si)和funness(fi),现在需要从这n头牛中选出一部分牛,使得这些牛的smartness之和和funness之和最大,并且他们的smartness之和 以及="" funness之和不能为负值.="" 输出最大的="" smartness之和="" +="" funness之和.="" **分析**:设每头牛的ai="Si" fi,="" 如果把所有大于0的ai加起来,貌似就能得到最大值,但是这样不能保证si之和以及fi之和也为整数,所以不能这样做.="" 这里有个很巧妙的做法,把牛的两个属性si和fi,一个当成物品容量,一个当成物品价值,这样就可以对于每一个固定的s值算出最大的f,然后最后在所有的s="">=0, F&gt;=0的值中找到一个最大的S+F.着实是01背包及其巧妙的转化.这里需要注意一个问题是容量为负值时需要从前往后更新.<br><strong>代码</strong>:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span> + <span class="number">5</span>;;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxv = <span class="number">100000</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> S[maxn], F[maxn];</div><div class="line"><span class="keyword">int</span> N;</div><div class="line"><span class="keyword">int</span> dp[maxv*<span class="number">2</span>];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;N) == <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">int</span> m1 = <span class="number">0</span>, m2 = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;S[i], &amp;F[i]);</div><div class="line">            <span class="keyword">if</span>(S[i] &gt; <span class="number">0</span>) &#123;</div><div class="line">                m1 += S[i];</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                m2 += S[i];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> max_sum = max(m1, <span class="built_in">abs</span>(m2)) + <span class="number">10</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>*max_sum; i++) dp[i] = -inf;</div><div class="line">        dp[max_sum] = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">            <span class="keyword">int</span> v = S[i];</div><div class="line">            <span class="keyword">if</span>(v &gt;= <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">2</span>*max_sum - <span class="number">1</span>; j &gt;= v; j--) &#123;</div><div class="line">                    dp[j] = max(dp[j], dp[j-v] + F[i]);</div><div class="line">                    <span class="keyword">if</span>(j &gt;= max_sum &amp;&amp; dp[j] &gt;= <span class="number">0</span>) &#123;</div><div class="line">                        ans = max(ans, j - max_sum + dp[j]);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= <span class="number">2</span>*max_sum + v - <span class="number">1</span>; j++) &#123;</div><div class="line">                    dp[j] = max(dp[j], dp[j-v] + F[i]);</div><div class="line">                    <span class="keyword">if</span>(j &gt;= max_sum &amp;&amp; dp[j] &gt;= <span class="number">0</span>) &#123;</div><div class="line">                        ans = max(ans, j - max_sum + dp[j]);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></n\leq100)$,每头牛有两个属性smartness(si)和funness(fi),现在需要从这n头牛中选出一部分牛,使得这些牛的smartness之和和funness之和最大,并且他们的smartness之和></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2015-11-03-SOJ2505TheCountryFair" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/03/2015-11-03-SOJ2505TheCountryFair/" class="article-date">
+  	<time datetime="2015-11-03T02:40:46.000Z" itemprop="datePublished">2015-11-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/03/2015-11-03-SOJ2505TheCountryFair/">SOJ 2505 The Country Fair</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>题意</strong>: John 去参加国家展览,每个展台i在P[i]时刻都会有一个抽奖活动,从展台i走到展台j需要花费T[i][j]的时间,John在时刻0在1号站台,john想尽量多的参加抽奖活动,问他最多可以参加多少个抽奖活动.</p>
+<p><strong>分析</strong>:这道题可以想成John从s号展台出发,然后最后走到e号展台,使其中路线当中抽奖过的展台越多越好.这样可以转化为一个最短路问题,考虑这样建图,如果John在i号展台抽奖,那么他必须提前到达i号展台并等到P[i]时刻,P[i] + T[i][j] &lt;= P[j] 那么John便可以再到j号展台抽奖,则从i到j连一条权值为-1的边,因为John在时刻0在1号展台,可以通过T[0][j] &lt;= P[j] 判断出John第一个可以抽奖的展台,对于每一个可以第一个抽奖的展台s,枚举终点e找到路径最小的path[s][e],这样-path[s][e] + 1就是John可以抽奖的最多的次数.其中求最短路径可以用floyd一次搞定.很经典的图论题.</p>
+<p><strong>代码</strong>:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">400</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</div><div class="line"><span class="keyword">int</span> dist[maxn][maxn];</div><div class="line"><span class="keyword">int</span> dp[maxn][maxn];</div><div class="line"><span class="keyword">int</span> P[maxn];</div><div class="line"><span class="keyword">int</span> N;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;N) == <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;P[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</div><div class="line">                <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;dist[i][j]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</div><div class="line">                <span class="keyword">if</span>(i == j) dp[i][j] = <span class="number">0</span>;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(P[i] + dist[i][j] &lt;= P[j]) &#123;</div><div class="line">                    dp[i][j] = <span class="number">-1</span>;</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    dp[i][j] = inf;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; N; k++) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</div><div class="line">                    dp[i][j] = min(dp[i][j], dp[i][k] + dp[k][j]);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">            <span class="keyword">if</span>(dist[<span class="number">0</span>][i] &lt;= P[i]) &#123;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; N; j++) &#123;</div><div class="line">                    <span class="keyword">if</span>(dp[i][j] &gt; <span class="number">0</span>) <span class="keyword">continue</span>;</div><div class="line">                    <span class="keyword">else</span> &#123;</div><div class="line">                        ans = max(ans, -dp[i][j] + <span class="number">1</span>);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2015-11-03-SOJ2113数字游戏" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/03/2015-11-03-SOJ2113数字游戏/" class="article-date">
+  	<time datetime="2015-11-03T02:27:53.000Z" itemprop="datePublished">2015-11-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/03/2015-11-03-SOJ2113数字游戏/">SOJ 2113 数字游戏</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>题意</strong>:丁丁最近沉迷于一个数字游戏之中。这个游戏看似简单，但丁丁在研究了许多天之后却发觉原来在简单的规则下想要赢得这个游戏并不那么容易。游戏是这样的，在你面前有一圈整数（一共n个），你要按顺序将其分为m个部分，各部分内的数字相加，相加所得的m个结果对10取模后再相乘，最终得到一个数k。游戏的要求是使你所得的k最大或者最小。 例如，对于下面这圈数字（n=4，m=2）：</p>
+<p><img src="http://acm.scu.edu.cn/soj/problem/2113/pic1.jpg" alt="这里写图片描述"><br>当要求最小值时，((2-1) mod 10)×((4+3) mod 10)=1×7=7，要求最大值时，为((2+4+3) mod 10)×(-1 mod 10)=9×9=81。特别值得注意的是，无论是负数还是正数，对10取模的结果均为非负值。 丁丁请你编写程序帮他赢得这个游戏。<br>Input<br>输入有多组数据，对于每一组数据：第一行有两个整数，n（1&lt;=n&lt;=50）和m（1&lt;=m&lt;=9）。以下n行每行有个整数，其绝对值不大于104，按顺序给出圈中的数字，首尾相接。</p>
+<p><strong>分析</strong>:很简单的dp,先不考虑起始点,以求最小值为例,对于序列a1, a2, a3 … an.定义dp[i][j]为前i个数字恰好分为j组时的最小值,转移方程为$dp[i][j] = min(dp[k][j-1] <em> a_(k+1) </em> … <em> a[i]) (0&lt;k&lt;i)$, 然后再枚举起点就可以做出来,总的时间复杂度为O(n^3</em>m)</p>
+<p><strong>代码</strong>:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">50</span> + <span class="number">1</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm = <span class="number">9</span> + <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="keyword">int</span> A[maxn], S[maxn];</div><div class="line"><span class="keyword">int</span> dp[maxn][maxm];</div><div class="line"><span class="keyword">int</span> dp2[maxn][maxm];</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">1000000000</span> + <span class="number">7</span>;</div><div class="line"><span class="keyword">int</span> n, m;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">next</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> t = A[<span class="number">0</span>];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++) &#123;</div><div class="line">        A[i] = A[i + <span class="number">1</span>];</div><div class="line">    &#125;</div><div class="line">    A[n - <span class="number">1</span>] = t;</div><div class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">        sum += A[i];</div><div class="line">        S[i + <span class="number">1</span>] = sum;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">DP</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</div><div class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= m; k++) &#123;</div><div class="line">                <span class="keyword">int</span> t = ((S[i] - S[j]) % <span class="number">10</span> + <span class="number">10</span>) % <span class="number">10</span>;</div><div class="line">                dp[i][k] = max(dp[i][k], dp[j][k - <span class="number">1</span>] * t);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> dp[n][m];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">DP2</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">memset</span>(dp2, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dp2));</div><div class="line">    dp2[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= m; k++) &#123;</div><div class="line">                <span class="keyword">int</span> t = ((S[i] - S[j]) % <span class="number">10</span> + <span class="number">10</span>)%<span class="number">10</span>;</div><div class="line">                <span class="keyword">if</span>(dp2[j][k - <span class="number">1</span>] != <span class="number">-1</span>) &#123;</div><div class="line">                    <span class="keyword">if</span>(dp2[i][k] == <span class="number">-1</span>) &#123;</div><div class="line">                        dp2[i][k] = dp2[j][k - <span class="number">1</span>] * t;</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        dp2[i][k] = min(dp2[i][k], dp2[j][k<span class="number">-1</span>] * t);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> dp2[n][m];</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m) == <span class="number">2</span>) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;A[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> maxres = <span class="number">0</span>, minres = inf;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">            next();</div><div class="line">            maxres = max(maxres, DP());</div><div class="line">            minres = min(minres, DP2());</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n%d\n"</span>, minres, maxres);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">

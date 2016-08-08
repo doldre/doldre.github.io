@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Codeforces 156b Suspects | Xinchen&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题意: 询问n个嫌疑人,每个人有两种回答,+i和-i, +i表示第i个人是罪犯,-i表示第i个人不是罪犯,每个人能且只能回答一次,已知有m个人说的是实话,问第i个人说的是实话还是谎话,或者不能确定.
+思路: 这个题其实重点就是根据有m个人说实话去判断谁是罪犯. 朴素的思路就是假设第i个人是罪犯,然后扫描所有人的回答,检测是否有m个人在说实话.但是这样复杂度是$O(n^2)$. 接下来就是如果去优">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Codeforces 156b Suspects">
+<meta property="og:url" content="http://doldre.github.io/2015/09/08/2015-09-08-Codeforces156bSuspects/index.html">
+<meta property="og:site_name" content="Xinchen's Blog">
+<meta property="og:description" content="题意: 询问n个嫌疑人,每个人有两种回答,+i和-i, +i表示第i个人是罪犯,-i表示第i个人不是罪犯,每个人能且只能回答一次,已知有m个人说的是实话,问第i个人说的是实话还是谎话,或者不能确定.
+思路: 这个题其实重点就是根据有m个人说实话去判断谁是罪犯. 朴素的思路就是假设第i个人是罪犯,然后扫描所有人的回答,检测是否有m个人在说实话.但是这样复杂度是$O(n^2)$. 接下来就是如果去优">
+<meta property="og:updated_time" content="2016-08-08T11:45:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Codeforces 156b Suspects">
+<meta name="twitter:description" content="题意: 询问n个嫌疑人,每个人有两种回答,+i和-i, +i表示第i个人是罪犯,-i表示第i个人不是罪犯,每个人能且只能回答一次,已知有m个人说的是实话,问第i个人说的是实话还是谎话,或者不能确定.
+思路: 这个题其实重点就是根据有m个人说实话去判断谁是罪犯. 朴素的思路就是假设第i个人是罪犯,然后扫描所有人的回答,检测是否有m个人在说实话.但是这样复杂度是$O(n^2)$. 接下来就是如果去优">
+  
+    <link rel="alternative" href="/atom.xml" title="Xinchen&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="0" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Xinchen Luo</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">For you thousands of times.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.findthem.cn">Mathon</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Xinchen Luo</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="0" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Xinchen Luo</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">For you thousands of times.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-2015-09-08-Codeforces156bSuspects" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/08/2015-09-08-Codeforces156bSuspects/" class="article-date">
+  	<time datetime="2015-09-08T14:45:48.000Z" itemprop="datePublished">2015-09-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Codeforces 156b Suspects
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>题意: 询问n个嫌疑人,每个人有两种回答,+i和-i, +i表示第i个人是罪犯,-i表示第i个人不是罪犯,每个人能且只能回答一次,已知有m个人说的是实话,问第i个人说的是实话还是谎话,或者不能确定.</li>
+<li>思路: 这个题其实重点就是根据有m个人说实话去判断谁是罪犯. 朴素的思路就是假设第i个人是罪犯,然后扫描所有人的回答,检测是否有m个人在说实话.但是这样复杂度是$O(n^2)$. 接下来就是如果去优化这个思路.假设第i个人是罪犯,可以知道如果有m个人说第i个人是罪犯,说某人不是罪犯的总人数为t_n,说第i个人不是罪犯的人数是n,那么可以知道此时说真话的人数是m + t_n - n.所以如果预处理出m,t_n,n就可以以O(1)的复杂度计算第i个人是不是罪犯,而预处理m,t_n,n的复杂度是O(n),随意最终的时间复杂度是O(n).</li>
+<li>一点小小的感想: 其实这道题是一个超级大水题,从题目编号就能看出来,但是还是将其写成题解是因为最开始思路不清晰,又用map又用set的,虽然把题目ac了,但是走了许多的弯路.代码也是修修补补的很丑. 一个算法的好坏的评价标准自己认为不能单单从时空复杂度来评判,代码的优美程度(简洁程度)也是很重要的,并且事实是往往很优美的算法也具有十分高效的效率. 所以在做一道题目的时候1.如果不能将这个算法<strong>从头到尾</strong>想清楚,就最好在多思考下,将细节已经算法的正确性想清楚后再开始写,不然很有可能做很多无用功,写了很多出来了,却发现从根本上就是错的.2.如果这个算法需要很多特判,比如用这个算法需要考虑非常多的特殊情况,需要将很多的情况分开处理,必须需要用很多的if语句,并且是<strong>不能一眼就看清楚流程</strong>的那种,也最好的停下来在多想一想,通常这种不会是最优解法,并且很有可能你会少考虑一些情况,进而整个算法也是错误的.最好的情况是这些复杂的不同的情况能够同一成一个问题解决.</li>
+<li>总结:一个好的算法应该是简洁而优雅的</li>
+<li>代码:<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100000</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">int</span> yes[maxn], no[maxn], ans[maxn];</div><div class="line"><span class="keyword">int</span> A[maxn];</div><div class="line"><span class="keyword">int</span> cnt;</div><div class="line"><span class="keyword">int</span> tot_yes, tot_no;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> n, m;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">        <span class="keyword">int</span> x;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x);</div><div class="line">        A[i] = x;</div><div class="line">        <span class="keyword">if</span>(x &gt; <span class="number">0</span>) &#123;</div><div class="line">            tot_yes++;</div><div class="line">            yes[x]++;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            tot_no++;</div><div class="line">            no[-x]++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">        <span class="keyword">if</span>(yes[i] + tot_no - no[i] == m) &#123;</div><div class="line">            ans[i] = <span class="number">1</span>;</div><div class="line">            cnt++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">        <span class="keyword">int</span> x = A[i];</div><div class="line">        <span class="keyword">if</span>(x &gt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">if</span>(ans[x]) &#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, cnt &gt; <span class="number">1</span> ? <span class="string">"Not defined"</span>: <span class="string">"Truth"</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"Lie\n"</span>);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            x = -x;</div><div class="line">            <span class="keyword">if</span>(ans[x]) &#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, cnt &gt; <span class="number">1</span> ? <span class="string">"Not defined"</span>: <span class="string">"Lie"</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"Truth\n"</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/09/09/2015-09-09-Codeforces156cCipher/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Codeforces 156c Cipher
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/07/2015-09-07-Codeforces156DClues(图论,并查集,卡特兰数)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Codeforces 156D Clues (图论, 并查集, 卡特兰数)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Xinchen Luo
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: /
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -4,21 +4,36 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Hello World | Xinchen&#39;s Blog</title>
+  <title>二叉树笔记 | Xinchen&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+  <meta name="description" content="二叉树的遍历有两种，一种是BFS遍历，一种是DFS遍历
+
+BFS遍历比较好理解，给出一个数，然后一层一层的往下遍历，而BFS一般用queue则可以实现
+DFS遍历又分为三种：先序遍历，中序遍历和后序遍历。
+
+先序遍历 ：
+= Root + PreOrder(leftChild) + PreOrder(rightChild)```12- 中序遍历 ：```InOrder(T)  = InOrder(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://doldre.github.io/2016/08/08/hello-world/index.html">
+<meta property="og:title" content="二叉树笔记">
+<meta property="og:url" content="http://doldre.github.io/2015/03/27/2015-03-27-二叉树笔记/index.html">
 <meta property="og:site_name" content="Xinchen's Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-08-08T11:26:23.000Z">
+<meta property="og:description" content="二叉树的遍历有两种，一种是BFS遍历，一种是DFS遍历
+
+BFS遍历比较好理解，给出一个数，然后一层一层的往下遍历，而BFS一般用queue则可以实现
+DFS遍历又分为三种：先序遍历，中序遍历和后序遍历。
+
+先序遍历 ：
+= Root + PreOrder(leftChild) + PreOrder(rightChild)```12- 中序遍历 ：```InOrder(T)  = InOrder(">
+<meta property="og:updated_time" content="2016-08-08T11:45:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="二叉树笔记">
+<meta name="twitter:description" content="二叉树的遍历有两种，一种是BFS遍历，一种是DFS遍历
+
+BFS遍历比较好理解，给出一个数，然后一层一层的往下遍历，而BFS一般用queue则可以实现
+DFS遍历又分为三种：先序遍历，中序遍历和后序遍历。
+
+先序遍历 ：
+= Root + PreOrder(leftChild) + PreOrder(rightChild)```12- 中序遍历 ：```InOrder(T)  = InOrder(">
   
     <link rel="alternative" href="/atom.xml" title="Xinchen&#39;s Blog" type="application/atom+xml">
   
@@ -194,11 +209,11 @@ Quick">
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-2015-03-27-二叉树笔记" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/08/08/hello-world/" class="article-date">
-  	<time datetime="2016-08-08T11:26:23.000Z" itemprop="datePublished">2016-08-08</time>
+      <a href="/2015/03/27/2015-03-27-二叉树笔记/" class="article-date">
+  	<time datetime="2015-03-27T11:44:00.000Z" itemprop="datePublished">2015-03-27</time>
 </a>
     </div>
   
@@ -211,7 +226,7 @@ Quick">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      二叉树笔记
     </h1>
   
 
@@ -227,15 +242,20 @@ Quick">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p><strong>二叉树的遍历有两种，一种是BFS遍历，一种是DFS遍历</strong></p>
+<ul>
+<li>BFS遍历比较好理解，给出一个数，然后一层一层的往下遍历，而BFS一般用queue则可以实现</li>
+<li><p>DFS遍历又分为三种：先序遍历，中序遍历和后序遍历。</p>
+<ul>
+<li><p>先序遍历 ：</p>
+<figure class="highlight plain"><figcaption><span>= Root + PreOrder(leftChild) + PreOrder(rightChild)```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- 中序遍历 ：</div><div class="line">```InOrder(T)  = InOrder(leftChild)  + Root + InOrder(rightChild)</div></pre></td></tr></table></figure>
+</li>
+<li><p>后序遍历 ： </p>
+<figure class="highlight plain"><figcaption><span>= PostOrder(leftChild) + PostOrder(rightChild) + Root```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&gt; **给出中序遍历后，再给出前序遍历与后续遍历中的任意一个便可以将整颗树构建出来。**</div><div class="line">&gt; 这里以给出中序遍历与前序遍历为例，在后续遍历中树根为最后一个元素。</div><div class="line">&gt; &gt; 根据前序遍历的特性，可以发现，前序遍历的第一个元素就是树根，然后再中序遍历中</div><div class="line">找到树根，左右两边便是左右子树，在中序遍历中确定子树长度，便可以在前序遍历中找到左右子树，代码如下：</div><div class="line"></div><div class="line">```cpp</div><div class="line">const int maxn = 50;</div><div class="line">char pre_order[maxn], in_order[maxn];</div><div class="line"></div><div class="line">struct Node &#123;</div><div class="line">    Node *lch, *rch;</div><div class="line">    char c;</div><div class="line">    Node(Node *lch = NULL, Node *rch = NULL, char c = 0):lch(lch), rch(rch), c(c) &#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Node* build(int in_L, int in_R, int pre_L, int pre_R) &#123;</div><div class="line">    if(in_L &gt; in_R) return NULL;</div><div class="line">    Node* root = new Node();</div><div class="line">    char ROOT = pre_order[pre_L];</div><div class="line">    root-&gt;c = ROOT;</div><div class="line">    int p = in_L;</div><div class="line">    while(ROOT != in_order[p]) p++;</div><div class="line">    int cnt = p - in_L;</div><div class="line">    root-&gt;lch = build(in_L, p - 1, pre_L + 1, pre_L + cnt);</div><div class="line">    root-&gt;rch = build(p + 1, in_R, pre_L + cnt + 1, pre_R);</div><div class="line">    return root;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -245,9 +265,18 @@ Quick">
     
 <nav id="article-nav">
   
+    <a href="/2015/03/29/2015-03-29-UVa1600PatrolRobot(BFS,多维状态）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          UVa 1600 Patrol Robot (BFS, 多维状态）
+        
+      </div>
+    </a>
   
-    <a href="/2016/05/10/2016-05-10-斜率优化小结/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">斜率优化小结</div>
+  
+    <a href="/2015/03/27/2015-03-27-简单二叉树UVa712/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">简单二叉树 UVa 712</div>
       <strong class="article-nav-caption">></strong>
     </a>
   

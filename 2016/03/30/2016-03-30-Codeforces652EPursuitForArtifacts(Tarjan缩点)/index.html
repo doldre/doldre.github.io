@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Codeforces 652E Pursuit For Artifacts(Tarjan 缩点) | Xinchen&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)[TOC]
+题意：
+有n个岛，m座桥，某些桥上有宝藏，每条桥只能经过一次，给出起点岛a和终点岛b，问能否从a走到b并带走至&amp;gt;少一个宝藏。
+
+思路：这道竟然是我的tarjan算法入门题，用tarjan缩点为树，如果是缩点后包含宝藏把这个点的权值设为非0，如果是桥，保留原来的权值，因为缩点后是一棵树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)">
+<meta property="og:url" content="http://doldre.github.io/2016/03/30/2016-03-30-Codeforces652EPursuitForArtifacts(Tarjan缩点)/index.html">
+<meta property="og:site_name" content="Xinchen's Blog">
+<meta property="og:description" content="#Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)[TOC]
+题意：
+有n个岛，m座桥，某些桥上有宝藏，每条桥只能经过一次，给出起点岛a和终点岛b，问能否从a走到b并带走至&amp;gt;少一个宝藏。
+
+思路：这道竟然是我的tarjan算法入门题，用tarjan缩点为树，如果是缩点后包含宝藏把这个点的权值设为非0，如果是桥，保留原来的权值，因为缩点后是一棵树">
+<meta property="og:updated_time" content="2016-08-08T11:45:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)">
+<meta name="twitter:description" content="#Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)[TOC]
+题意：
+有n个岛，m座桥，某些桥上有宝藏，每条桥只能经过一次，给出起点岛a和终点岛b，问能否从a走到b并带走至&amp;gt;少一个宝藏。
+
+思路：这道竟然是我的tarjan算法入门题，用tarjan缩点为树，如果是缩点后包含宝藏把这个点的权值设为非0，如果是桥，保留原来的权值，因为缩点后是一棵树">
+  
+    <link rel="alternative" href="/atom.xml" title="Xinchen&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="0" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Xinchen Luo</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">For you thousands of times.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.findthem.cn">Mathon</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Xinchen Luo</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img lazy-src="0" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Xinchen Luo</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">For you thousands of times.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-2016-03-30-Codeforces652EPursuitForArtifacts(Tarjan缩点)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/30/2016-03-30-Codeforces652EPursuitForArtifacts(Tarjan缩点)/" class="article-date">
+  	<time datetime="2016-03-30T07:14:00.000Z" itemprop="datePublished">2016-03-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)<br>[TOC]</p>
+<h2 id="题意："><a href="#题意：" class="headerlink" title="题意："></a>题意：</h2><blockquote>
+<p>有n个岛，m座桥，某些桥上有宝藏，每条桥只能经过一次，给出起点岛a和终点岛b，问能否从a走到b并带走至&gt;少一个宝藏。</p>
+</blockquote>
+<h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><p>这道竟然是我的tarjan算法入门题，用tarjan缩点为树，如果是缩点后包含宝藏把这个点的权值设为非0，如果是桥，保留原来的权值，因为缩点后是一棵树，所以直接dfs找到从a到b的路径，看路径中是否含权值非零的点或边即可。</p>
+<h2 id="PS："><a href="#PS：" class="headerlink" title="PS："></a>PS：</h2><p>在比赛时自己也是想了很多个解法的，但是最多也就跑过了第12组数据，看到了这个思路感觉确实很巧妙，看到某个大牛总结的，边只能走一次的这种情况大多需要用tarjan缩点为树。这道题学弟竟然用其他方法给ac，确实佩服。这道题也算是我学Tarjan后ac的第一道题吧，Tarjan算法着实是很优美！</p>
+<h2 id="AC-CODE："><a href="#AC-CODE：" class="headerlink" title="AC CODE："></a>AC CODE：</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">300000</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">int</span> n, m;</div><div class="line"><span class="keyword">struct</span> Edge &#123;</div><div class="line">    <span class="keyword">int</span> v, c;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> dfn[maxn], low[maxn], isin[maxn], id[maxn], dfsNum, bcc;</div><div class="line"><span class="keyword">int</span> stk[maxn], top;</div><div class="line"><span class="built_in">vector</span>&lt;Edge&gt; G[maxn];</div><div class="line"><span class="built_in">vector</span>&lt;Edge&gt; T[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> f)</span> </span>&#123;</div><div class="line">    dfn[u] = low[u] = ++dfsNum;</div><div class="line">    stk[++top] = u;</div><div class="line">    isin[u] = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span> (Edge e: G[u]) &#123;</div><div class="line">        <span class="keyword">int</span> v = e.v;</div><div class="line">        <span class="keyword">if</span>(v == f) <span class="keyword">continue</span>;</div><div class="line">        <span class="keyword">if</span>(!dfn[v]) &#123;</div><div class="line">            tarjan(v, u);</div><div class="line">            low[u] = min(low[u], low[v]);</div><div class="line">        &#125; <span class="keyword">else</span> low[u] = min(low[u], dfn[v]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(low[u] == dfn[u]) &#123;</div><div class="line">        ++bcc;</div><div class="line">        <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</div><div class="line">            <span class="keyword">int</span> v = stk[top--];</div><div class="line">            isin[v] = <span class="literal">false</span>;</div><div class="line">            id[v] = bcc;</div><div class="line">            <span class="keyword">if</span>(v == u) <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan_init</span><span class="params">()</span> </span>&#123;</div><div class="line">     bcc = dfsNum = <span class="number">0</span>;</div><div class="line">     <span class="built_in">memset</span>(dfn, <span class="number">0</span>, <span class="keyword">sizeof</span>(dfn));</div><div class="line">     tarjan(<span class="number">1</span>, <span class="number">-1</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> val[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> t, <span class="keyword">int</span> fa, <span class="keyword">int</span> sum)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(s == t) <span class="keyword">return</span> sum + val[t];</div><div class="line">    <span class="keyword">for</span> (Edge e: T[s]) &#123;</div><div class="line">         <span class="keyword">int</span> v = e.v;</div><div class="line">         <span class="keyword">if</span>(v == fa) <span class="keyword">continue</span>;</div><div class="line">         <span class="keyword">if</span>(dfs(v, t, s, sum + e.c +val[v])) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></div><div class="line">    freopen(<span class="string">"in.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</div><div class="line">        <span class="keyword">int</span> u, v, c;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;u, &amp;v, &amp;c);</div><div class="line">        G[u].push_back(&#123;v, c&#125;);</div><div class="line">        G[v].push_back(&#123;u, c&#125;);</div><div class="line">    &#125;</div><div class="line">    tarjan_init();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">         <span class="keyword">int</span> u = id[i];</div><div class="line">         <span class="keyword">for</span> (Edge e: G[i]) &#123;</div><div class="line">             <span class="keyword">int</span> v = id[e.v];</div><div class="line">             <span class="keyword">if</span>(u == v) val[u] += e.c;</div><div class="line">             <span class="keyword">else</span> T[u].push_back(&#123;v, e.c&#125;);</div><div class="line">         &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> s, t;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;s, &amp;t);</div><div class="line">    <span class="built_in">puts</span>(dfs(id[s], id[t], <span class="number">-1</span>, val[id[s]]) ? <span class="string">"YES"</span> : <span class="string">"NO"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/05/10/2016-05-10-斜率优化小结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          斜率优化小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/18/2016-03-18-hihocoder*Divisors*/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hihocoder *Divisors*</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Xinchen Luo
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: /
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
