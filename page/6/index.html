@@ -270,116 +270,6 @@
             
               
                 
-                <a class="post-title-link" href="/2015/04/02/2015-04-02-拓扑排序/" itemprop="url">
-                  拓扑排序
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-02T13:43:00+08:00" content="2015-04-02">
-              2015-04-02
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/04/02/2015-04-02-拓扑排序/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/02/2015-04-02-拓扑排序/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>拓扑排序</strong></p>
-<p><a href="http://blog.csdn.net/dm_vincent/article/details/7714519" target="_blank" rel="external">http://blog.csdn.net/dm_vincent/article/details/7714519</a> 这篇文章中对拓扑排序讲的非常详细</p>
-<ol>
-<li>拓扑排序和离散数学中的偏序/全序的概念相关。</li>
-<li>拓扑排序的算法实现有两种，一种是BFS实现的kahn算法,另一种是通过DFS实现。</li>
-<li>两种算法的伪代码都已经十分清楚，实际使用过程中，BFS较为好用，对于需要处理中间过程的题目，BFS更容易处理。比如POJ3687这道神器的拓扑排序题目<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">BFS：</div><div class="line">L← Empty list that will contain the sorted elements</div><div class="line"> S ← Set of all nodes with no incoming edges</div><div class="line">while S is non-empty  do</div><div class="line">     remove a node n from S</div><div class="line">     insert n into L</div><div class="line">     foreach node m with an edge  e from nto m do</div><div class="line">         remove edge e from thegraph</div><div class="line">         ifm has no other incoming edges  then</div><div class="line">             insert m into S</div><div class="line">if graph has edges  then</div><div class="line">     return error (graph has at least onecycle)</div><div class="line">else </div><div class="line">     return L (a topologically sortedorder)</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">DFS</div><div class="line">L ← Empty list that will contain the sorted nodes</div><div class="line"> S ← Set of all nodes with no outgoing edges</div><div class="line">for each node n in S  do</div><div class="line">     visit(n) </div><div class="line">function visit(node n)</div><div class="line">     if n has not been visited yet  then</div><div class="line">         mark n as visited</div><div class="line">         for each node m with an edgefrom m to ndo</div><div class="line">             visit(m)</div><div class="line">         add n to L</div></pre></td></tr></table></figure>
-<p><em>拓扑排序的题目</em><br><a href="http://poj.org/problem?id=1094" target="_blank" rel="external">POJ1094</a> <a href="http://poj.org/problem?id=3687" target="_blank" rel="external">POJ3687</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2015/04/02/2015-04-02-最大连续子串和（简单DP）/" itemprop="url">
                   最大连续子串和（简单DP）
                 </a>
@@ -1287,7 +1177,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">59</span>
+              <span class="site-state-item-count">58</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
