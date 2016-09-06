@@ -270,6 +270,107 @@
             
               
                 
+                <a class="post-title-link" href="/2015/05/20/2015-05-20-ZOJ3802Easy2048Again(状压DP)/" itemprop="url">
+                  ZOJ3802 Easy 2048 Again (状压DP)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-05-20T14:35:57+08:00" content="2015-05-20">
+              2015-05-20
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/05/20/2015-05-20-ZOJ3802Easy2048Again(状压DP)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/20/2015-05-20-ZOJ3802Easy2048Again(状压DP)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>名字是Easy 2048， 一点都不Easy。 难点在于状态压缩，这道题的关键点在于像出现 8 4 2 8这种情况， 因为往后继续增长序列 8肯定会越合并越大，而前面2是小于8的 不可能被合并，所以只需记录能够合并的状态就好了。而500 个 16 最多只能合并到 4096， 所以用一个 1&lt;&lt;13 大小的数组就能保存完所有状态。规定dp[i][j]为 第i个数加入后 状态为j的 最大值，状态j表示的是合并后 连续递减的序列。比如 8 4 2 的状态j为 1110b, 16 8 4 2 的状态j为 11110b， 8 4 2 8的状态j 为 1000b，可以发现 8 4 2 8的状态和 单独 8的状态是一样的。因为8 4 2 8，和 8 无论后面出现什么数字，他俩的合并情况是一样的。因为 8 4 2 8前面的 8 4 2不能继续合并了，所以只需记录8就好了。如果两种情况的状态相同 取其中值大的就好了。 写的有点啰嗦，希望能把思路写清楚，其实动手模拟一下就很容易明白了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_N = <span class="number">1</span> &lt;&lt; <span class="number">13</span>;   <span class="comment">//因为500*16 = 8000 &lt; 8192 所以数组 开成1&lt;&lt;13的大小就够了。</span></div><div class="line"><span class="keyword">int</span> dp[<span class="number">2</span>][MAX_N];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> T;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</div><div class="line">    <span class="keyword">while</span>(T--) &#123;</div><div class="line">        <span class="built_in">memset</span>(dp, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dp)); <span class="comment">//初始化为-1，-1表示该状态不存在。</span></div><div class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>; dp[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">0</span>; <span class="comment">//显然最开始一个都没有的时候，状态为0，此时得分也为0。</span></div><div class="line">        <span class="keyword">int</span> cur = <span class="number">0</span>, n = <span class="number">0</span>;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</div><div class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;cur);</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; MAX_N; j++) &#123;</div><div class="line">                <span class="keyword">if</span>(dp[!(i&amp;<span class="number">1</span>)][j] != <span class="number">-1</span>) &#123;</div><div class="line">                    dp[i&amp;<span class="number">1</span>][j] = max(dp[!(i&amp;<span class="number">1</span>)][j], dp[i&amp;<span class="number">1</span>][j]); <span class="comment">//滚动数组，及时更新当前行的状态！！！！！</span></div><div class="line">                    <span class="keyword">int</span> next; </div><div class="line">                    <span class="keyword">if</span>(j&amp;(cur<span class="number">-1</span>)) &#123; <span class="comment">// 当lowbit(j) &lt; cur 的时候 ，j&amp;(cur-1)为1</span></div><div class="line">                        next = cur; <span class="comment">//next 为下一个状态</span></div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">else</span> &#123;</div><div class="line">                        next = j + cur;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">int</span> s = <span class="number">0</span>; <span class="comment">//额外的奖励分</span></div><div class="line">                    <span class="keyword">int</span> p = j;</div><div class="line">                    <span class="keyword">int</span> t = cur;</div><div class="line">                    <span class="keyword">if</span>(!(j&amp;(cur - <span class="number">1</span>))) <span class="keyword">while</span>(p &amp; t) &#123; <span class="comment">//当可以合并时，计算奖励的得分</span></div><div class="line">                        p -= t;</div><div class="line">                        t &lt;&lt;= <span class="number">1</span>;</div><div class="line">                        s += t;</div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                    <span class="keyword">if</span>(dp[!(i&amp;<span class="number">1</span>)][j] + cur + s &gt; dp[i&amp;<span class="number">1</span>][next]) &#123;</div><div class="line">                        dp[i&amp;<span class="number">1</span>][next] = dp[!(i&amp;<span class="number">1</span>)][j] + cur + s; <span class="comment">//更新该状态下的最大值</span></div><div class="line">                    &#125;</div><div class="line">                    ans = max(dp[i&amp;<span class="number">1</span>][next], ans); <span class="comment">//跟新全局最大值</span></div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/05/05/2015-05-05-POJ2785(折半枚举，水题，二分搜索）/" itemprop="url">
                   POJ2785(折半枚举，水题，二分搜索）
                 </a>
@@ -1206,106 +1307,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/04/20/2015-04-20-Codeforces-154B(周赛第4题）/" itemprop="url">
-                  Codeforces-154B(周赛第4题）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-20T14:46:01+08:00" content="2015-04-20">
-              2015-04-20
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/04/20/2015-04-20-Codeforces-154B(周赛第4题）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/20/2015-04-20-Codeforces-154B(周赛第4题）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">\\第三场周赛第四题，处理方法很巧妙，通过打表质因数快速分解，通过找出质因数快速判断此数是否和已经两两互质的集合中的数互质，十分巧妙，AC代码...</div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100000</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">int</span> a[maxn], b[maxn];</div><div class="line"><span class="keyword">char</span> on[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> n, m;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;=n; i++) <span class="keyword">if</span>(!a[i])</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt;= n; j += i) a[j] = i;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</div><div class="line">        <span class="keyword">char</span> c; <span class="keyword">int</span> num;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"\n%c %d"</span>, &amp;c, &amp;num);</div><div class="line">        <span class="keyword">if</span>(c == <span class="string">'+'</span>) &#123;</div><div class="line">            <span class="keyword">if</span>(on[num]) <span class="built_in">puts</span>(<span class="string">"Already on"</span>);</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">bool</span> success = <span class="literal">true</span>;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = num; j &gt; <span class="number">1</span>;) &#123;</div><div class="line">                    <span class="keyword">int</span> t = a[j];</div><div class="line">                    <span class="keyword">if</span>(b[t]) &#123;</div><div class="line">                        <span class="built_in">printf</span>(<span class="string">"Conflict with %d\n"</span>, b[t]);</div><div class="line">                        success = <span class="literal">false</span>;</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">do</span> j /= t; <span class="keyword">while</span>(j % t == <span class="number">0</span>);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(success) &#123;</div><div class="line">                    on[num] = <span class="number">1</span>;</div><div class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> j = num; j &gt; <span class="number">1</span>;) &#123;</div><div class="line">                        <span class="keyword">int</span> t = a[j];</div><div class="line">                        b[t] = num;</div><div class="line">                        <span class="keyword">do</span> j /= t; <span class="keyword">while</span>(j % t == <span class="number">0</span>);</div><div class="line">                    &#125;</div><div class="line">                    <span class="built_in">puts</span>(<span class="string">"Success"</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(c == <span class="string">'-'</span>) &#123;</div><div class="line">            <span class="keyword">if</span>(!on[num]) <span class="built_in">puts</span>(<span class="string">"Already off"</span>);</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = num; j &gt; <span class="number">1</span>;) &#123;</div><div class="line">                    <span class="keyword">int</span> t = a[j];</div><div class="line">                    b[t] = <span class="number">0</span>;</div><div class="line">                    <span class="keyword">do</span> j /= t; <span class="keyword">while</span>(j % t == <span class="number">0</span>);</div><div class="line">                &#125;</div><div class="line">                on[num] = <span class="number">0</span>;</div><div class="line">                <span class="built_in">puts</span>(<span class="string">"Success"</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1351,7 +1352,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-count">67</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1368,7 +1369,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
