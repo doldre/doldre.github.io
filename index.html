@@ -339,15 +339,17 @@
 
       
         
-          
-            <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给一个n*m的矩阵，其中随着时间增长会出现一些障碍，问矩阵上端和下端开始隔开的时间</p>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给一个n*m的矩阵，其中随着时间增长会出现一些障碍，问矩阵上端和下端开始隔开的时间</p>
 <h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><ol>
 <li>二分时间，判断是否联通</li>
 <li>并查集</li>
 </ol>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>并查集代码:<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div></pre></td><td class="code"><pre><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;stack&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">using namespace std;</div><div class="line">#define pr(x) cout &lt;&lt; #x &lt;&lt; " = " &lt;&lt; x &lt;&lt; " " </div><div class="line">#define prln(x) cout &lt;&lt; #x &lt;&lt; " = " &lt;&lt; x &lt;&lt; endl</div><div class="line">typedef pair&lt;int, int&gt; pii;</div><div class="line">typedef long long ll;</div><div class="line"></div><div class="line">const int maxn = 500 + 5;</div><div class="line">int mp[maxn][maxn];</div><div class="line">struct DSU &#123;</div><div class="line">    int par[maxn*maxn], n;</div><div class="line">    void init(int n) &#123;</div><div class="line">        this-&gt;n = n;</div><div class="line">        for (int i = 0; i &lt;= n; i++) &#123;</div><div class="line">            par[i] = i;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    int find(int x) &#123;</div><div class="line">        return x == par[x] ? x : par[x] = find(par[x]);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    void merge(int a, int b) &#123;</div><div class="line">        a = find(a), b = find(b);</div><div class="line">        par[b] = a;</div><div class="line">    &#125;</div><div class="line">&#125;dsu;</div><div class="line"></div><div class="line">int T, N, M, Q;</div><div class="line">char str[maxn];</div><div class="line"></div><div class="line">const int dx[] = &#123;-1, 1, 0, 0&#125;;</div><div class="line">const int dy[] = &#123;0, 0, -1, 1&#125;;</div><div class="line"></div><div class="line">int id(int x, int y) &#123;</div><div class="line">    return x * M + y + 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int s, t;</div><div class="line">void work(int x, int y) &#123;</div><div class="line">    if(x == 0) &#123;</div><div class="line">        dsu.merge(s, id(x, y));</div><div class="line">    &#125;</div><div class="line">    if(x == N - 1) &#123;</div><div class="line">        dsu.merge(t, id(x, y));</div><div class="line">    &#125;</div><div class="line">    for (int i = 0; i &lt; 4; i++) &#123;</div><div class="line">        int nx = x + dx[i], ny = y + dy[i];</div><div class="line">        if(nx &gt;= 0 &amp;&amp; nx &lt; N &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; M) &#123;</div><div class="line">            if(mp[nx][ny] == 0) &#123;</div><div class="line">                dsu.merge(id(x, y), id(nx, ny));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int qx[maxn*maxn], qy[maxn*maxn];</div><div class="line"></div><div class="line">int main() &#123;</div><div class="line">#ifdef LOCAL</div><div class="line">	//freopen("in.txt", "r", stdin);</div><div class="line">	//freopen("out.txt", 'w', stdout);</div><div class="line">#endif</div><div class="line">    scanf("%d", &amp;T);</div><div class="line">    while(T--) &#123;</div><div class="line">        scanf("%d%d", &amp;N, &amp;M);</div><div class="line">        for (int i = 0; i &lt; N; i++) &#123;</div><div class="line">            scanf("%s", str);</div><div class="line">            for (int j = 0; j &lt; M; j++) &#123;</div><div class="line">                mp[i][j] = str[j] - '0';</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        scanf("%d", &amp;Q);</div><div class="line">        for (int i = 1; i &lt;= Q; i++) &#123;</div><div class="line">            scanf("%d%d", &amp;qx[i], &amp;qy[i]);</div><div class="line">            mp[qx[i]][qy[i]] = 1;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        dsu.init(N*M + 1);</div><div class="line">        s = 0, t = N * M + 1;</div><div class="line">            </div><div class="line">        for (int i = 0; i &lt; N; i++) &#123;</div><div class="line">            for (int j = 0; j &lt; M; j++) &#123;</div><div class="line">                if(mp[i][j] == 0) &#123;</div><div class="line">                    work(i, j);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        if(dsu.find(s) == dsu.find(t)) &#123;</div><div class="line">            printf("-1\n");</div><div class="line">        &#125; else &#123;</div><div class="line">            int i;</div><div class="line">            for (i = Q; i &gt;= 1; i--) &#123;</div><div class="line">                mp[qx[i]][qy[i]] = 0;</div><div class="line">                work(qx[i], qy[i]);</div><div class="line">                if(dsu.find(s) == dsu.find(t)) &#123;</div><div class="line">                    printf("%d\n", i);</div><div class="line">                    break;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            if(i == 0) &#123;</div><div class="line">                printf("0\n");</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/05/暑期集训-7-4-d/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -519,128 +521,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/05/暑期集训-7-4-b/" itemprop="url">
-                  暑期集训-7-4-b
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-05T15:40:39+08:00" content="2016-09-05">
-              2016-09-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/2016暑期集训/" itemprop="url" rel="index">
-                    <span itemprop="name">2016暑期集训</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/05/暑期集训-7-4-b/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/暑期集训-7-4-b/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>SOJ 3596<br>KMP 水题<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/05/暑期集训-7-4-b/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/09/05/暑期集训-7-4-a/" itemprop="url">
                   暑期集训-7-4-a
                 </a>
@@ -715,6 +595,128 @@
 <p>N 扇门，若这扇门权值xi为正，则花费|xi|的时间走出迷宫，否则花费|xi|时间回到原地。<br>求走出迷宫的期望。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/05/暑期集训-7-4-a/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/05/暑期集训-7-4-b/" itemprop="url">
+                  暑期集训-7-4-b
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-05T15:40:39+08:00" content="2016-09-05">
+              2016-09-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/2016暑期集训/" itemprop="url" rel="index">
+                    <span itemprop="name">2016暑期集训</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/05/暑期集训-7-4-b/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/暑期集训-7-4-b/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>SOJ 3596<br>KMP 水题<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/05/暑期集训-7-4-b/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
