@@ -87,21 +87,18 @@
 
 
 <meta name="description" content="题意从[1,n]中选3个数，问能组成多少个三角形。
-做法简单组合计数，推出公式就好了
-代码123456789101112131415161718192021222324252627282930313233343536373839404142#include &amp;lt;cstdio&amp;gt;#include &amp;lt;cstdlib&amp;gt;#include &amp;lt;iostream&amp;gt;#include">
+做法简单组合计数，推出公式就好了">
 <meta property="og:type" content="article">
 <meta property="og:title" content="暑期集训-7-4-k">
 <meta property="og:url" content="http://luoxinchen.me/2016/09/06/暑期集训-7-4-k/index.html">
 <meta property="og:site_name" content="Xinchen's Blog">
 <meta property="og:description" content="题意从[1,n]中选3个数，问能组成多少个三角形。
-做法简单组合计数，推出公式就好了
-代码123456789101112131415161718192021222324252627282930313233343536373839404142#include &amp;lt;cstdio&amp;gt;#include &amp;lt;cstdlib&amp;gt;#include &amp;lt;iostream&amp;gt;#include">
-<meta property="og:updated_time" content="2016-09-06T09:08:33.000Z">
+做法简单组合计数，推出公式就好了">
+<meta property="og:updated_time" content="2016-09-06T12:31:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="暑期集训-7-4-k">
 <meta name="twitter:description" content="题意从[1,n]中选3个数，问能组成多少个三角形。
-做法简单组合计数，推出公式就好了
-代码123456789101112131415161718192021222324252627282930313233343536373839404142#include &amp;lt;cstdio&amp;gt;#include &amp;lt;cstdlib&amp;gt;#include &amp;lt;iostream&amp;gt;#include">
+做法简单组合计数，推出公式就好了">
 
 
 
@@ -341,7 +338,7 @@
 
       
         <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>从[1,n]中选3个数，问能组成多少个三角形。</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>简单组合计数，推出公式就好了</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>简单组合计数，推出公式就好了<br><a id="more"></a></p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;stack&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">using namespace std;</div><div class="line">#define pr(x) cout &lt;&lt; #x &lt;&lt; " = " &lt;&lt; x &lt;&lt; " " </div><div class="line">#define prln(x) cout &lt;&lt; #x &lt;&lt; " = " &lt;&lt; x &lt;&lt; endl</div><div class="line">typedef pair&lt;int, int&gt; pii;</div><div class="line">typedef long long ll;</div><div class="line"></div><div class="line">const int maxn = 1e6 + 5;</div><div class="line">ll f[maxn];</div><div class="line">ll c(ll x) &#123;</div><div class="line">    return ((x - 2) * (x - 1) / 2 - (x - 1) / 2) / 2;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void init() &#123;</div><div class="line">    f[3] = 0;</div><div class="line">    for (int i = 4; i &lt; maxn; i++) &#123;</div><div class="line">        f[i] = f[i - 1] + c(i);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">int main() &#123;</div><div class="line">#ifdef LOCAL</div><div class="line">	//freopen("in.txt", "r", stdin);</div><div class="line">	//freopen("out.txt", 'w', stdout);</div><div class="line">#endif</div><div class="line">    init();</div><div class="line">    int n;</div><div class="line">    while(cin &gt;&gt; n &amp;&amp; n &gt;= 3) &#123;</div><div class="line">        printf("%lld\n", f[n]);</div><div class="line">    &#125;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
