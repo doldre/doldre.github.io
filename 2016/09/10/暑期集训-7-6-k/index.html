@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="题意找一段最小的连续的区间，包含所有出现过的数字
+<meta name="description" content="题意POJ 3320找一段最小的连续的区间，包含所有出现过的数字
 做法two pointers">
 <meta property="og:type" content="article">
 <meta property="og:title" content="暑期集训-7-6-k">
 <meta property="og:url" content="http://luoxinchen.me/2016/09/10/暑期集训-7-6-k/index.html">
 <meta property="og:site_name" content="Xinchen's Blog">
-<meta property="og:description" content="题意找一段最小的连续的区间，包含所有出现过的数字
+<meta property="og:description" content="题意POJ 3320找一段最小的连续的区间，包含所有出现过的数字
 做法two pointers">
-<meta property="og:updated_time" content="2016-09-10T02:18:43.000Z">
+<meta property="og:updated_time" content="2016-09-10T02:20:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="暑期集训-7-6-k">
-<meta name="twitter:description" content="题意找一段最小的连续的区间，包含所有出现过的数字
+<meta name="twitter:description" content="题意POJ 3320找一段最小的连续的区间，包含所有出现过的数字
 做法two pointers">
 
 
@@ -337,7 +337,7 @@
       
 
       
-        <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>找一段最小的连续的区间，包含所有出现过的数字</p>
+        <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>POJ 3320<br>找一段最小的连续的区间，包含所有出现过的数字</p>
 <h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>two pointers<br><a id="more"></a></p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">/************************************************</div><div class="line"> *Author        :mathon</div><div class="line"> *Email         :luoxinchen96@gmail.com</div><div class="line"> *************************************************/</div><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;ctime&gt;</div><div class="line">#include &lt;stack&gt;</div><div class="line">using namespace std;</div><div class="line">typedef pair&lt;int, int&gt; pii;</div><div class="line">typedef long long ll;</div><div class="line">typedef unsigned long long ull;</div><div class="line">#define xx first</div><div class="line">#define lowbit(x) (x&amp;-x)</div><div class="line">#define yy second</div><div class="line">#define pr(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; " "</div><div class="line">#define prln(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; endl</div><div class="line">const int inf = 0x3f3f3f3f;</div><div class="line">const int maxn = 1e6 + 6;</div><div class="line">int A[maxn];</div><div class="line">int V[maxn];</div><div class="line">int n;</div><div class="line">int cnt[maxn];</div><div class="line">int main(void) &#123;</div><div class="line">#ifdef MATHON</div><div class="line">    //freopen("in.txt", "r", stdin);</div><div class="line">    //freopen("out.txt", "w", stdout);</div><div class="line">#endif</div><div class="line">    while(scanf("%d", &amp;n) == 1) &#123;</div><div class="line">        for (int i = 1; i &lt;= n; i++) &#123;</div><div class="line">            scanf("%d", &amp;A[i]);</div><div class="line">            V[i-1] = A[i]; </div><div class="line">        &#125;</div><div class="line">        sort(V, V + n);</div><div class="line">        int m = unique(V, V + n) - V;</div><div class="line">        for (int i = 1; i &lt;= n; i++) &#123;</div><div class="line">            A[i] = lower_bound(V, V + m, A[i]) - V;</div><div class="line">        &#125;</div><div class="line">        int ans = inf; </div><div class="line">        memset(cnt, 0, sizeof(cnt));</div><div class="line">        for (int l = 1, r = 1, c = 0; r &lt;= n; r++) &#123;</div><div class="line">            if(cnt[A[r]]++ == 0) c++;</div><div class="line">            while(c == m) &#123;</div><div class="line">                ans = min(ans, r - l + 1);</div><div class="line">                cnt[A[l]]--;</div><div class="line">                if(cnt[A[l]] == 0) c--;</div><div class="line">                l++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        printf("%d\n", ans);</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
@@ -384,6 +384,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/10/暑期集训-7-6-l/" rel="prev" title="暑期集训-7-6-l">
+                暑期集训-7-6-l <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -455,7 +459,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">79</span>
+              <span class="site-state-item-count">87</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -472,7 +476,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
