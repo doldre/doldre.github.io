@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://luoxinchen.me/"/>
-  <updated>2016-09-09T03:49:54.000Z</updated>
+  <updated>2016-09-10T02:18:43.000Z</updated>
   <id>http://luoxinchen.me/</id>
   
   <author>
@@ -14,6 +14,208 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>暑期集训-7-6-k</title>
+    <link href="http://luoxinchen.me/2016/09/10/%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD-7-6-k/"/>
+    <id>http://luoxinchen.me/2016/09/10/暑期集训-7-6-k/</id>
+    <published>2016-09-10T02:16:49.000Z</published>
+    <updated>2016-09-10T02:18:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>找一段最小的连续的区间，包含所有出现过的数字</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>two pointers<br><a id="more"></a></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">/************************************************</div><div class="line"> *Author        :mathon</div><div class="line"> *Email         :luoxinchen96@gmail.com</div><div class="line"> *************************************************/</div><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;ctime&gt;</div><div class="line">#include &lt;stack&gt;</div><div class="line">using namespace std;</div><div class="line">typedef pair&lt;int, int&gt; pii;</div><div class="line">typedef long long ll;</div><div class="line">typedef unsigned long long ull;</div><div class="line">#define xx first</div><div class="line">#define lowbit(x) (x&amp;-x)</div><div class="line">#define yy second</div><div class="line">#define pr(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; " "</div><div class="line">#define prln(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; endl</div><div class="line">const int inf = 0x3f3f3f3f;</div><div class="line">const int maxn = 1e6 + 6;</div><div class="line">int A[maxn];</div><div class="line">int V[maxn];</div><div class="line">int n;</div><div class="line">int cnt[maxn];</div><div class="line">int main(void) &#123;</div><div class="line">#ifdef MATHON</div><div class="line">    //freopen("in.txt", "r", stdin);</div><div class="line">    //freopen("out.txt", "w", stdout);</div><div class="line">#endif</div><div class="line">    while(scanf("%d", &amp;n) == 1) &#123;</div><div class="line">        for (int i = 1; i &lt;= n; i++) &#123;</div><div class="line">            scanf("%d", &amp;A[i]);</div><div class="line">            V[i-1] = A[i]; </div><div class="line">        &#125;</div><div class="line">        sort(V, V + n);</div><div class="line">        int m = unique(V, V + n) - V;</div><div class="line">        for (int i = 1; i &lt;= n; i++) &#123;</div><div class="line">            A[i] = lower_bound(V, V + m, A[i]) - V;</div><div class="line">        &#125;</div><div class="line">        int ans = inf; </div><div class="line">        memset(cnt, 0, sizeof(cnt));</div><div class="line">        for (int l = 1, r = 1, c = 0; r &lt;= n; r++) &#123;</div><div class="line">            if(cnt[A[r]]++ == 0) c++;</div><div class="line">            while(c == m) &#123;</div><div class="line">                ans = min(ans, r - l + 1);</div><div class="line">                cnt[A[l]]--;</div><div class="line">                if(cnt[A[l]] == 0) c--;</div><div class="line">                l++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        printf("%d\n", ans);</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;题意&quot;&gt;&lt;a href=&quot;#题意&quot; class=&quot;headerlink&quot; title=&quot;题意&quot;&gt;&lt;/a&gt;题意&lt;/h2&gt;&lt;p&gt;找一段最小的连续的区间，包含所有出现过的数字&lt;/p&gt;
+&lt;h2 id=&quot;做法&quot;&gt;&lt;a href=&quot;#做法&quot; class=&quot;headerlink&quot; title=&quot;做法&quot;&gt;&lt;/a&gt;做法&lt;/h2&gt;&lt;p&gt;two pointers&lt;br&gt;
+    
+    </summary>
+    
+      <category term="2016暑期集训" scheme="http://luoxinchen.me/categories/2016%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+    
+      <category term="ACM" scheme="http://luoxinchen.me/tags/ACM/"/>
+    
+      <category term="2016 暑期集训" scheme="http://luoxinchen.me/tags/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+      <category term="POJ" scheme="http://luoxinchen.me/tags/POJ/"/>
+    
+      <category term="two pointers" scheme="http://luoxinchen.me/tags/two-pointers/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>暑期集训-7-6-j</title>
+    <link href="http://luoxinchen.me/2016/09/10/%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD-7-6-j/"/>
+    <id>http://luoxinchen.me/2016/09/10/暑期集训-7-6-j/</id>
+    <published>2016-09-10T02:09:59.000Z</published>
+    <updated>2016-09-10T02:14:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给一个M*N的01矩阵，每次可以反转一个位置，但其上下左右的位置也会跟着反转，问最后能否把这个矩阵反转为全为0，并输出方案</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>枚举第一行的反转方案，递推 O(2^m * n)<br><a id="more"></a></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line">/************************************************</div><div class="line"> *Author        :mathon</div><div class="line"> *Email         :luoxinchen96@gmail.com</div><div class="line"> *************************************************/</div><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;ctime&gt;</div><div class="line">#include &lt;stack&gt;</div><div class="line">using namespace std;</div><div class="line">typedef pair&lt;int, int&gt; pii;</div><div class="line">typedef long long ll;</div><div class="line">typedef unsigned long long ull;</div><div class="line">#define xx first</div><div class="line">#define lowbit(x) (x&amp;-x)</div><div class="line">#define yy second</div><div class="line">#define pr(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; " "</div><div class="line">#define prln(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; endl</div><div class="line">const int inf = 0x3f3f3f3f;</div><div class="line">const int maxn = 15;</div><div class="line">int M, N;</div><div class="line">int src[maxn];</div><div class="line">int dp[maxn];</div><div class="line">int buf[maxn];</div><div class="line">int ans[maxn];</div><div class="line">void work(int &amp;x, int mask) &#123;</div><div class="line">    for (int i = 0; i &lt; N; i++) &#123;</div><div class="line">        if((mask &gt;&gt; i) &amp; 1) &#123;</div><div class="line">            x ^= 1&lt;&lt;i;</div><div class="line">            x ^= (1&lt;&lt;i) &gt;&gt; 1;</div><div class="line">            if(i &lt; N - 1) x ^= ((1&lt;&lt;i)&lt;&lt;1);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main(void) &#123;</div><div class="line">#ifdef MATHON</div><div class="line">    //freopen("in.txt", "r", stdin);</div><div class="line">    //freopen("out.txt", "w", stdout);</div><div class="line">#endif</div><div class="line">    scanf("%d%d", &amp;M, &amp;N);</div><div class="line">    memset(dp, 0, sizeof(0));</div><div class="line">    memset(src, 0, sizeof(src));</div><div class="line">    for (int i = 0; i &lt; M; i++) &#123;</div><div class="line">        for (int j = 0; j &lt; N; j++) &#123;</div><div class="line">            int x; scanf("%d", &amp;x);</div><div class="line">            src[i] |= x &lt;&lt; (N - j - 1);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    int cnt = inf;</div><div class="line">    for (int mask = 0; mask &lt; (1 &lt;&lt; N); mask++) &#123;</div><div class="line">        memcpy(dp, src, sizeof(src));</div><div class="line">        int t = mask;</div><div class="line">        for (int i = 0; i &lt; M; i++) &#123;</div><div class="line">            work(dp[i], t);</div><div class="line">            buf[i] = t;</div><div class="line">            if(i + 1 &lt; M) &#123;</div><div class="line">                dp[i+1] ^= t;</div><div class="line">            &#125;</div><div class="line">            t = dp[i];</div><div class="line">        &#125;</div><div class="line">        if(dp[M-1] == 0) &#123;</div><div class="line">            int t = 0;</div><div class="line">            for (int i = 0; i &lt; M; i++) &#123;</div><div class="line">                t += __builtin_popcount(buf[i]);</div><div class="line">            &#125;</div><div class="line">            if(t &lt; cnt) &#123;</div><div class="line">                cnt = t;</div><div class="line">                memcpy(ans, buf, sizeof(buf));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    if(cnt == inf) &#123;</div><div class="line">        printf("IMPOSSIBLE\n");</div><div class="line">    &#125; else &#123;</div><div class="line">        for (int i = 0; i &lt; M; i++) &#123;</div><div class="line">            for (int j = 0; j &lt; N; j++) &#123;</div><div class="line">                printf("%d%c", ((ans[i]&gt;&gt;(N-1-j)) &amp; 1), </div><div class="line">                        j == N - 1 ? '\n' : ' ');</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;题意&quot;&gt;&lt;a href=&quot;#题意&quot; class=&quot;headerlink&quot; title=&quot;题意&quot;&gt;&lt;/a&gt;题意&lt;/h2&gt;&lt;p&gt;给一个M*N的01矩阵，每次可以反转一个位置，但其上下左右的位置也会跟着反转，问最后能否把这个矩阵反转为全为0，并输出方案&lt;/p&gt;
+&lt;h2 id=&quot;做法&quot;&gt;&lt;a href=&quot;#做法&quot; class=&quot;headerlink&quot; title=&quot;做法&quot;&gt;&lt;/a&gt;做法&lt;/h2&gt;&lt;p&gt;枚举第一行的反转方案，递推 O(2^m * n)&lt;br&gt;
+    
+    </summary>
+    
+      <category term="2016暑期集训" scheme="http://luoxinchen.me/categories/2016%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+    
+      <category term="ACM" scheme="http://luoxinchen.me/tags/ACM/"/>
+    
+      <category term="2016 暑期集训" scheme="http://luoxinchen.me/tags/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+      <category term="POJ" scheme="http://luoxinchen.me/tags/POJ/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>暑期集训-7-6-i</title>
+    <link href="http://luoxinchen.me/2016/09/10/%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD-7-6-i/"/>
+    <id>http://luoxinchen.me/2016/09/10/暑期集训-7-6-i/</id>
+    <published>2016-09-10T02:02:10.000Z</published>
+    <updated>2016-09-10T02:08:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>POJ 3185<br>给一列碗，将其翻转为全部碗口向上，最少需要翻转多少次，翻转一个碗时其两边的碗也会被翻转。</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>这里有两种做法</p>
+<ol>
+<li>因为碗只有20个，所以我们可以直接枚举翻转方案，然后check最后碗是否是全部向上。这里枚举方案有2^20,check可以O(1)完成。</li>
+<li>可以枚举第一个碗是否翻转，然后后面可以直接递推出现，复杂度2*20</li>
+</ol>
+<a id="more"></a>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>这里给出做法1的代码<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">/************************************************</div><div class="line"> *Author        :mathon</div><div class="line"> *Email         :luoxinchen96@gmail.com</div><div class="line">*************************************************/</div><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;ctime&gt;</div><div class="line">#include &lt;stack&gt;</div><div class="line">using namespace std;</div><div class="line">typedef pair&lt;int, int&gt; pii;</div><div class="line">typedef long long ll;</div><div class="line">typedef unsigned long long ull;</div><div class="line">#define xx first</div><div class="line">#define lowbit(x) (x&amp;-x)</div><div class="line">#define yy second</div><div class="line">#define pr(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; " "</div><div class="line">#define prln(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; endl</div><div class="line"></div><div class="line">int main(void) &#123;</div><div class="line">#ifdef MATHON</div><div class="line">    //freopen("in.txt", "r", stdin);</div><div class="line">    //freopen("out.txt", "w", stdout);</div><div class="line">#endif</div><div class="line">    int s = 0;</div><div class="line">    for (int i = 0; i &lt; 20; i++) &#123;</div><div class="line">        int x; scanf("%d", &amp;x);</div><div class="line">        s |= x&lt;&lt;i;</div><div class="line">    &#125;</div><div class="line">    int ans = 100;</div><div class="line">    for (int i = 0; i &lt; (1&lt;&lt;20); i++) &#123;</div><div class="line">        int t = i ^ (i &lt;&lt; 1) ^ (i &gt;&gt; 1);</div><div class="line">        t %= (1&lt;&lt;20);</div><div class="line">        if((s ^ t) == 0) &#123;</div><div class="line">            ans = min(ans, __builtin_popcount(i));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    cout &lt;&lt; ans &lt;&lt; endl;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;题意&quot;&gt;&lt;a href=&quot;#题意&quot; class=&quot;headerlink&quot; title=&quot;题意&quot;&gt;&lt;/a&gt;题意&lt;/h2&gt;&lt;p&gt;POJ 3185&lt;br&gt;给一列碗，将其翻转为全部碗口向上，最少需要翻转多少次，翻转一个碗时其两边的碗也会被翻转。&lt;/p&gt;
+&lt;h2 id=&quot;做法&quot;&gt;&lt;a href=&quot;#做法&quot; class=&quot;headerlink&quot; title=&quot;做法&quot;&gt;&lt;/a&gt;做法&lt;/h2&gt;&lt;p&gt;这里有两种做法&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;因为碗只有20个，所以我们可以直接枚举翻转方案，然后check最后碗是否是全部向上。这里枚举方案有2^20,check可以O(1)完成。&lt;/li&gt;
+&lt;li&gt;可以枚举第一个碗是否翻转，然后后面可以直接递推出现，复杂度2*20&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="2016暑期集训" scheme="http://luoxinchen.me/categories/2016%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+    
+      <category term="ACM" scheme="http://luoxinchen.me/tags/ACM/"/>
+    
+      <category term="2016 暑期集训" scheme="http://luoxinchen.me/tags/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+      <category term="POJ" scheme="http://luoxinchen.me/tags/POJ/"/>
+    
+      <category term="开关问题" scheme="http://luoxinchen.me/tags/%E5%BC%80%E5%85%B3%E9%97%AE%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>暑期集训-7-6-g</title>
+    <link href="http://luoxinchen.me/2016/09/10/%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD-7-6-g/"/>
+    <id>http://luoxinchen.me/2016/09/10/暑期集训-7-6-g/</id>
+    <published>2016-09-10T01:57:51.000Z</published>
+    <updated>2016-09-10T02:01:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>UVA 10881<br>许多蚂蚁在一条直线上，每个蚂蚁的移动速度都是1，并且有一个初始方向。两个蚂蚁相撞时会转向，问t世间后各个蚂蚁的位置。</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>经典题，蚂蚁相撞后可以等价于直接穿过，然后排个序对应一下就好。<br><a id="more"></a></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line">/************************************************</div><div class="line"> *Author        :mathon</div><div class="line"> *Email         :luoxinchen96@gmail.com</div><div class="line">*************************************************/</div><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;ctime&gt;</div><div class="line">#include &lt;stack&gt;</div><div class="line">using namespace std;</div><div class="line">typedef pair&lt;int, int&gt; pii;</div><div class="line">typedef long long ll;</div><div class="line">typedef unsigned long long ull;</div><div class="line">#define xx first</div><div class="line">#define lowbit(x) (x&amp;-x)</div><div class="line">#define yy second</div><div class="line">#define pr(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; " "</div><div class="line">#define prln(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; endl</div><div class="line">const int maxn = 1e4 + 5;</div><div class="line">pair&lt;pii, int&gt; A[maxn];</div><div class="line">pii buf[maxn];</div><div class="line">int pos[maxn], sta[maxn];</div><div class="line">int L, T, n;</div><div class="line">int main(void) &#123;</div><div class="line">#ifdef MATHON</div><div class="line">    //freopen("in.txt", "r", stdin);</div><div class="line">    //freopen("out.txt", "w", stdout);</div><div class="line">#endif</div><div class="line">    int Case; scanf("%d", &amp;Case);</div><div class="line">    for (int Cas = 1; Cas &lt;= Case; Cas++) &#123;</div><div class="line">        scanf("%d%d%d", &amp;L, &amp;T, &amp;n);</div><div class="line">        for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">            int x; char ch;</div><div class="line">            cin &gt;&gt; x &gt;&gt; ch;</div><div class="line">            A[i].xx.xx = x;</div><div class="line">            A[i].yy = i;</div><div class="line">            A[i].xx.yy = (ch == 'R' ? 1 : -1);</div><div class="line">        &#125;</div><div class="line">        sort(A, A + n);</div><div class="line">        for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">            buf[i].xx = A[i].xx.xx + A[i].xx.yy * T;</div><div class="line">            buf[i].yy = A[i].xx.yy;</div><div class="line">        &#125;</div><div class="line">        sort(buf, buf + n);</div><div class="line">        printf("Case #%d:\n", Cas);</div><div class="line"></div><div class="line">        for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">            pos[A[i].yy] = buf[i].xx;</div><div class="line">            // prln(A[i].yy);</div><div class="line">            if(buf[i].xx &lt; 0 || buf[i].xx &gt; L) &#123;</div><div class="line">                sta[A[i].yy] = 1;</div><div class="line">            &#125; else &#123;</div><div class="line">                // printf("%d ", buf[i].xx);</div><div class="line">                if((i &gt; 0 &amp;&amp; buf[i].xx == buf[i-1].xx) ||</div><div class="line">                        (i &lt; n - 1 &amp;&amp; buf[i].xx == buf[i+1].xx)) &#123;</div><div class="line">                    sta[A[i].yy] = 2;</div><div class="line">                &#125; else &#123;</div><div class="line">                    if(buf[i].yy == 1) &#123;</div><div class="line">                        sta[A[i].yy] = 3;</div><div class="line">                    &#125; else &#123;</div><div class="line">                        sta[A[i].yy] = 4;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">            if(sta[i] == 1) &#123;</div><div class="line">                printf("Fell off\n");</div><div class="line">            &#125; </div><div class="line">            if(sta[i] == 2) &#123;</div><div class="line">                printf("%d Turning\n", pos[i]);</div><div class="line">            &#125;</div><div class="line">            if(sta[i] == 3) &#123;</div><div class="line">                printf("%d R\n", pos[i]);</div><div class="line">            &#125;</div><div class="line">            if(sta[i] == 4) &#123;</div><div class="line">                printf("%d L\n", pos[i]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        puts("");</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;题意&quot;&gt;&lt;a href=&quot;#题意&quot; class=&quot;headerlink&quot; title=&quot;题意&quot;&gt;&lt;/a&gt;题意&lt;/h2&gt;&lt;p&gt;UVA 10881&lt;br&gt;许多蚂蚁在一条直线上，每个蚂蚁的移动速度都是1，并且有一个初始方向。两个蚂蚁相撞时会转向，问t世间后各个蚂蚁的位置。&lt;/p&gt;
+&lt;h2 id=&quot;做法&quot;&gt;&lt;a href=&quot;#做法&quot; class=&quot;headerlink&quot; title=&quot;做法&quot;&gt;&lt;/a&gt;做法&lt;/h2&gt;&lt;p&gt;经典题，蚂蚁相撞后可以等价于直接穿过，然后排个序对应一下就好。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="2016暑期集训" scheme="http://luoxinchen.me/categories/2016%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+    
+      <category term="ACM" scheme="http://luoxinchen.me/tags/ACM/"/>
+    
+      <category term="2016 暑期集训" scheme="http://luoxinchen.me/tags/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+      <category term="UVA" scheme="http://luoxinchen.me/tags/UVA/"/>
+    
+      <category term="简单题" scheme="http://luoxinchen.me/tags/%E7%AE%80%E5%8D%95%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>暑期集训-7-6-e</title>
+    <link href="http://luoxinchen.me/2016/09/10/%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD-7-6-e/"/>
+    <id>http://luoxinchen.me/2016/09/10/暑期集训-7-6-e/</id>
+    <published>2016-09-10T01:50:17.000Z</published>
+    <updated>2016-09-10T01:56:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>POJ 1700<br>N个人过河，船每次只能坐连个人，船载每个人过河的所需的时间不同，问最快的过河时间</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>贪心，n &lt;= 3的时候可以直接算出，n &gt; 3时，考虑最慢的两个人过河最快的两种方案取最小值，即min(A[0] + A[n-1] + A[n-2] + A[0], A[1] + A[0] + A[1] + A[n-1]);</p>
+<a id="more"></a>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">/************************************************</div><div class="line"> *Author        :mathon</div><div class="line"> *Email         :luoxinchen96@gmail.com</div><div class="line">*************************************************/</div><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;ctime&gt;</div><div class="line">#include &lt;stack&gt;</div><div class="line">using namespace std;</div><div class="line">typedef pair&lt;int, int&gt; pii;</div><div class="line">typedef long long ll;</div><div class="line">typedef unsigned long long ull;</div><div class="line">#define xx first</div><div class="line">#define lowbit(x) (x&amp;-x)</div><div class="line">#define yy second</div><div class="line">#define pr(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; " "</div><div class="line">#define prln(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; endl</div><div class="line">const int maxn = 1e3 + 5;</div><div class="line">int A[maxn];</div><div class="line">int main(void) &#123;</div><div class="line">#ifdef MATHON</div><div class="line">    //freopen("in.txt", "r", stdin);</div><div class="line">    //freopen("out.txt", "w", stdout);</div><div class="line">#endif</div><div class="line">    int T; scanf("%d", &amp;T);</div><div class="line">    while(T--) &#123;</div><div class="line">        int n;</div><div class="line">        scanf("%d", &amp;n);</div><div class="line">        for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">            scanf("%d", &amp;A[i]);</div><div class="line">        &#125;</div><div class="line">        int ans = 0;</div><div class="line">        while(n) &#123;</div><div class="line">            if(n &lt;= 2) &#123;</div><div class="line">                ans += A[n - 1]; n = 0;</div><div class="line">            &#125; else if(n == 3) &#123;</div><div class="line">                ans += A[0] + A[1] + A[2]; n = 0;</div><div class="line">            &#125; else &#123;</div><div class="line">                ans += min(A[0] + A[n-1] + A[n-2] + A[0],</div><div class="line">                        A[1] + A[0] + A[1] + A[n-1]);</div><div class="line">                n -= 2;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        printf("%d\n", ans);</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;题意&quot;&gt;&lt;a href=&quot;#题意&quot; class=&quot;headerlink&quot; title=&quot;题意&quot;&gt;&lt;/a&gt;题意&lt;/h2&gt;&lt;p&gt;POJ 1700&lt;br&gt;N个人过河，船每次只能坐连个人，船载每个人过河的所需的时间不同，问最快的过河时间&lt;/p&gt;
+&lt;h2 id=&quot;做法&quot;&gt;&lt;a href=&quot;#做法&quot; class=&quot;headerlink&quot; title=&quot;做法&quot;&gt;&lt;/a&gt;做法&lt;/h2&gt;&lt;p&gt;贪心，n &amp;lt;= 3的时候可以直接算出，n &amp;gt; 3时，考虑最慢的两个人过河最快的两种方案取最小值，即min(A[0] + A[n-1] + A[n-2] + A[0], A[1] + A[0] + A[1] + A[n-1]);&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="2016暑期集训" scheme="http://luoxinchen.me/categories/2016%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+    
+      <category term="ACM" scheme="http://luoxinchen.me/tags/ACM/"/>
+    
+      <category term="2016 暑期集训" scheme="http://luoxinchen.me/tags/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+      <category term="贪心" scheme="http://luoxinchen.me/tags/%E8%B4%AA%E5%BF%83/"/>
+    
+      <category term="POj" scheme="http://luoxinchen.me/tags/POj/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>暑期集训-7-6-a</title>
+    <link href="http://luoxinchen.me/2016/09/10/%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD-7-6-a/"/>
+    <id>http://luoxinchen.me/2016/09/10/暑期集训-7-6-a/</id>
+    <published>2016-09-10T01:44:39.000Z</published>
+    <updated>2016-09-10T01:51:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>HDU 2586<br>给一颗树，询问u,v两点的距离</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>转化为有根树，从根root开始跑单源最短路，求个最近公共祖先fa，然后d[u][v] = d[root][u] + d[root][v] - 2 * d[root][fa];<br><!--moer--></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div></pre></td><td class="code"><pre><div class="line">/************************************************</div><div class="line"> *Author        :mathon</div><div class="line"> *Email         :luoxinchen96@gmail.com</div><div class="line">*************************************************/</div><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;ctime&gt;</div><div class="line">#include &lt;stack&gt;</div><div class="line">using namespace std;</div><div class="line">typedef pair&lt;int, int&gt; pii;</div><div class="line">typedef long long ll;</div><div class="line">typedef unsigned long long ull;</div><div class="line">#define xx first</div><div class="line">#define lowbit(x) (x&amp;-x)</div><div class="line">#define yy second</div><div class="line">#define pr(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; " "</div><div class="line">#define prln(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; endl</div><div class="line">const int maxm = 200 + 5;</div><div class="line">const int maxn = 4e4 + 5;</div><div class="line"></div><div class="line">struct DSU &#123;</div><div class="line">    int par[maxn], n;</div><div class="line">    void init(int n) &#123;</div><div class="line">        this-&gt;n = n;</div><div class="line">        for (int i = 0; i &lt;= n; i++) &#123;</div><div class="line">            par[i] = i;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    int find(int x) &#123;</div><div class="line">        return x == par[x] ? x : par[x] = find(par[x]);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    void merge(int a, int b) &#123;</div><div class="line">        a = find(a), b = find(b);</div><div class="line">        par[a] = b;</div><div class="line">    &#125;</div><div class="line">&#125;dsu;</div><div class="line"></div><div class="line">struct Edge &#123;</div><div class="line">    int to, w;</div><div class="line">    Edge() &#123;&#125;</div><div class="line">    Edge(int to, int w): to(to), w(w) &#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">vector&lt;Edge&gt; G[maxn], querry[maxn];</div><div class="line">int used[maxn];</div><div class="line">int ans[maxm];</div><div class="line">int dist[maxn];</div><div class="line">int n, m;</div><div class="line"></div><div class="line">void dfs(int u, int d, int fa) &#123;</div><div class="line">   dist[u] = d;</div><div class="line">   for (int i = 0; i &lt; (int)G[u].size(); i++) &#123;</div><div class="line">       int v = G[u][i].to;</div><div class="line">       if(v == fa) continue;</div><div class="line">       dfs(v, d + G[u][i].w, u);</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void tarjan(int u, int fa) &#123;</div><div class="line">    used[u] = true;</div><div class="line">    for (int i = 0; i &lt; (int)G[u].size(); i++) &#123;</div><div class="line">        int v = G[u][i].to;</div><div class="line">        if(v == fa) continue;</div><div class="line">        tarjan(v, u);</div><div class="line">        dsu.merge(v, u);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    for (int i = 0; i &lt; (int)querry[u].size(); i++) &#123;</div><div class="line">        int v = querry[u][i].to;</div><div class="line">        if (used[v]) &#123;</div><div class="line">            ans[querry[u][i].w] = dist[u] + dist[v] - 2 * dist[dsu.find(v)];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main(void) &#123;</div><div class="line">#ifdef MATHON</div><div class="line">    //freopen("in.txt", "r", stdin);</div><div class="line">    //freopen("out.txt", "w", stdout);</div><div class="line">#endif</div><div class="line">    int T; scanf("%d", &amp;T);</div><div class="line">    while(T--) &#123;</div><div class="line">        scanf("%d%d", &amp;n, &amp;m);</div><div class="line">        for (int i = 0; i &lt;= n; i++) &#123;</div><div class="line">            G[i].clear();</div><div class="line">            querry[i].clear();</div><div class="line">        &#125;</div><div class="line">        for (int i = 1; i &lt;= n - 1; i++) &#123;</div><div class="line">            int u, v, w;</div><div class="line">            scanf("%d%d%d", &amp;u, &amp;v, &amp;w);</div><div class="line">            G[u].push_back(Edge(v, w));</div><div class="line">            G[v].push_back(Edge(u, w));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        for (int i = 0; i &lt; m; i++) &#123;</div><div class="line">            int u, v;</div><div class="line">            scanf("%d%d", &amp;u, &amp;v);</div><div class="line">            querry[u].push_back(Edge(v, i));</div><div class="line">            querry[v].push_back(Edge(u, i));</div><div class="line">        &#125;</div><div class="line">        memset(dist, -1, sizeof(dist));</div><div class="line">        dfs(1, 0, -1);</div><div class="line">        memset(used, 0, sizeof(used));</div><div class="line">        dsu.init(n);</div><div class="line">        tarjan(1, -1);</div><div class="line">        for (int i = 0; i &lt; m; i++) &#123;</div><div class="line">            printf("%d\n", ans[i]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;题意&quot;&gt;&lt;a href=&quot;#题意&quot; class=&quot;headerlink&quot; title=&quot;题意&quot;&gt;&lt;/a&gt;题意&lt;/h2&gt;&lt;p&gt;HDU 2586&lt;br&gt;给一颗树，询问u,v两点的距离&lt;/p&gt;
+&lt;h2 id=&quot;做法&quot;&gt;&lt;a href=&quot;#做法&quot; class=&quot;heade
+    
+    </summary>
+    
+      <category term="2016暑期集训" scheme="http://luoxinchen.me/categories/2016%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+    
+      <category term="ACM" scheme="http://luoxinchen.me/tags/ACM/"/>
+    
+      <category term="2016 暑期集训" scheme="http://luoxinchen.me/tags/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+    
+      <category term="HDU" scheme="http://luoxinchen.me/tags/HDU/"/>
+    
+      <category term="图论" scheme="http://luoxinchen.me/tags/%E5%9B%BE%E8%AE%BA/"/>
+    
+      <category term="Tarjan" scheme="http://luoxinchen.me/tags/Tarjan/"/>
+    
+  </entry>
   
   <entry>
     <title>暑期集训-7-4-q</title>
@@ -362,9 +564,9 @@ return 0;
     
       <category term="2016 暑期集训" scheme="http://luoxinchen.me/tags/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
     
-      <category term="二分" scheme="http://luoxinchen.me/tags/%E4%BA%8C%E5%88%86/"/>
-    
       <category term="POJ" scheme="http://luoxinchen.me/tags/POJ/"/>
+    
+      <category term="二分" scheme="http://luoxinchen.me/tags/%E4%BA%8C%E5%88%86/"/>
     
       <category term="网络流" scheme="http://luoxinchen.me/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/"/>
     
@@ -511,38 +713,6 @@ return 0;
   </entry>
   
   <entry>
-    <title>暑期集训-7-4-a</title>
-    <link href="http://luoxinchen.me/2016/09/05/%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD-7-4-a/"/>
-    <id>http://luoxinchen.me/2016/09/05/暑期集训-7-4-a/</id>
-    <published>2016-09-05T07:40:39.000Z</published>
-    <updated>2016-09-09T03:48:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>LightOJ 1027</p>
-<blockquote>
-<p>N 扇门，若这扇门权值xi为正，则花费|xi|的时间走出迷宫，否则花费|xi|时间回到原地。<br>求走出迷宫的期望。<br><a id="more"></a></p>
-</blockquote>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>简单期望题</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;stack&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">using namespace std;</div><div class="line">#define pr(x) cout &lt;&lt; #x &lt;&lt; " = " &lt;&lt; x &lt;&lt; " " </div><div class="line">#define prln(x) cout &lt;&lt; #x &lt;&lt; " = " &lt;&lt; x &lt;&lt; endl</div><div class="line">typedef pair&lt;int, int&gt; pii;</div><div class="line">typedef long long ll;</div><div class="line"></div><div class="line">int gcd(int a, int b) &#123;</div><div class="line">    return b == 0 ? a : gcd(b, a % b);</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main() &#123;</div><div class="line">#ifdef LOCAL</div><div class="line">	//freopen("in.txt", "r", stdin);</div><div class="line">	//freopen("out.txt", 'w', stdout);</div><div class="line">#endif</div><div class="line">    int T;</div><div class="line">    scanf("%d", &amp;T);</div><div class="line">    for (int Cas = 1; Cas &lt;= T; Cas++) &#123;</div><div class="line">        int n;</div><div class="line">        scanf("%d", &amp;n);</div><div class="line">        int a = 0, suma = 0, b = 0, sumb = 0;</div><div class="line">        for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">            int x;</div><div class="line">            scanf("%d", &amp;x);</div><div class="line">            if(x &gt; 0) &#123;</div><div class="line">                a++; suma += x;</div><div class="line">            &#125; else &#123;</div><div class="line">                b++; sumb += -x;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        int p = suma + sumb;</div><div class="line">        int q = n - b;</div><div class="line">        printf("Case %d: ", Cas);</div><div class="line">        if(q == 0) &#123;</div><div class="line">            printf("inf\n");</div><div class="line">        &#125; else &#123;</div><div class="line">            int g = gcd(p, q);</div><div class="line">            printf("%d/%d\n", p / g, q / g);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;题意&quot;&gt;&lt;a href=&quot;#题意&quot; class=&quot;headerlink&quot; title=&quot;题意&quot;&gt;&lt;/a&gt;题意&lt;/h2&gt;&lt;p&gt;LightOJ 1027&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;N 扇门，若这扇门权值xi为正，则花费|xi|的时间走出迷宫，否则花费|xi|时间回到原地。&lt;br&gt;求走出迷宫的期望。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="2016暑期集训" scheme="http://luoxinchen.me/categories/2016%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
-    
-    
-      <category term="ACM" scheme="http://luoxinchen.me/tags/ACM/"/>
-    
-      <category term="2016 暑期集训" scheme="http://luoxinchen.me/tags/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
-    
-  </entry>
-  
-  <entry>
     <title>暑期集训-7-4-b</title>
     <link href="http://luoxinchen.me/2016/09/05/%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD-7-4-b/"/>
     <id>http://luoxinchen.me/2016/09/05/暑期集训-7-4-b/</id>
@@ -568,187 +738,6 @@ return 0;
       <category term="2016 暑期集训" scheme="http://luoxinchen.me/tags/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
     
       <category term="LightOJ" scheme="http://luoxinchen.me/tags/LightOJ/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斜率优化小结</title>
-    <link href="http://luoxinchen.me/2016/05/10/2016-05-10-%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96%E5%B0%8F%E7%BB%93/"/>
-    <id>http://luoxinchen.me/2016/05/10/2016-05-10-斜率优化小结/</id>
-    <published>2016-05-10T13:06:00.000Z</published>
-    <updated>2016-09-09T03:50:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="单调队列优化"><a href="#单调队列优化" class="headerlink" title="单调队列优化"></a>单调队列优化</h2><p>在写斜率优化之前，我们来回顾一下单调队列优化的dp</p>
-<ol>
-<li>对于如下形式的dp方程<br>$$dp[i] = min{dp[j] + f(j)} (0 &lt; j &lt; i)$$<br>我们直接用一个变量维护(0, i)中dp[j] + f(j)的最小值即可</li>
-</ol>
-<p>2.对于如下形式的dp方程<br>$$dp[i] = min{dp[j] + f(j)} (i - m &lt; j &lt; i)$$<br>我们可以用一个单调队列维护一个(i - m, j)中dp[j] + f(j)的最小值，然后做到O(1)转移。</p>
-<a id="more"></a>
-<h2 id="斜率优化"><a href="#斜率优化" class="headerlink" title="斜率优化"></a>斜率优化</h2><h3 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h3><p>但是对于形如<br>$$dp[i] = min{dp[j] + f(i, j)} $$<br>的方程，无法做到O(1)计算$dp[j] + f(i, j)$的最小值，这时就需要斜率优化这个技巧来解决这个问题了。<br>令k &lt; j &lt; i，当我们更新dp[i]时，如果有dp[j] + f(i, j) 比dp[k] + f(i, k)更优，则有dp[j] + f(i, j) - (dp[k] + f(i, k) &lt; 0，对于这个不等式如果能够化解成如下形式<br>$$\frac {Y(j) - Y(k)} { X(j) - X(k)} &lt; f(i)$$<br>我们就能通过斜率优化这个dp了。<br>让我们来举一个例子: <a href="http://acm.hdu.edu.cn/showproblem.php?pid=3507" target="_blank" rel="external">hdu3507</a>  dp方程为<br>$$dp[i] = min{dp[j] + M + (sum[i] - sum[j])^2 (0 &lt; j &lt; i)}$$<br>令k &lt; j &lt; i，当有<br>$$dp[j] + M + (sum[i] - sum[j])^2 - (dp[k] + M + (sum[i] - sum[k])^2) &lt; 0  $$<br>从j转移到i, 比从k转移到i更优，变换此不等式可得:<br>$$\frac{(dp[j]+ sum[j]^2) - (dp[k] + sum[k]^2)}{sum[j] - sum[k]} &lt; 2sum[i]$$<br>令$Y(i) = dp[i] + sum[i]^2$, $X(i) = sum[i]$, $f(i) = 2sum[i]$则将此不等式化解为上述形式。</p>
-<h3 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法:"></a>优化方法:</h3><p>可以发现，若满足$\frac {Y(j) - Y(k)} { X(j) - X(j)} &lt; f(i)$则j转移到i，比k转移到i更优，如果我们把(X(j), Y(j)), (X(k), Y(k))当成平面上的两个点Pj, Pk，这个不等式的含义即为若$ \overrightarrow{PjPk}$的斜率＜f(i)则，从j转移更优。<br>令grad(i, j)表示$\overrightarrow{PiPj}$的斜率，现在我们假设grad(i,j) &lt; grad(j, k)，若grad(i, j) &lt; f(I),则i比j更优，若grad(i, j) &gt; f(I), 则grad(j, k) &gt; f(I),那么从k转移比从j转移更优，当grad(i, j) &lt; grad(j, k)的时候，无论如何j转移到i都不会是最优。而这种情况恰好对应下图<br><img src="http://img.blog.csdn.net/20160510205214742" alt="这里写图片描述"><br>所以这种情况时，我们可以直接把j点删除，最后能够转移的点集只会存在这种图形，<img src="http://img.blog.csdn.net/20160510205342117" alt="这里写图片描述"><br>所以最后我们维护一个上凸集即可。<br>但是此时我们还是没有解决最终问题，如何才能找到转移到i点的最优的点呢。可以发现最后的点集一定是一个凸集，也就是斜率单调！！这样对于k &lt; j, grad(j,k) &lt; f(i),时更优，从图形特点我们可以发现如果j比k优，那么j点比所有比k小的点都优，所以对于每一个f(i),我们维护一个所有比i点小的凸集，二分查找斜率比f(i)小的编号最大的点，就是最优的转移点。如果f(i)也满足单调性，比如这道题，我们还可以直接维护一个单调队列就能解决这个问题。</p>
-<h3 id="分治做法"><a href="#分治做法" class="headerlink" title="分治做法"></a>分治做法</h3><p>对于f(i)单调的这种情况，除了使用单调队列优化的斜率优化做，我们还有另外一种分治的做法，但是复杂度会变成O(nlogn) 比O(n)差。<br>当f(i)单调的时候，我们可以发现若a &gt; b,则f(a) &gt; f(b),设转移到a的最优点是c，转移到b的最优点是d，一定有c &gt; d。也就是转移到a的最优点一定大于等于转移到b的最优点。考虑这样的分治</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> dl, <span class="keyword">int</span> dr)</span> </span>&#123;</div><div class="line">	<span class="comment">//[l,r]表示现在更新[l,r]区间dp[i]的最优值</span></div><div class="line">	<span class="comment">//用j -&gt; f(i),表示j是更新f(i)最优值的最优点</span></div><div class="line">	<span class="comment">//那么[dl,dr]表示更新dp([l,r])的点，一定在[dl,dr]范围内</span></div><div class="line">	<span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>; </div><div class="line">	<span class="keyword">int</span> dm = dl;</div><div class="line">	<span class="keyword">int</span> g = inf;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = dl; i &lt;= dr; i++) &#123;</div><div class="line">		<span class="keyword">if</span>(g &lt; dp[i] + f(i, mid)) &#123;</div><div class="line">			g = dp[i] + f(i, mid);<span class="comment">//记录更新dp[mid]的最优</span></div><div class="line">			dm = i;<span class="comment">//记录更新dp[mid]的最优点</span></div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	dp[mid] = g; <span class="comment">//更新dp[mid]的值</span></div><div class="line">	<span class="comment">//因为上文叙述的单调性，</span></div><div class="line">	<span class="comment">//更新[l,mid-1]的最优点，一定在[dl,dm]范围内</span></div><div class="line">	<span class="keyword">if</span>(l &lt; mid) dfs(l, mid - <span class="number">1</span>, dl, dm);</div><div class="line">	<span class="comment">//更新[mid+1,r]的最优点，一定在[dm,dr]范围内</span></div><div class="line">	<span class="keyword">if</span>(mid &lt; r) dfs(mid + <span class="number">1</span>, r, dm, dr);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以发现这个分治比起斜率优化，不仅写起来方便很多，并且适用的范围也更广。这个做法不局限于斜率单调，可以发现只要满足c是更新f(a)的最优点，d是更新f(b)的最优点，若a &gt; b 一定有 c &gt; d，则可以有这个分治做。</p>
-<h2 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h2><p>这个做法是我在<a href="http://codeforces.com/contest/674/problem/C" target="_blank" rel="external">codeforces 674E</a>,跟Claris神犇的代码学会的<a href="http://codeforces.com/contest/674/submission/17794311" target="_blank" rel="external">solution</a>,在此特地感谢Claris.这个做法着实是非常的劲啊！多一个log，但是换来编码复杂度和通用性更广的解法。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;单调队列优化&quot;&gt;&lt;a href=&quot;#单调队列优化&quot; class=&quot;headerlink&quot; title=&quot;单调队列优化&quot;&gt;&lt;/a&gt;单调队列优化&lt;/h2&gt;&lt;p&gt;在写斜率优化之前，我们来回顾一下单调队列优化的dp&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;对于如下形式的dp方程&lt;br&gt;$$dp[i] = min{dp[j] + f(j)} (0 &amp;lt; j &amp;lt; i)$$&lt;br&gt;我们直接用一个变量维护(0, i)中dp[j] + f(j)的最小值即可&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;2.对于如下形式的dp方程&lt;br&gt;$$dp[i] = min{dp[j] + f(j)} (i - m &amp;lt; j &amp;lt; i)$$&lt;br&gt;我们可以用一个单调队列维护一个(i - m, j)中dp[j] + f(j)的最小值，然后做到O(1)转移。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="ACM" scheme="http://luoxinchen.me/categories/ACM/"/>
-    
-    
-      <category term="ACM" scheme="http://luoxinchen.me/tags/ACM/"/>
-    
-      <category term="dp" scheme="http://luoxinchen.me/tags/dp/"/>
-    
-      <category term="斜率优化" scheme="http://luoxinchen.me/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)</title>
-    <link href="http://luoxinchen.me/2016/03/30/2016-03-30-Codeforces652EPursuitForArtifacts(Tarjan%E7%BC%A9%E7%82%B9)/"/>
-    <id>http://luoxinchen.me/2016/03/30/2016-03-30-Codeforces652EPursuitForArtifacts(Tarjan缩点)/</id>
-    <published>2016-03-30T07:14:00.000Z</published>
-    <updated>2016-08-08T14:17:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>#Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)<br>[TOC]</p>
-<h2 id="题意："><a href="#题意：" class="headerlink" title="题意："></a>题意：</h2><blockquote>
-<p>有n个岛，m座桥，某些桥上有宝藏，每条桥只能经过一次，给出起点岛a和终点岛b，问能否从a走到b并带走至&gt;少一个宝藏。</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><p>这道竟然是我的tarjan算法入门题，用tarjan缩点为树，如果是缩点后包含宝藏把这个点的权值设为非0，如果是桥，保留原来的权值，因为缩点后是一棵树，所以直接dfs找到从a到b的路径，看路径中是否含权值非零的点或边即可。</p>
-<h2 id="PS："><a href="#PS：" class="headerlink" title="PS："></a>PS：</h2><p>在比赛时自己也是想了很多个解法的，但是最多也就跑过了第12组数据，看到了这个思路感觉确实很巧妙，看到某个大牛总结的，边只能走一次的这种情况大多需要用tarjan缩点为树。这道题学弟竟然用其他方法给ac，确实佩服。这道题也算是我学Tarjan后ac的第一道题吧，Tarjan算法着实是很优美！</p>
-<h2 id="AC-CODE："><a href="#AC-CODE：" class="headerlink" title="AC CODE："></a>AC CODE：</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">300000</span> + <span class="number">5</span>;</div><div class="line"><span class="keyword">int</span> n, m;</div><div class="line"><span class="keyword">struct</span> Edge &#123;</div><div class="line">    <span class="keyword">int</span> v, c;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">int</span> dfn[maxn], low[maxn], isin[maxn], id[maxn], dfsNum, bcc;</div><div class="line"><span class="keyword">int</span> stk[maxn], top;</div><div class="line"><span class="built_in">vector</span>&lt;Edge&gt; G[maxn];</div><div class="line"><span class="built_in">vector</span>&lt;Edge&gt; T[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> f)</span> </span>&#123;</div><div class="line">    dfn[u] = low[u] = ++dfsNum;</div><div class="line">    stk[++top] = u;</div><div class="line">    isin[u] = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">for</span> (Edge e: G[u]) &#123;</div><div class="line">        <span class="keyword">int</span> v = e.v;</div><div class="line">        <span class="keyword">if</span>(v == f) <span class="keyword">continue</span>;</div><div class="line">        <span class="keyword">if</span>(!dfn[v]) &#123;</div><div class="line">            tarjan(v, u);</div><div class="line">            low[u] = min(low[u], low[v]);</div><div class="line">        &#125; <span class="keyword">else</span> low[u] = min(low[u], dfn[v]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(low[u] == dfn[u]) &#123;</div><div class="line">        ++bcc;</div><div class="line">        <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</div><div class="line">            <span class="keyword">int</span> v = stk[top--];</div><div class="line">            isin[v] = <span class="literal">false</span>;</div><div class="line">            id[v] = bcc;</div><div class="line">            <span class="keyword">if</span>(v == u) <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan_init</span><span class="params">()</span> </span>&#123;</div><div class="line">     bcc = dfsNum = <span class="number">0</span>;</div><div class="line">     <span class="built_in">memset</span>(dfn, <span class="number">0</span>, <span class="keyword">sizeof</span>(dfn));</div><div class="line">     tarjan(<span class="number">1</span>, <span class="number">-1</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> val[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> t, <span class="keyword">int</span> fa, <span class="keyword">int</span> sum)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(s == t) <span class="keyword">return</span> sum + val[t];</div><div class="line">    <span class="keyword">for</span> (Edge e: T[s]) &#123;</div><div class="line">         <span class="keyword">int</span> v = e.v;</div><div class="line">         <span class="keyword">if</span>(v == fa) <span class="keyword">continue</span>;</div><div class="line">         <span class="keyword">if</span>(dfs(v, t, s, sum + e.c +val[v])) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></div><div class="line">    freopen(<span class="string">"in.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</div><div class="line">        <span class="keyword">int</span> u, v, c;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;u, &amp;v, &amp;c);</div><div class="line">        G[u].push_back(&#123;v, c&#125;);</div><div class="line">        G[v].push_back(&#123;u, c&#125;);</div><div class="line">    &#125;</div><div class="line">    tarjan_init();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">         <span class="keyword">int</span> u = id[i];</div><div class="line">         <span class="keyword">for</span> (Edge e: G[i]) &#123;</div><div class="line">             <span class="keyword">int</span> v = id[e.v];</div><div class="line">             <span class="keyword">if</span>(u == v) val[u] += e.c;</div><div class="line">             <span class="keyword">else</span> T[u].push_back(&#123;v, e.c&#125;);</div><div class="line">         &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> s, t;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;s, &amp;t);</div><div class="line">    <span class="built_in">puts</span>(dfs(id[s], id[t], <span class="number">-1</span>, val[id[s]]) ? <span class="string">"YES"</span> : <span class="string">"NO"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;#Codeforces 652E Pursuit For Artifacts(Tarjan 缩点)&lt;br&gt;[TOC]&lt;/p&gt;
-&lt;h2 id=&quot;题意：&quot;&gt;&lt;a href=&quot;#题意：&quot; class=&quot;headerlink&quot; title=&quot;题意：&quot;&gt;&lt;/a&gt;题意：&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;有n个岛，m座桥，某些桥上有宝藏，每条桥只能经过一次，给出起点岛a和终点岛b，问能否从a走到b并带走至&amp;gt;少一个宝藏。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>hihocoder *Divisors*</title>
-    <link href="http://luoxinchen.me/2016/03/18/2016-03-18-hihocoder*Divisors*/"/>
-    <id>http://luoxinchen.me/2016/03/18/2016-03-18-hihocoder*Divisors*/</id>
-    <published>2016-03-18T12:26:00.000Z</published>
-    <updated>2016-08-08T14:17:29.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="hihocoder-Divisors"><a href="#hihocoder-Divisors" class="headerlink" title="hihocoder Divisors"></a>hihocoder <em>Divisors</em></h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><blockquote>
-<p>   给定一个N，求不超过N的正整数中因子最多的数。如果有多个答案，输出最小的一个。</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路:"></a>思路:</h2><p>最近做题可以明显发现自己的思维缺陷，容易陷入思维定式，看到这道题时，一眼觉得是个数论题，然后开始找质因数分解瞎猜结论，并没有仔细观察性质，最后这是一个搜索题，看了题解确实不难，性质也很容易发现，但是并没有认真去思考，解法确实很妙！<a href="http://hihocoder.com/discuss/question/2857/" target="_blank" rel="external">官方题解</a>写的非常好了，这里就不再累述。</p>
-<h2 id="AC-Code"><a href="#AC-Code" class="headerlink" title="AC Code:"></a>AC Code:</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</div><div class="line">ll n;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1000</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">double</span> eps = <span class="number">1e-6</span>;</div><div class="line"><span class="keyword">bool</span> is_prime[maxn];</div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prime;</div><div class="line"></div><div class="line">ll maxdivisors, result;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">make_prime</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">memset</span>(is_prime, <span class="literal">true</span>, <span class="keyword">sizeof</span>(is_prime));</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; maxn; i++) &#123;</div><div class="line">        <span class="keyword">if</span>(is_prime[i]) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + i; j &lt; maxn; j += i) &#123;</div><div class="line">                is_prime[j] = <span class="literal">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; maxn; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (is_prime[i]) prime.push_back(i);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> prime_num, ll divisors, ll now, <span class="keyword">int</span> lastNi)</span> </span>&#123;</div><div class="line"><span class="comment">//    cout &lt;&lt; prime[prime_num] &lt;&lt; " " &lt;&lt; divisors &lt;&lt; " " &lt;&lt; now &lt;&lt; endl;</span></div><div class="line">    <span class="keyword">if</span> (prime[prime_num] &gt; n) &#123;</div><div class="line">         <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (divisors &gt; maxdivisors || (divisors == maxdivisors &amp;&amp; now &lt; result)) &#123;</div><div class="line">        maxdivisors = divisors;</div><div class="line">        result = now;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; <span class="keyword">double</span>(now)*prime[prime_num] &lt; <span class="keyword">double</span>(n) + eps &amp;&amp; i &lt;= lastNi; i++) &#123;</div><div class="line">        now *= prime[prime_num];</div><div class="line">        dfs(prime_num + <span class="number">1</span>, divisors*(i + <span class="number">1</span>), now, i);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    make_prime();</div><div class="line">    maxdivisors = <span class="number">1</span>, result = <span class="number">1</span>;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; n;</div><div class="line">    dfs(<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, inf);</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; result &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;hihocoder-Divisors&quot;&gt;&lt;a href=&quot;#hihocoder-Divisors&quot; class=&quot;headerlink&quot; title=&quot;hihocoder Divisors&quot;&gt;&lt;/a&gt;hihocoder &lt;em&gt;Divisors&lt;/em&gt;&lt;/h1&gt;&lt;h2 id=&quot;题意&quot;&gt;&lt;a href=&quot;#题意&quot; class=&quot;headerlink&quot; title=&quot;题意&quot;&gt;&lt;/a&gt;题意&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;   给定一个N，求不超过N的正整数中因子最多的数。如果有多个答案，输出最小的一个。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>约瑟夫环问题</title>
-    <link href="http://luoxinchen.me/2016/03/13/2016-03-13-%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98/"/>
-    <id>http://luoxinchen.me/2016/03/13/2016-03-13-约瑟夫环问题/</id>
-    <published>2016-03-13T03:15:00.000Z</published>
-    <updated>2016-08-08T14:17:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>#约瑟夫环问题</p>
-<h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><blockquote>
-<p>n个人围成一个圆圈依次编号为0,1,…,n-1，从第一个人开始，依次报数1, 2,…,k-1,报到k的人退出，从退出的下一个人开始继续从1报数，仍然报到k的人退出，问最后留下的人是谁。</p>
-</blockquote>
-<a id="more"></a>
-<h3 id="朴素解法："><a href="#朴素解法：" class="headerlink" title="朴素解法："></a>朴素解法：</h3><p>这是一个c语言入门题，我们可以用数组或者链表来模拟整个过程得到最终结果。但是这样复杂度为O(n^2)，当n较大时没法算出结果。</p>
-<h3 id="数学解法："><a href="#数学解法：" class="headerlink" title="数学解法："></a>数学解法：</h3><p>先来模拟一下过程，当n ＝ 8，k ＝ 3时</p>
-<ol>
-<li><p><strong>n = 8, k = 3</strong></p>
-<blockquote>
-<p><code>0 1 2 3 4 5 6 7</code><br>第一次编号为2的退出</p>
-</blockquote>
-</li>
-<li><p><strong>n = 7, k = 3</strong></p>
-<blockquote>
-<p><code>0 1 3 4 5 6 7</code><br>这次将从3开始数，从新进行编号<br><code>3 4 5 6 7 0 1     (A)</code><br><code>0 1 2 3 4 5 6    (B)</code><br>可以发现从(B)式到(A)式有(A) = ((B) + k)%(n+1)</p>
-</blockquote>
-</li>
-</ol>
-<p>可以继续模拟下去，可以发现这个公式始终满足，显然我们知道当n==1的时候，最后留下的肯定为0，所以我们可以根据这个公式自底向上的计算下去了。</p>
-<p>###代码：<br><strong>递归版本</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span></div><div class="line">	<span class="keyword">else</span> <span class="keyword">return</span> (fun(n - <span class="number">1</span>, k) + k) % n;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>循环版本</strong>：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1000</span>;</div><div class="line"><span class="keyword">int</span> f[maxn];</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">	f[<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">		f[i] = (f[i<span class="number">-1</span>] + k) % n;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>很明显当有多次查询的时候，使用循环版本把答案一次算完可以避免重复计算，当然递归版本记忆化也是可以的。</p>
-<h3 id="拓展："><a href="#拓展：" class="headerlink" title="拓展："></a>拓展：</h3><p>当然朴素的约瑟夫环肯定是一个送分题，这周bc就有一个简单拓展题目<br><a href="http://bestcoder.hdu.edu.cn/contests/contest_chineseproblem.php?cid=677&amp;pid=1004" target="_blank" rel="external">King’s Game</a><br><code>为了铭记历史，国王准备在阅兵的间隙玩约瑟夫游戏。它召来了 n(1\le n\le 5000)n(1≤n≤5000) 个士兵，逆时针围成一个圈，依次标号 1, 2, 3 ... n1,2,3...n。
-第一轮第一个人从 11 开始报数，报到 11 就停止且报到 11 的这个人出局。
-第二轮从上一轮出局的人的下一个人开始从 11 报数，报到 22 就停止且报到 22 的这个人出局。
-第三轮从上一轮出局的人的下一个人开始从 11 报数，报到 33 就停止且报到 33 的这个人出局。
-第 n - 1n−1 轮从上一轮出局的人的下一个人开始从 11 报数，报到 n - 1n−1 就停止且报到 n - 1n−1 的这个人出局。
-最后剩余的人是幸存者，请问这个人的标号是多少？</code></p>
-<p>如果理解朴素的约瑟夫环话，可以发现这里就是一个简单的递推变化，同样定义$f(n, k)$为有n个人时，第k个人退出剩下的人的编号，$f(n,k) = (f(n - 1, k + 1) + k) % n$</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">	<span class="keyword">else</span> <span class="keyword">return</span> (f(n - <span class="number">1</span>, k + <span class="number">1</span>) + k) % n;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>复杂度O(n)</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;#约瑟夫环问题&lt;/p&gt;
-&lt;h3 id=&quot;问题描述：&quot;&gt;&lt;a href=&quot;#问题描述：&quot; class=&quot;headerlink&quot; title=&quot;问题描述：&quot;&gt;&lt;/a&gt;问题描述：&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;n个人围成一个圆圈依次编号为0,1,…,n-1，从第一个人开始，依次报数1, 2,…,k-1,报到k的人退出，从退出的下一个人开始继续从1报数，仍然报到k的人退出，问最后留下的人是谁。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>VIM YouCompleteMe 插件安装</title>
-    <link href="http://luoxinchen.me/2016/01/23/2016-01-23-VIMYouCompleteMe%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
-    <id>http://luoxinchen.me/2016/01/23/2016-01-23-VIMYouCompleteMe插件安装/</id>
-    <published>2016-01-23T13:06:16.000Z</published>
-    <updated>2016-08-08T14:17:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<ul>
-<li>安装Bundle 插件</li>
-<li>用 Bundle 插件安装 YouCompleteMe</li>
-<li>换到YouCompleteMe目录 使用 install.py 安装，—clang-completer 获得c语言支持</li>
-<li>YouCompleteMe 还需要 ycm_extra_conf.py，到github上下载</li>
-<li>ycm_extra_conf.py 需要用到 /usr/include 目录，但是mac上默认没有，需要Xcode Commond Line Tool工具的支持，用xcode-select —install 命令安装即可。反复安装了3次没有成功，就跪在这个坑上了。</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;安装Bundle 插件&lt;/li&gt;
-&lt;li&gt;用 Bundle 插件安装 YouCompleteMe&lt;/li&gt;
-&lt;li&gt;换到YouCompleteMe目录 使用 install.py 安装，—clang-completer 获得c语言支持&lt;/li&gt;
-&lt;li&gt;YouC
-    
-    </summary>
-    
     
   </entry>
   
