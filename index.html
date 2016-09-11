@@ -270,8 +270,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-11-i/" itemprop="url">
-                  暑期集训-7-11-i
+                <a class="post-title-link" href="/2016/09/11/暑期集训-7-13-r/" itemprop="url">
+                  暑期集训-7-13-r
                 </a>
               
             
@@ -284,7 +284,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T15:37:37+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T19:51:22+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -314,8 +314,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-11-i/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-11-i/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/暑期集训-7-13-r/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-13-r/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -339,10 +339,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>HDU 4778<br>有G种颜色，B个背包，每个背包有n个宝石，颜色分别为ci.两人轮流取背包放到公共容器里面，当容器有s个相同颜色宝石时，这s个宝石就会融合成一个魔法师。当选手这一步操作产生魔法师时，选手可以再选一个背包，直到不产生魔法石，每个背包只能用一次。每个选手都会尽量使自己得到的魔法师最多，求先手得到的魔法师-后手得到的模仿是</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>因为数据比较小，考虑状态压缩，当我们知道还剩下哪些背包，我们可以算出已经合成了多少个魔法石，容器里各个颜色还有多少个，所以我们dp[mask]表示还剩下的背包状态，当前先手最多可以获得多少个魔法石，对手能获得的魔法石=已经产生的魔法石-dp[mask],然后dp一下即可。还是很有趣的一个题目<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>求1/n的循坏节长度</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>暴力<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-11-i/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/暑期集训-7-13-r/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -393,8 +393,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-11-h/" itemprop="url">
-                  暑期集训-7-11-h
+                <a class="post-title-link" href="/2016/09/11/暑期集训-7-13-p/" itemprop="url">
+                  暑期集训-7-13-p
                 </a>
               
             
@@ -407,7 +407,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T15:21:05+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T19:44:37+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -437,8 +437,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-11-h/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-11-h/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/暑期集训-7-13-p/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-13-p/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -462,10 +462,11 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一个序列，询问对于[l,r]之间，有多少个数字与区间内其他所有数字互质</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>用筛法预处理出每个数向左和向右最近与其不互质的数的位置L[i],R[i]。这样对于每个位置i，都对应一个区间[L[i],R[i]],对于一个询问，等价于[l,r]内，有多少个位置i,[L[i],R[i]]区间包含[l,r]。这样就转化为区间覆盖问题，对询问的R进行排序，然后从左往右扫，碰到i则i位置+1，L[i]位置-1，碰到R,贼i位置-1，L[i]位置+1，然后查询[l,r]区间和就是答案。<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>Codeforces 468C<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ans = solve(l, r) % a;</div><div class="line">   <span class="keyword">if</span> (ans &lt;= <span class="number">0</span>)</div><div class="line">     ans += a;</div></pre></td></tr></table></figure></p>
+<p>给出a，找到[l,r] 使得ans = 0</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>f(x + 1e18) = f(x) + 1,所以solve(x + 1, x + 1e18) = solve(x, x + 1e18-1) + 1<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-11-h/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/暑期集训-7-13-p/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -516,8 +517,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-11-g/" itemprop="url">
-                  暑期集训-7-11-g
+                <a class="post-title-link" href="/2016/09/11/暑期集训-7-13-m/" itemprop="url">
+                  暑期集训-7-13-m
                 </a>
               
             
@@ -530,7 +531,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T15:08:51+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T19:39:13+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -544,8 +545,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/2016-暑期集训/" itemprop="url" rel="index">
-                    <span itemprop="name">2016 暑期集训</span>
+                  <a href="/categories/2016暑期集训/" itemprop="url" rel="index">
+                    <span itemprop="name">2016暑期集训</span>
                   </a>
                 </span>
 
@@ -560,8 +561,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-11-g/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-11-g/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/暑期集训-7-13-m/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-13-m/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -585,10 +586,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>HDU 4776<br>给一颗树，定义两点之间的距离为两点路径中边权的xor值，求第k大的值。</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>非常棒的一道题。首先我们转化为有根树，求出每个节点u到根节点的xor值d[u]，然后任意两点之间的xor值为这两个节点到根节点xor值得xor。对所有d[u]维护一颗trie树，通过这个trie树，我们可以做到给定x，查询x xor d[u]的第k大值。首先对于所有节点u,把d[u]与其他节点v，d[u] xor d[v]的最大值丢进优先队列，然后如果d[u]的最大值弹出队列，则把d[u]的次大值丢进去，以此类推。这样就能预处理出前K个最大值。<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>一辆卡车要行驶L单位的距离。卡车初始有P单位油，行驶1单位距离花费1单位油。途中有N个加油站，加油站汽油有限，卡车油箱无限。给出加油站的位置和油量，问卡车从起点到终点至少要加几次油。</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>考虑贪心，把卡车能够经过的加油站的油量压进优先队列，油空时取最大的油量来加。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-11-g/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/暑期集训-7-13-m/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -639,8 +640,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-11-c/" itemprop="url">
-                  暑期集训-7-11-c
+                <a class="post-title-link" href="/2016/09/11/暑期集训-7-13-l/" itemprop="url">
+                  暑期集训-7-13-l
                 </a>
               
             
@@ -653,7 +654,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T15:05:27+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T19:35:46+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -683,8 +684,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-11-c/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-11-c/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/暑期集训-7-13-l/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-13-l/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -708,10 +709,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>HDU 4772<br>给两个n*n的矩阵，矩阵可以旋转，问两个矩阵最多可以有多少个数匹配</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>水题<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>UVA 11270<br>求用1*2的木块将n*m的矩阵填满的方案数。</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>插头dp经典题<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-11-c/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/暑期集训-7-13-l/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -762,8 +763,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-11-b/" itemprop="url">
-                  暑期集训-7-11-b
+                <a class="post-title-link" href="/2016/09/11/暑期集训-7-13-j/" itemprop="url">
+                  暑期集训-7-13-j
                 </a>
               
             
@@ -776,7 +777,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T15:01:11+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T19:29:31+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -806,8 +807,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-11-b/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-11-b/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/暑期集训-7-13-j/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-13-j/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -831,10 +832,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>HDU 4771<br>有若干个宝藏，问从起点遍历过所有K个宝藏的最短时间</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>因为只有4个宝藏，所以预处理起点和4个宝藏之间两两之间的最短距离，枚举4个宝藏的遍历顺序求出答案。</p>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>一个用1..n组成的序列{An} 如果Ai - i是0..n-1组成的序列，那么{An}被称为完美序列。给定n，问能否构造出完美序列{An},如果能输出这个序列</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>不知道为啥，反正这样凑能ac….<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-11-b/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/暑期集训-7-13-j/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -885,8 +886,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-11-a/" itemprop="url">
-                  暑期集训-7-11-a
+                <a class="post-title-link" href="/2016/09/11/暑期集训-7-13-h/" itemprop="url">
+                  暑期集训-7-13-h
                 </a>
               
             
@@ -899,7 +900,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T14:55:36+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T16:19:50+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -929,8 +930,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-11-a/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-11-a/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/暑期集训-7-13-h/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-13-h/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -954,10 +955,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>HDU 4770<br>n*m的房间，有些房间可以被破坏，给出一些L形的灯，有一个特殊的灯可以旋转，让用最少的灯覆盖所有的可破坏的区域，且不能覆盖不可破坏的区域。</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>暴力枚举可以旋转灯的位置和方向，暴力枚举其他灯的位置。<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>POJ 3484<br>给出N个X Y Z组合，其中X Y Z组合能够输出，X, X + Z,..,X + K <em> Z(X + K </em> Z &lt;= Y)，问这些数中，有哪个数输出奇数次。题目保证，只有一个数输出奇数次</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>这是一道非常脑筋急转弯的一题。假设一个数K，那么所有小于K的数出现次数之和为偶数，对于x &gt;= K,那么所有小于等于x的数出现次数之和为奇数，那么我们二分即可。<br>这题读题和想到这个性质是难点。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-11-a/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/暑期集训-7-13-h/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1008,8 +1009,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-8-p/" itemprop="url">
-                  暑期集训-7-8-p
+                <a class="post-title-link" href="/2016/09/11/暑期集训-7-13-g/" itemprop="url">
+                  暑期集训-7-13-g
                 </a>
               
             
@@ -1022,7 +1023,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T14:50:26+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T16:14:33+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -1052,8 +1053,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-8-p/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-8-p/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/暑期集训-7-13-g/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-13-g/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1077,10 +1078,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>HDU 2295<br>N个城市，M个雷达，每个雷达有自己的覆盖范围，选出K个雷达覆盖所有的城市。</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>DLX 重复覆盖模板题<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>POJ 3579<br>给定一个长度为n的序列，求两两之间差值绝对值的中位数</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>转化为判定性问题，二分。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-8-p/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/暑期集训-7-13-g/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1131,8 +1132,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-8-o/" itemprop="url">
-                  暑期集训-7-8-o
+                <a class="post-title-link" href="/2016/09/11/暑期集训-7-13-f/" itemprop="url">
+                  暑期集训-7-13-f
                 </a>
               
             
@@ -1145,7 +1146,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T14:44:55+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T16:11:41+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -1175,8 +1176,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-8-o/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-8-o/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/暑期集训-7-13-f/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-13-f/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1200,10 +1201,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>N个城市选出K个城市，建飞机场,1&lt;=N&lt;=60,1&lt;=K&lt;=N,使得所有城市中到最近机场的最大距离最小。</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>二分城市到机场的最大距离，然后建立01矩阵，用DLX可重复覆盖判断是否合法<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>最大化平均值</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>把等式变形，把求最值问题转化为判定性问题，然后二分，很经典的套路.<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-8-o/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/暑期集训-7-13-f/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1254,8 +1255,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-8-n/" itemprop="url">
-                  暑期集训-7-8-n
+                <a class="post-title-link" href="/2016/09/11/暑期集训-7-13-k/" itemprop="url">
+                  暑期集训-7-13-k
                 </a>
               
             
@@ -1268,7 +1269,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T14:40:57+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T16:11:28+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -1298,8 +1299,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-8-n/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-8-n/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/暑期集训-7-13-k/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-13-k/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1323,10 +1324,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>HDU 1255<br>给定平面上若干矩形,求出被这些矩形覆盖过至少两次的区域的面积. </p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>做法1:扫描线+线段树<br>做法2:离散化+二维前缀和<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>UVA 401<br>模拟题</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>模拟<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-8-n/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/暑期集训-7-13-k/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1377,8 +1378,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-8-k/" itemprop="url">
-                  暑期集训-7-8-k
+                <a class="post-title-link" href="/2016/09/11/暑期集训-7-13-e/" itemprop="url">
+                  暑期集训-7-13-e
                 </a>
               
             
@@ -1391,7 +1392,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T14:36:58+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T16:05:18+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -1421,8 +1422,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-8-k/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-8-k/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/暑期集训-7-13-e/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-13-e/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1446,10 +1447,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一个长度为1e5的序列，给1e5个操作，两种操作，一种是将一段区间内的数开方，一种操作区间和</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>用线段树维护一下，并且当区间所有数位1的时候开方操作就可以不用递归下去，每个数最后可以开方logn次，所以最坏复杂度为nlogn。<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>POJ 3122<br>N块，高度为1，半径为Ri的圆柱形奶酪，需要将这N块奶酪均分给F+1个人，每个人得到的体积相等，求每个人能够得到的最大奶酪体积</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>读懂题意后，二分即可。难点在题意<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-8-k/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/暑期集训-7-13-e/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1483,7 +1484,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1524,7 +1525,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">99</span>
+              <span class="site-state-item-count">111</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1532,7 +1533,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1541,7 +1542,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
