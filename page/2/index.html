@@ -270,8 +270,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-15-r/" itemprop="url">
-                  暑期集训-7-15-r
+                <a class="post-title-link" href="/2016/09/11/2016-Multi-University-Traning-Contest2-1006/" itemprop="url">
+                  2016-Multi-University-Traning-Contest2-1006
                 </a>
               
             
@@ -284,7 +284,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T20:37:41+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T21:45:31+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -314,8 +314,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-15-r/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-15-r/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/2016-Multi-University-Traning-Contest2-1006/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/2016-Multi-University-Traning-Contest2-1006/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -339,10 +339,14 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一个长度为n的数组，从这个数组中选出k个数组成一个序列（每个数可以用多次），这个序列满足相邻另个数xor的二进制表示上1的个数是3的倍数，求方案数</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>很明显的矩阵快速幂<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定n个点m条边的带权无向图G。定义Gi是从G中删除点i得到的图。<br>定义一个图G的权值如下：</p>
+<ol>
+<li>如果图联通，权值为所有点权的乘积。</li>
+<li>如果图不连通，权值为所有连通块权值和。<br>对于1&lt;=i&lt;=n,求出Gi的权值</li>
+</ol>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>可以先预处理出原图的权值，对于点i，如果点i不为割点，那么去除点i就是对应联通块的权值除上点i的权值，如果点i为割点，则可以发现它讲图分裂几个部分，其实就是对应图dfs树的祖先和几个子树，所以dfs预处理出每棵子树的权值，然后树形dp转移，注意考虑只有1个点，和根节点时的特殊情况。</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-15-r/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/2016-Multi-University-Traning-Contest2-1006/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -393,8 +397,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-15-q/" itemprop="url">
-                  暑期集训-7-15-q
+                <a class="post-title-link" href="/2016/09/11/2016-Multi-University-Traning-Contest2-1005/" itemprop="url">
+                  2016-Multi-University-Traning-Contest2-1005
                 </a>
               
             
@@ -407,7 +411,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T20:34:05+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T21:42:00+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -437,8 +441,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-15-q/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-15-q/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/2016-Multi-University-Traning-Contest2-1005/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/2016-Multi-University-Traning-Contest2-1005/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -462,10 +466,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给一个1..n的序列，和m个二元组(ai, bi),可以任意交换ai,bi位置上的数，求能够得到的最小字典序的序列</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>把(ai,bi)看成边，每个位置看成点，任意连通块内的点都可以互换，所以这题就是求出连通块，对连通块内的数排个序就好<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定平面上n个点的坐标，求有多少点集，满足集合中所有点都在一条直线上。</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>从1到n，枚举一个点，然后按照共线划分等价类搞搞就行，注意点重合的情况。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-15-q/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/2016-Multi-University-Traning-Contest2-1005/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -516,8 +520,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-15-p/" itemprop="url">
-                  暑期集训-7-15-p
+                <a class="post-title-link" href="/2016/09/11/2016-Multi-University-Traning-Contest2-1002/" itemprop="url">
+                  2016-Multi-University-Traning-Contest2-1002
                 </a>
               
             
@@ -530,7 +534,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T20:32:47+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T21:33:57+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -560,8 +564,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-15-p/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-15-p/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/2016-Multi-University-Traning-Contest2-1002/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/2016-Multi-University-Traning-Contest2-1002/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -585,10 +589,132 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>模拟</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>模拟<br>
+          
+            <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定n个点的带权有根树，点i的权值为$W_i$，对于某点s，定义f(s) 为，选择一个点序$v_1,v_2,…,v_m$，要求$v_1 = s$, $v<em>i$是$v</em>{i-1}$的祖先。<br>$$ f(s) = W_{v<em>1} + \sum</em>{i=2}^{m}{W_{v<em>i} \, opt \, W</em>{v_{i-1}}} $$</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>二进制分块暴力</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = (<span class="number">1</span>&lt;&lt;<span class="number">16</span>) + <span class="number">100</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm = (<span class="number">1</span>&lt;&lt;<span class="number">8</span>);</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</div><div class="line"><span class="keyword">const</span> ll inff = <span class="number">0x3f3f3f3f3f3f</span>LL;</div><div class="line">ll ds[maxm][maxm];</div><div class="line"><span class="keyword">int</span> A[maxn];</div><div class="line"><span class="keyword">char</span> opt[<span class="number">20</span>];</div><div class="line"><span class="keyword">int</span> OP;</div><div class="line"><span class="keyword">int</span> n;</div><div class="line">ll f[maxn];</div><div class="line"></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[maxn];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">op</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(OP == <span class="number">1</span>) <span class="keyword">return</span> a &amp; b;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(OP == <span class="number">2</span>) <span class="keyword">return</span> a ^ b;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">return</span> a | b;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</div><div class="line">    ll ma = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> low_8 = A[u] &amp; ((<span class="number">1</span>&lt;&lt;<span class="number">8</span>)<span class="number">-1</span>);</div><div class="line">    <span class="keyword">int</span> high_8 = A[u] &gt;&gt; <span class="number">8</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> h = <span class="number">0</span>; h &lt; (<span class="number">1</span>&lt;&lt;<span class="number">8</span>); h++) &#123;</div><div class="line">        ma = max(ma, (op(high_8, h) &lt;&lt; <span class="number">8</span>) + ds[h][low_8]);</div><div class="line">    &#125;</div><div class="line">    f[u] = ma;</div><div class="line">    ll *buf = <span class="keyword">new</span> ll[maxm];</div><div class="line">    <span class="built_in">memcpy</span>(buf, ds[high_8], <span class="keyword">sizeof</span>(ll) * maxm);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">0</span>; l &lt; (<span class="number">1</span>&lt;&lt;<span class="number">8</span>); l++) &#123;</div><div class="line">        ds[high_8][l] = max(ds[high_8][l], f[u] + op(l, low_8));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; (<span class="keyword">int</span>)G[u].size(); i++) &#123;</div><div class="line">        <span class="keyword">int</span> v = G[u][i];</div><div class="line">        dfs(v);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">memcpy</span>(ds[high_8], buf, <span class="keyword">sizeof</span>(ll) * maxm);</div><div class="line">    <span class="keyword">delete</span>[] buf;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> T;</div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</div><div class="line">    <span class="keyword">while</span>(T--) &#123;</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</div><div class="line">        <span class="built_in">scanf</span>(<span class="string">"%s"</span>, opt);</div><div class="line">        <span class="keyword">if</span>(<span class="built_in">strcmp</span>(opt, <span class="string">"AND"</span>) == <span class="number">0</span>) OP = <span class="number">1</span>;</div><div class="line">        <span class="keyword">if</span>(<span class="built_in">strcmp</span>(opt, <span class="string">"XOR"</span>) == <span class="number">0</span>) OP = <span class="number">2</span>;</div><div class="line">        <span class="keyword">if</span>(<span class="built_in">strcmp</span>(opt, <span class="string">"OR"</span>) == <span class="number">0</span>) OP = <span class="number">3</span>;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;A[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++) &#123;</div><div class="line">            G[i].clear();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</div><div class="line">            <span class="keyword">int</span> fa;<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;fa);</div><div class="line">            G[fa].push_back(i);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxm; i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; maxm; j++) &#123;</div><div class="line">                ds[i][j] = -inf;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="keyword">sizeof</span>(f));</div><div class="line">        dfs(<span class="number">1</span>);</div><div class="line">        ll ans = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</div><div class="line">           ans = (ans + ((ll)f[i] + A[i]) * i % mod) % mod; </div><div class="line">        &#125;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1011/" itemprop="url">
+                  2016-Multi-University-Traning-Contest1-1011
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-11T21:27:26+08:00" content="2016-09-11">
+              2016-09-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/2016暑期集训/" itemprop="url" rel="index">
+                    <span itemprop="name">2016暑期集训</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/11/2016-Multi-University-Traning-Contest1-1011/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/2016-Multi-University-Traning-Contest1-1011/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给出三维空间中的四个点，若它们能构成四面体，输出其内切球心。</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>公式题，没啥意思。</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-15-p/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1011/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -639,8 +765,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-15-o/" itemprop="url">
-                  暑期集训-7-15-o
+                <a class="post-title-link" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1009/" itemprop="url">
+                  2016-Multi-University-Traning-Contest1-1009
                 </a>
               
             
@@ -653,7 +779,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T20:30:54+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T21:24:16+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -683,8 +809,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-15-o/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-15-o/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/2016-Multi-University-Traning-Contest1-1009/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/2016-Multi-University-Traning-Contest1-1009/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -708,10 +834,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>模拟</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>模拟<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>n*m的棋盘，有多少种1x2骨牌的完美覆盖，满足棋盘上不会有完整的直线。</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>插头dp，然后2^m容斥行，m^2容斥列。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-15-o/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1009/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -762,8 +888,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-15-n/" itemprop="url">
-                  暑期集训-7-15-n
+                <a class="post-title-link" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1005/" itemprop="url">
+                  2016-Multi-University-Traning-Contest1-1005
                 </a>
               
             
@@ -776,7 +902,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T20:26:18+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T21:17:39+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -806,8 +932,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-15-n/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-15-n/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/2016-Multi-University-Traning-Contest1-1005/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/2016-Multi-University-Traning-Contest1-1005/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -831,10 +957,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>模拟</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>模拟<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有n个阴宝石，n个阳宝石。给m个条件，x阳宝石和y阴宝石相邻时，x会变暗。求一个确定的宝石的环排列，满足阴阳相间，且变暗的宝石数目最少。输出最少的变暗宝石数目。</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>标算是爆搜+剪枝<br>这里有个优雅的复杂度稳定的算法。枚举阴宝石的排列，然后跑二分图匹配。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-15-n/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1005/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -885,8 +1011,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-15-m/" itemprop="url">
-                  暑期集训-7-15-m
+                <a class="post-title-link" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1004/" itemprop="url">
+                  2016-Multi-University-Traning-Contest1-1004
                 </a>
               
             
@@ -899,7 +1025,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T20:21:05+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T21:07:36+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -929,8 +1055,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-15-m/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-15-m/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/2016-Multi-University-Traning-Contest1-1004/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/2016-Multi-University-Traning-Contest1-1004/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -954,10 +1080,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>Codeforces 696D<br>给出一些模式串，构造一个长度不大于L的字符串，每个模式串有自己的价值，模式串每次出现都会有自己的贡献，求可能得到的最大的贡献值</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>用AC自动机构造转移矩阵，然后矩阵快速幂加速，这里讲乘法改成取最大值即可<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定长度为n的数列a，q个询问，每次询问l，r，求gcd(al,al+1,…,ar)和有多少对[L,R]，满足1&lt;=L&lt;=R&lt;=n 且gcd(aL, aL+1,…,aR) = gcd(al,al+1,…,ar)</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>对于第一个问，我们可以用线段树维护。<br>对于第二个问，可以发现对于一个固定端点的区间，其gcd的值最多只有logn个，所以我们nlogn预处理对于每个数x，有多少个区间的gcd等于x，然后查询即可。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-15-m/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1004/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1008,8 +1134,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-15-l/" itemprop="url">
-                  暑期集训-7-15-l
+                <a class="post-title-link" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1002/" itemprop="url">
+                  2016-Multi-University-Traning-Contest1-1002
                 </a>
               
             
@@ -1022,7 +1148,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T20:17:48+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T21:03:59+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -1052,8 +1178,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-15-l/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-15-l/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/2016-Multi-University-Traning-Contest1-1002/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/2016-Multi-University-Traning-Contest1-1002/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1077,10 +1203,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>三个杯子，初始时有个物品在中间杯子里，在n此交换后，问物品在中间杯子的概率</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>推出递推方程，用矩阵快速幂加速。<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>n行20列的棋盘上有若干旗子。Alice和Bob每次可以将一枚棋子移动到距离它最近的右边的空格里。谁不能移动，即负。两人都采取最优策略，问先手是否必胜。</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>因为每一行只有20个格子，所以2^20预处理出sg函数，然后求nim和求好<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-15-l/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1002/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1131,8 +1257,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-15-k/" itemprop="url">
-                  暑期集训-7-15-k
+                <a class="post-title-link" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1001/" itemprop="url">
+                  2016-Multi-University-Traning-Contest1-1001
                 </a>
               
             
@@ -1145,7 +1271,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T20:10:44+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T20:59:17+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -1175,8 +1301,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-15-k/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-15-k/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/2016-Multi-University-Traning-Contest1-1001/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/2016-Multi-University-Traning-Contest1-1001/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1200,10 +1326,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>Codeforces 698B<br>给一颗有根数，求每个节点dfs序的期望</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>这题的关键在于，对于任意兄弟节点a,b来说，先访问a在b之前访问的概率是1/2。<br>所以a对比的贡献是subtree(a) * 1/2，subtree(x)表示x为根节点的子树的节点数<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定n个点m条边的带权无向图，每条边边权互不相同。求最小生成树上随机取两点构成的路径长度的期望。</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>因为边权互不相同，所以最小生成树是唯一确定的。随机取两点路径长度的期望，就是求树上任意两点的距离之和。可以发现对于一条边，统计一下其左右两边的点数乘积就是贡献次数。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-15-k/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/2016-Multi-University-Traning-Contest1-1001/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1254,8 +1380,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-15-j/" itemprop="url">
-                  暑期集训-7-15-j
+                <a class="post-title-link" href="/2016/09/11/暑期集训-7-22-t/" itemprop="url">
+                  暑期集训-7-22-t
                 </a>
               
             
@@ -1268,7 +1394,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T20:06:47+08:00" content="2016-09-11">
+            <time itemprop="dateCreated" datetime="2016-09-11T20:53:16+08:00" content="2016-09-11">
               2016-09-11
             </time>
           </span>
@@ -1298,8 +1424,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-15-j/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-15-j/" itemprop="commentsCount"></span>
+                <a href="/2016/09/11/暑期集训-7-22-t/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-22-t/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1323,133 +1449,10 @@
 
       
         
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>蟑螂有T时间，往各个方向跑，一些地方有半径为R的阴影，蟑螂在T时间内如果能够跑到阴影部分就安全。蟑螂一开始是随机往各个方向跑。问蟑螂安全的概率。</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>枚举每个阴影部分，算出安全的角度区间，然后求区间并。<br>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>HDU 1102<br>最小生成树裸题</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>kruscal OR prim</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-15-j/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/11/暑期集训-7-15-g/" itemprop="url">
-                  暑期集训-7-15-g
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-11T20:00:31+08:00" content="2016-09-11">
-              2016-09-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/2016暑期集训/" itemprop="url" rel="index">
-                    <span itemprop="name">2016暑期集训</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/11/暑期集训-7-15-g/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/暑期集训-7-15-g/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>UVA 11082<br>给出矩阵前i行，前j列之和，求出一个满足题意的矩阵。矩阵元素值在1~20范围。n,m最大为20</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>经典网络流题目。注意对于每条边-1,就可以解决0流的问题。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/11/暑期集训-7-15-g/#more" rel="contents">
+            <a class="btn" href="/2016/09/11/暑期集训-7-22-t/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1483,7 +1486,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1524,7 +1527,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">132</span>
+              <span class="site-state-item-count">145</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1541,7 +1544,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

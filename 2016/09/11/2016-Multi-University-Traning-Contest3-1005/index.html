@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ACM,2016 暑期集训,2016 多校,主席树," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Xinchen's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.jpg?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="题意给定n个点的有根数，根为1.给出q个询问。每次询问给出一个点集A1,A2,…,Ax。定义x是好点当且仅当不存在一个A中的点事x的祖先。对于每个询问，求出好点之间距离的最大值，最小值，以及和。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2016-Multi-University-Traning-Contest3-1005">
+<meta property="og:url" content="http://luoxinchen.me/2016/09/11/2016-Multi-University-Traning-Contest3-1005/index.html">
+<meta property="og:site_name" content="Xinchen's Blog">
+<meta property="og:description" content="题意给定n个点的有根数，根为1.给出q个询问。每次询问给出一个点集A1,A2,…,Ax。定义x是好点当且仅当不存在一个A中的点事x的祖先。对于每个询问，求出好点之间距离的最大值，最小值，以及和。">
+<meta property="og:updated_time" content="2016-09-11T14:45:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2016-Multi-University-Traning-Contest3-1005">
+<meta name="twitter:description" content="题意给定n个点的有根数，根为1.给出q个询问。每次询问给出一个点集A1,A2,…,Ax。定义x是好点当且仅当不存在一个A中的点事x的祖先。对于每个询问，求出好点之间距离的最大值，最小值，以及和。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://luoxinchen.me/2016/09/11/2016-Multi-University-Traning-Contest3-1005/"/>
+
+  <title> 2016-Multi-University-Traning-Contest3-1005 | Xinchen's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?caef361eef176046da7a1103aececb8d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Xinchen's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">For you thousands of times.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                2016-Multi-University-Traning-Contest3-1005
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-11T22:31:53+08:00" content="2016-09-11">
+              2016-09-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/2016暑期集训/" itemprop="url" rel="index">
+                    <span itemprop="name">2016暑期集训</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/11/2016-Multi-University-Traning-Contest3-1005/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/2016-Multi-University-Traning-Contest3-1005/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定n个点的有根数，根为1.<br>给出q个询问。每次询问给出一个点集A1,A2,…,Ax。<br>定义x是好点当且仅当不存在一个A中的点事x的祖先。<br>对于每个询问，求出好点之间距离的最大值，最小值，以及和。<br><a id="more"></a></p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>我们可以用主席树对于所有点，维护出他到所有点的距离。</p>
+<p>大致过程就是，对于一号点，他到所有点的距离为该点的深度减一。<br>接着我们~DFS~整棵树，每到一个节点，就将子树中的点距离减一，不是子树的点距离加一。<br>我们可以得到每一个点的~DFS~序，这样只需要用主席树支持区间加减，维护区间和、区间最小值、区间最大值即可。</p>
+<p>对于每次询问，所给的~Ai~都对应一些~DFS~序区间，我们把这些区间取并，然后取补集。<br>这样整个~DFS~序会有~KK~段区间是</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div></pre></td><td class="code"><pre><div class="line">/************************************************</div><div class="line"> *Author        :mathon</div><div class="line"> *Email         :luoxinchen96@gmail.com</div><div class="line">*************************************************/</div><div class="line">#include &lt;cstdio&gt;</div><div class="line">#include &lt;cstring&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;algorithm&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;queue&gt;</div><div class="line">#include &lt;set&gt;</div><div class="line">#include &lt;map&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;cmath&gt;</div><div class="line">#include &lt;cstdlib&gt;</div><div class="line">#include &lt;ctime&gt;</div><div class="line">#include &lt;stack&gt;</div><div class="line">using namespace std;</div><div class="line">typedef pair&lt;int, int&gt; pii;</div><div class="line">typedef long long ll;</div><div class="line">typedef unsigned long long ull;</div><div class="line">#define xx first</div><div class="line">#define yy second</div><div class="line">#define pr(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; " "</div><div class="line">#define prln(x) cout &lt;&lt; #x &lt;&lt; " " &lt;&lt; x &lt;&lt; endl</div><div class="line">template&lt;class T&gt; inline T lowbit(T x) &#123; return x &amp; (-x); &#125;</div><div class="line">const ll INF = 1e15;</div><div class="line">const int maxk = 2e5 + 5;</div><div class="line">const int MAXN = 5e4 + 5;</div><div class="line">vector&lt;int&gt; G[MAXN];</div><div class="line">int L[MAXN], R[MAXN], dfsNum;</div><div class="line">int root[MAXN];</div><div class="line">int dep[MAXN];</div><div class="line">int N, Q;</div><div class="line"></div><div class="line">void dfs(int u, int fa, int deep) &#123;</div><div class="line">    L[u] = ++dfsNum;</div><div class="line">    dep[dfsNum] = deep;</div><div class="line">    for (int i = 0; i &lt; (int)G[u].size(); i++) &#123;</div><div class="line">        int v = G[u][i];</div><div class="line">        if(v == fa) continue;</div><div class="line">        dfs(v, u, deep + 1);</div><div class="line">    &#125;</div><div class="line">    R[u] = dfsNum;</div><div class="line">&#125;</div><div class="line"></div><div class="line">struct HJT_Tree &#123;</div><div class="line">    struct Node &#123;</div><div class="line">        int ls, rs, Max, Min;</div><div class="line">        ll sum, lazy;</div><div class="line">    &#125;T[MAXN * 50];</div><div class="line">    int tot;</div><div class="line">    void init() &#123;</div><div class="line">        tot = 0;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    void up(int u, int len) &#123;</div><div class="line">        T[u].sum = T[T[u].ls].sum + T[T[u].rs].sum + T[u].lazy * len;</div><div class="line">        T[u].Min = min(T[T[u].ls].Min, T[T[u].rs].Min) + T[u].lazy;</div><div class="line">        T[u].Max = max(T[T[u].ls].Max, T[T[u].rs].Max) + T[u].lazy;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    void build(int &amp;u, int l, int r) &#123;</div><div class="line">        u = ++tot;</div><div class="line">        T[u].lazy = 0;</div><div class="line">        int m = (l + r) &gt;&gt; 1;</div><div class="line">        if(l == r) &#123;</div><div class="line">            T[u].Max = T[u].Min = T[u].sum = dep[l];</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">        build(T[u].ls, l, m);</div><div class="line">        build(T[u].rs, m + 1, r);</div><div class="line">        up(u, r - l + 1);</div><div class="line">    &#125;</div><div class="line">   </div><div class="line">    void Modify(int &amp;u, int l, int r, int x, int y, int z) &#123;</div><div class="line">        T[++tot] = T[u];</div><div class="line">        u = tot;</div><div class="line">        int m = (l + r) &gt;&gt; 1;</div><div class="line">        if(x &lt;= l &amp;&amp; r &lt;= y) &#123;</div><div class="line">            T[u].Max += z;</div><div class="line">            T[u].Min += z;</div><div class="line">            T[u].sum += (ll)z * (r - l + 1);</div><div class="line">            T[u].lazy += z;</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">        if(x &lt;= m) Modify(T[u].ls, l, m, x, y, z);</div><div class="line">        if(m  &lt; y) Modify(T[u].rs, m + 1, r, x, y, z);</div><div class="line">        up(u, r - l + 1);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    ll query1(int u, int l, int r, int x, int y) &#123;</div><div class="line">        if(x == l &amp;&amp; r == y) &#123;</div><div class="line">            return T[u].sum;</div><div class="line">        &#125;</div><div class="line">        int m = (l + r) &gt;&gt; 1;</div><div class="line">        ll ans = (ll)(y - x + 1) * T[u].lazy;</div><div class="line">        if(y &lt;= m) ans += query1(T[u].ls, l, m, x, y);</div><div class="line">        else if(x &gt; m) ans += query1(T[u].rs, m + 1, r, x, y);</div><div class="line">        else &#123;</div><div class="line">            ans += query1(T[u].ls, l, m, x, m);</div><div class="line">            ans += query1(T[u].rs, m + 1, r, m + 1, y);</div><div class="line">        &#125;</div><div class="line">        // pr(l); prln(r);</div><div class="line">        // pr(u);</div><div class="line">        // prln(ans);</div><div class="line">        return ans;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    ll query2(int u, int l, int r, int x, int y) &#123;</div><div class="line">        ll ans = INF;</div><div class="line">        if(x &lt;= l &amp;&amp; r &lt;= y) &#123;</div><div class="line">            return T[u].Min;</div><div class="line">        &#125;</div><div class="line">        int m = (l + r) &gt;&gt; 1;</div><div class="line">        if(x &lt;= m) ans = min(ans, query2(T[u].ls, l, m, x, y) + T[u].lazy);</div><div class="line">        if(m &lt; y) ans = min(ans, query2(T[u].rs, m + 1, r, x, y) + T[u].lazy);</div><div class="line">        return ans;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ll query3(int u, int l, int r, int x, int y) &#123;</div><div class="line">        ll ans = 0;</div><div class="line">        if(x &lt;= l &amp;&amp; r &lt;= y) &#123;</div><div class="line">            return T[u].Max;</div><div class="line">        &#125;</div><div class="line">        int m = (l + r) &gt;&gt; 1;</div><div class="line">        if(x &lt;= m) ans = max(ans, query3(T[u].ls, l, m, x, y) + T[u].lazy);</div><div class="line">        if(m &lt; y) ans = max(ans, query3(T[u].rs, m + 1, r, x, y) + T[u].lazy);</div><div class="line">        return ans;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;tree;</div><div class="line"></div><div class="line">void dfs2(int u, int fa) &#123;</div><div class="line">    for (int i = 0; i &lt; (int)G[u].size(); i++) &#123;</div><div class="line">        int v = G[u][i];</div><div class="line">        if(v == fa) continue;</div><div class="line">        root[v] = root[u];</div><div class="line">        tree.Modify(root[v], 1, N, 1, N, 1);</div><div class="line">        tree.Modify(root[v], 1, N, L[v], R[v], -2);</div><div class="line">        dfs2(v, u);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">pii inter[maxk*2];</div><div class="line">int cnt_inter;</div><div class="line">int main(void) &#123;</div><div class="line">#ifdef MATHON</div><div class="line">    freopen("1005.in", "r", stdin);</div><div class="line">    freopen("1005.txt", "w", stdout);</div><div class="line">#endif</div><div class="line">    int Cas = 0;</div><div class="line">    while(scanf("%d%d", &amp;N, &amp;Q) == 2) &#123;</div><div class="line">        for (int i = 0; i &lt;= N; i++) &#123;</div><div class="line">            G[i].clear();</div><div class="line">        &#125;</div><div class="line">        for (int i = 0; i &lt; N - 1; i++) &#123;</div><div class="line">            int u, v;</div><div class="line">            scanf("%d%d", &amp;u, &amp;v);</div><div class="line">            G[u].push_back(v); G[v].push_back(u);</div><div class="line">        &#125;</div><div class="line">        memset(root, 0, sizeof(root));</div><div class="line">        dfsNum = 0;</div><div class="line">        dfs(1, -1, 0);</div><div class="line">        tree.init();</div><div class="line">        tree.build(root[1], 1, N);</div><div class="line">        dfs2(1, -1);</div><div class="line">        int last_ans = 0;</div><div class="line">        while(Q--) &#123;</div><div class="line">            int K, P, T;</div><div class="line">            ++Cas;</div><div class="line">            bool debug = false;</div><div class="line">            // if(Cas == 11) debug = true;</div><div class="line">            scanf("%d%d%d", &amp;K, &amp;P, &amp;T);</div><div class="line">            if(debug) &#123;</div><div class="line">                printf("K = %d P = %d T = %d\n", K, P, T);</div><div class="line">            &#125;</div><div class="line">            P = (P + last_ans) % N + 1;</div><div class="line">            if(debug) &#123;</div><div class="line">                printf("K = %d P = %d T = %d\n", K, P, T);</div><div class="line">            &#125;</div><div class="line">            cnt_inter = 0;</div><div class="line">            for (int i = 1; i &lt;= K; i++) &#123;</div><div class="line">                int x; scanf("%d", &amp;x);</div><div class="line">                // inter.push_back(pii(L[x], 1));</div><div class="line">                // inter.push_back(pii(R[x] + 1, -1));</div><div class="line">                inter[cnt_inter++] = pii(L[x], 1);</div><div class="line">                inter[cnt_inter++] = pii(R[x] + 1, -1);</div><div class="line">                // pr(L[x]); prln(R[x]);</div><div class="line">            &#125;</div><div class="line">            // inter.push_back(pii(N + 1, 1));</div><div class="line">            inter[cnt_inter++] = pii(N + 1, 1);</div><div class="line">            sort(inter, inter + cnt_inter);</div><div class="line">            int last = 1, flag = 0, ok = 1;</div><div class="line">            ll ans;</div><div class="line">            if(T == 1) &#123;</div><div class="line">                ans = 0;</div><div class="line">            &#125; else if(T == 3) &#123;</div><div class="line">                ans = -1;</div><div class="line">            &#125; else ans = INF;</div><div class="line"></div><div class="line">            bool suc = false; </div><div class="line">            for (int i = 0; i &lt; cnt_inter; i++) &#123;</div><div class="line">                flag += inter[i].yy;</div><div class="line">                if(flag == 0) &#123;</div><div class="line">                    last = inter[i].xx;</div><div class="line">                    ok = 1;</div><div class="line">                &#125;</div><div class="line">                if(flag == 1 &amp;&amp; ok) &#123;</div><div class="line">                    ok = 0;</div><div class="line">                    int l = last, r = inter[i].xx - 1;</div><div class="line">                    if(l &gt; r) continue;</div><div class="line">                    if(debug) &#123;</div><div class="line">                        pr(l); prln(r);</div><div class="line">                    &#125;</div><div class="line">                    suc = true;</div><div class="line">                    if(T == 1) &#123;</div><div class="line">                        // pr(l); prln(r);</div><div class="line">                        ll tmp = tree.query1(root[P], 1, N, l, r);</div><div class="line">                        // prln(tmp);</div><div class="line">                        ans += tmp;</div><div class="line">                    &#125; else if(T == 2) &#123;</div><div class="line">                        ans = min(ans, tree.query2(root[P], 1, N, l, r));</div><div class="line">                    &#125; else if(T == 3) &#123;</div><div class="line">                        ll tmp = tree.query3(root[P], 1, N, l, r);</div><div class="line">                        // prln(tmp);</div><div class="line">                        ans = max(ans, tmp);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            if(T == 1 &amp;&amp; suc == false) ans = -1;</div><div class="line">            if(T == 2 &amp;&amp; ans == INF) ans = -1;</div><div class="line">            if(ans == -1) last_ans = 0;</div><div class="line">            else last_ans = ans;</div><div class="line">            printf("%lld\n", ans);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ACM/" rel="tag">#ACM</a>
+          
+            <a href="/tags/2016-暑期集训/" rel="tag">#2016 暑期集训</a>
+          
+            <a href="/tags/2016-多校/" rel="tag">#2016 多校</a>
+          
+            <a href="/tags/主席树/" rel="tag">#主席树</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/11/2016-Multi-University-Traning-Contest3-1004/" rel="next" title="2016-Multi-University-Traning-Contest3-1004">
+                <i class="fa fa-chevron-left"></i> 2016-Multi-University-Traning-Contest3-1004
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/11/2016-Multi-University-Traning-Contest3-1007/" rel="prev" title="2016-Multi-University-Traning-Contest3-1007">
+                2016-Multi-University-Traning-Contest3-1007 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/11/2016-Multi-University-Traning-Contest3-1005/"
+           data-title="2016-Multi-University-Traning-Contest3-1005" data-url="http://luoxinchen.me/2016/09/11/2016-Multi-University-Traning-Contest3-1005/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Xinchen Luo" />
+          <p class="site-author-name" itemprop="name">Xinchen Luo</p>
+          <p class="site-description motion-element" itemprop="description">For a crazy dream</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">145</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/doldre" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://taosama.github.io" title="TaoSama" target="_blank">TaoSama</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://yukizzz.github.io" title="zhuyujiang" target="_blank">zhuyujiang</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/jibancanyang/" title="JIBANCANYANG" target="_blank">JIBANCANYANG</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/qwb492859377" title="qwb" target="_blank">qwb</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#做法"><span class="nav-number">2.</span> <span class="nav-text">做法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xinchen Luo</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"doldre"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
