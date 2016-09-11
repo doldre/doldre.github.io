@@ -116,7 +116,7 @@
     <link href="http://luoxinchen.me/2016/09/11/%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD-7-15-p/"/>
     <id>http://luoxinchen.me/2016/09/11/暑期集训-7-15-p/</id>
     <published>2016-09-11T12:32:47.000Z</published>
-    <updated>2016-09-11T12:47:39.000Z</updated>
+    <updated>2016-09-11T12:48:55.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>模拟</p>
 <h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>模拟<br><a id="more"></a></p>
@@ -130,7 +130,7 @@
     
     </summary>
     
-      <category term="2016 暑期集训" scheme="http://luoxinchen.me/categories/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
+      <category term="2016暑期集训" scheme="http://luoxinchen.me/categories/2016%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
     
     
       <category term="ACM" scheme="http://luoxinchen.me/tags/ACM/"/>
@@ -490,9 +490,9 @@ return 0;
     
       <category term="2016 暑期集训" scheme="http://luoxinchen.me/tags/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
     
-      <category term="数学" scheme="http://luoxinchen.me/tags/%E6%95%B0%E5%AD%A6/"/>
-    
       <category term="SOJ" scheme="http://luoxinchen.me/tags/SOJ/"/>
+    
+      <category term="数学" scheme="http://luoxinchen.me/tags/%E6%95%B0%E5%AD%A6/"/>
     
   </entry>
   
@@ -524,9 +524,9 @@ return 0;
     
       <category term="2016 暑期集训" scheme="http://luoxinchen.me/tags/2016-%E6%9A%91%E6%9C%9F%E9%9B%86%E8%AE%AD/"/>
     
-      <category term="Codeforces" scheme="http://luoxinchen.me/tags/Codeforces/"/>
-    
       <category term="数学" scheme="http://luoxinchen.me/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="Codeforces" scheme="http://luoxinchen.me/tags/Codeforces/"/>
     
   </entry>
   
